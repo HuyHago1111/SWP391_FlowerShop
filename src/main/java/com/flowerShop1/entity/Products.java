@@ -2,6 +2,9 @@ package com.flowerShop1.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.math.BigDecimal;
+
 //  product_id     int identity
 //        primary key,
 //    category_id    int            not null
@@ -37,7 +40,7 @@ public class Products {
     @Column(name = "description", columnDefinition = "nvarchar(max)")
     private String description;
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private double price;
+    private BigDecimal price;
     @Column(name = "stock_quantity", columnDefinition = "int default 0")
     private Integer stockQuantity;
     @Column(name = "image_url", length = 255, columnDefinition = "nvarchar(255)")

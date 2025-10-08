@@ -3,6 +3,8 @@ package com.flowerShop1.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 //    order_detail_id int identity
 //        primary key,
 //    order_id        int            not null
@@ -30,6 +32,6 @@ public class OrderDetails {
     @Column(name = "quantity", nullable = false)
     private int quantity;
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    private double price;
+    private BigDecimal price;
 
 }

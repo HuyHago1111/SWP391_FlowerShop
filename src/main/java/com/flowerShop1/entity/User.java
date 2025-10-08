@@ -27,15 +27,16 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Builder
 public class User {
     @Id
     @Column(name = "user_id" , nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
    private int userId;
-    @Column(name = "role_id", nullable = false)
+    @ManyToOne
+    @JoinColumn (name = "role_id", nullable = false)
 
-   private int roleId;
+   private Role role;
     @Column(name = "full_name", nullable = false, length = 100 )
    private String fullName;
     @Column(name = "email", nullable = false, unique = true, length = 100, columnDefinition = "nvarchar(100)" )
@@ -51,7 +52,7 @@ public class User {
    private String status;
     @Column(name = "created_at", nullable = false)
 
-   private String createdAt;
+   private LocalDateTime createdAt;
     @Column(name = "updated_at")
    private LocalDateTime updatedAt;
 

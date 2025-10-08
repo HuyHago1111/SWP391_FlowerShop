@@ -3,6 +3,8 @@ package com.flowerShop1.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 //    payment_id     int identity
 //        primary key,
 //    order_id       int            not null
@@ -35,7 +37,7 @@ public class Payments {
     @Column(name = "transaction_id", length = 100, columnDefinition = "nvarchar(100)" )
     private String transactionId;
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
-    private double amount;
+    private BigDecimal amount;
     @Column(name = "payment_date", nullable = false)
     private String paymentDate;
 }

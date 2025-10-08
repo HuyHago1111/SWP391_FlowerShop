@@ -1,6 +1,8 @@
 package com.flowerShop1.controller;
 
+import com.flowerShop1.dto.user.UserDTO;
 import com.flowerShop1.entity.User;
+import com.flowerShop1.mapper.user.UserMapper;
 import com.flowerShop1.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +17,13 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
+
     @GetMapping()
-  public String getAllUsers(Model model){
-        List<User> users = userService.getAllUsers();
+    public String getAllUsers(Model model) {
+        List<UserDTO> users = userService.getAllUsers().stream().map(userMapper::entityToDto).toList();
         model.addAttribute("users", users);
-    return"index";
-}
+        return "index";
+    }
 }
