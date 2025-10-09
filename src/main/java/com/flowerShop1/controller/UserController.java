@@ -1,7 +1,6 @@
 package com.flowerShop1.controller;
 
 import com.flowerShop1.dto.user.UserDTO;
-import com.flowerShop1.entity.User;
 import com.flowerShop1.mapper.user.UserMapper;
 import com.flowerShop1.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,6 @@ public class UserController {
     public String getAllUsers(Model model) {
         List<UserDTO> users = userService.getAllUsers().stream().map(userMapper::entityToDto).toList();
         model.addAttribute("users", users);
-        return "index";
+        return "indexa";
     }
 }
