@@ -1,6 +1,7 @@
 package com.flowerShop1.controller.client;
 
 import com.flowerShop1.service.category.CategoryService;
+import com.flowerShop1.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +15,15 @@ public class HomeController {
     @Autowired
 
     private CategoryService categoryService;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("")
     public String home(Model model) {
-        model.addAttribute("categories",categoryService.getAllCategory());
+        model.addAttribute("categories",categoryService.getAllCategory().stream().limit(9).toList());
+        model.addAttribute("products", productService.getAllProduct());
 
-        return "index";
+        return "client/index";
     }
 
 }

@@ -1,0 +1,29 @@
+<section>
+    <div class="container-fluid-lg" th:fragment="categoryMenu">
+        <div class="title">
+            <h2>Browse by Categories</h2>
+            <span class="title-leaf">
+                    <svg class="icon-width">
+                        <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                    </svg>
+                </span>
+            <p>Top Categories Of The Week</p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="slider-9">
+                    <div  th:each="category: ${categories}">
+                        <a href="shop-left-sidebar.html" class="category-box wow fadeInUp">
+                            <div>
+                                <img src="../assets/svg/1/vegetable.svg" class="blur-up lazyload" alt="">
+                                <h5 th:text ="${category.categoryName}">Vegetables & Fruit</h5>
+                            </div>
+                        </a>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
