@@ -23,8 +23,9 @@ public class Shipper {
     @Column(name = "shipper_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int shipperId;
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     @Column(name = "vehicle_number", length = 50, columnDefinition = "nvarchar(50)")
     private String vehicleNumber;
     @Column(name = "phone", length = 20, columnDefinition = "nvarchar(20)" )

@@ -26,8 +26,9 @@ public class Supplier {
     @Column (name = "supplier_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int supplierId;
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     @Column(name = "company_name", nullable = false, length = 100, columnDefinition = "nvarchar(100)")
     private String companyName;
     @Column(name = "contact_name", length = 100, columnDefinition = "nvarchar(100)")

@@ -1,6 +1,8 @@
 package com.flowerShop1.controller.client;
 
+import com.flowerShop1.entity.Product;
 import com.flowerShop1.service.category.CategoryService;
+import com.flowerShop1.service.orderdetail.OrderDetailService;
 import com.flowerShop1.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +19,16 @@ public class HomeController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderDetailService orderDetailService;
+
 
     @GetMapping("")
     public String home(Model model) {
+        System.out.println( "Top Selling Products: " + orderDetailService.getTopSelilingProducts());
         model.addAttribute("categories",categoryService.getAllCategory().stream().limit(9).toList());
-        model.addAttribute("products", productService.getAllProduct());
-
+        model.addAttribute("products", productService.getAllProduct().stream().filter(product -> product.getCategory().getCategoryId() == 1).toList());
+         model.addAttribute("topSellingProducts",orderDetailService.getTopSelilingProducts().stream().limit(4).toList());
         return "client/index";
     }
 

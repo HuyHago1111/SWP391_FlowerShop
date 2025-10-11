@@ -5,90 +5,8 @@
                 <div class="col-xxl-3 d-xxl-block d-none">
                     <div class="top-left-header">
                         <i class="iconly-Location icli text-white"></i>
-                        <span class="text-white">1418 Riverwood Drive, CA 96052, US</span>
+                        <span class="text-white">Only Online</span>
                     </div>
-                </div>
-
-                <div class="col-xxl-6 col-lg-9 d-lg-block d-none">
-                    <div class="header-offer">
-                        <div class="notification-slider">
-                            <div>
-                                <div class="timer-notification">
-                                    <h6><strong class="me-1">Welcome to Fastkart!</strong>Wrap new offers/gift
-                                        every single day on Weekends.<strong class="ms-1">New Coupon Code: Fast024
-                                        </strong>
-
-                                    </h6>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div class="timer-notification">
-                                    <h6>Something you love is now on sale!
-                                        <a href="shop-left-sidebar.html" class="text-white">Buy Now
-                                            !</a>
-                                    </h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-3">
-                    <ul class="about-list right-nav-about">
-                        <li class="right-nav-list">
-                            <div class="dropdown theme-form-select">
-                                <button class="btn dropdown-toggle" type="button" id="select-language"
-                                        data-bs-toggle="dropdown">
-                                    <img src="../assets/images/country/united-states.png"
-                                         class="img-fluid blur-up lazyload" alt="">
-                                    <span>English</span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0)" id="english">
-                                            <img src="../assets/images/country/united-kingdom.png"
-                                                 class="img-fluid blur-up lazyload" alt="">
-                                            <span>English</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0)" id="france">
-                                            <img src="../assets/images/country/germany.png"
-                                                 class="img-fluid blur-up lazyload" alt="">
-                                            <span>Germany</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0)" id="chinese">
-                                            <img src="../assets/images/country/turkish.png"
-                                                 class="img-fluid blur-up lazyload" alt="">
-                                            <span>Turki</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="right-nav-list">
-                            <div class="dropdown theme-form-select">
-                                <button class="btn dropdown-toggle" type="button" id="select-dollar"
-                                        data-bs-toggle="dropdown">
-                                    <span>USD</span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu">
-                                    <li>
-                                        <a class="dropdown-item" id="aud" href="javascript:void(0)">AUD</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" id="eur" href="javascript:void(0)">EUR</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" id="cny" href="javascript:void(0)">CNY</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -110,16 +28,6 @@
                         </a>
 
                         <div class="middle-box">
-                            <div class="location-box">
-                                <button class="btn location-button" data-bs-toggle="modal"
-                                        data-bs-target="#locationModal">
-                                        <span class="location-arrow">
-                                            <i data-feather="map-pin"></i>
-                                        </span>
-                                    <span class="locat-name">Your Location</span>
-                                    <i class="fa-solid fa-angle-down"></i>
-                                </button>
-                            </div>
 
                             <div class="search-box">
                                 <div class="input-group">
@@ -276,7 +184,7 @@
                     <div class="header-nav-left">
                         <button class="dropdown-category">
                             <i data-feather="align-left"></i>
-                            <span>All Categories</span>
+                            <span>Categories</span>
                         </button>
 
                         <div class="category-dropdown">
@@ -290,7 +198,7 @@
                             <ul class="category-list">
                                 <li class="onhover-category-list" th:each="category:${categories}">
                                     <a href="javascript:void(0)" class="category-name">
-                                        <img src="../assets/svg/1/vegetable.svg" alt="">
+                                        <img src="../assets/images/Flower/logo.jpg" alt="">
                                         <h6 th:text ="${category.categoryName}">Vegetables & Fruit</h6>
 
                                     </a>
@@ -516,116 +424,6 @@
                                             </div>
                                         </li>
 
-                                        <li class="nav-item dropdown dropdown-mega">
-                                            <a class="nav-link dropdown-toggle ps-xl-2 ps-0"
-                                               href="javascript:void(0)" data-bs-toggle="dropdown">Mega Menu</a>
-
-                                            <div class="dropdown-menu dropdown-menu-2">
-                                                <div class="row">
-                                                    <div class="dropdown-column col-xl-3">
-                                                        <h5 class="dropdown-header">Daily Vegetables</h5>
-                                                        <a class="dropdown-item" href="shop-left-sidebar.html">Beans
-                                                            &
-                                                            Brinjals</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Broccoli
-                                                            & Cauliflower</a>
-
-                                                        <a href="shop-left-sidebar.html"
-                                                           class="dropdown-item">Chilies,
-                                                            Garlic</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Vegetables & Salads</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Gourd,
-                                                            Cucumber</a>
-
-                                                        <a class="dropdown-item" href="shop-left-sidebar.html">Herbs
-                                                            &
-                                                            Sprouts</a>
-
-                                                        <a href="demo-personal-portfolio.html"
-                                                           class="dropdown-item">Lettuce
-                                                            & Leafy</a>
-                                                    </div>
-
-                                                    <div class="dropdown-column col-xl-3">
-                                                        <h5 class="dropdown-header">Baby Tender</h5>
-                                                        <a class="dropdown-item" href="shop-left-sidebar.html">Beans
-                                                            &
-                                                            Brinjals</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Broccoli
-                                                            & Cauliflower</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Chilies,
-                                                            Garlic</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Vegetables & Salads</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Gourd,
-                                                            Cucumber</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Potatoes
-                                                            & Tomatoes</a>
-
-                                                        <a href="shop-left-sidebar.html" class="dropdown-item">Peas
-                                                            &
-                                                            Corn</a>
-                                                    </div>
-
-                                                    <div class="dropdown-column col-xl-3">
-                                                        <h5 class="dropdown-header">Exotic Vegetables</h5>
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Asparagus
-                                                            & Artichokes</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Avocados
-                                                            & Peppers</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Broccoli
-                                                            & Zucchini</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Celery,
-                                                            Fennel & Leeks</a>
-
-                                                        <a class="dropdown-item"
-                                                           href="shop-left-sidebar.html">Chilies &
-                                                            Lime</a>
-                                                    </div>
-
-                                                    <div class="dropdown-column dropdown-column-img col-3"></div>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                               data-bs-toggle="dropdown">Blog</a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="blog-detail.html">Blog Detail</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="blog-grid.html">Blog Grid</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="blog-list.html">Blog List</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
                                         <li class="nav-item dropdown new-nav-item">
                                             <label class="new-dropdown">New</label>
                                             <a class="nav-link dropdown-toggle" href="javascript:void(0)"
@@ -724,47 +522,14 @@
                                             </ul>
                                         </li>
 
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                                               data-bs-toggle="dropdown">Seller</a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-become.html">Become a
-                                                        Seller</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-dashboard.html">Seller
-                                                        Dashboard</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-detail.html">Seller
-                                                        Detail</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-detail-2.html">Seller
-                                                        Detail 2</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-grid.html">Seller Grid</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-grid-2.html">Seller Grid
-                                                        2</a>
-                                                </li>
-                                            </ul>
-                                        </li>
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="header-nav-right">
-                        <button class="btn deal-button" data-bs-toggle="modal" data-bs-target="#deal-box">
-                            <i data-feather="zap"></i>
-                            <span>Deal Today</span>
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </div>
