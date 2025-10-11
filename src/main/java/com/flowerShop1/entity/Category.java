@@ -6,6 +6,8 @@ package com.flowerShop1.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Categories")
 @Getter
@@ -21,5 +23,6 @@ public class Category {
     @Column(name = "category_name", nullable = false, length = 100, columnDefinition = "nvarchar(100)")
     private String categoryName;
     @Column(name = "description", length = 255, columnDefinition = "nvarchar(255)" )
-    private String description;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 }

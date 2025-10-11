@@ -1,5 +1,5 @@
 <section class="top-selling-section">
-    <div class="container-fluid-lg" th:fragment="topSelling">
+    <div class="container-fluid-lg" th:fragment="topSelling (topSellingProducts)">
         <div class="slider-4-1">
             <div>
                 <div class="row">
@@ -9,7 +9,7 @@
                                 <h3>Top Selling</h3>
                             </div>
 
-                            <div class="top-selling-contain wow fadeInUp">
+                            <div class="top-selling-contain wow fadeInUp" th:each="product : ${topSellingProducts}">
                                 <a href="product-left-thumbnail.html" class="top-selling-image">
                                     <img src="../assets/images/veg-2/top-selling/1.jpg"
                                          class="img-fluid blur-up lazyload" alt="">
@@ -17,7 +17,7 @@
 
                                 <div class="top-selling-detail">
                                     <a href="product-left-thumbnail.html">
-                                        <h5>Tuffets Whole Wheat Bread</h5>
+                                        <h5 th:text="${product.productName}">Tuffets Whole Wheat Bread</h5>
                                     </a>
                                     <div class="product-rating">
                                         <ul class="rating">
@@ -43,107 +43,10 @@
                                 </div>
                             </div>
 
-                            <div class="top-selling-contain wow fadeIn" data-wow-delay="0.05s">
-                                <a href="product-left-thumbnail.html" class="top-selling-image">
-                                    <img src="../assets/images/veg-2/top-selling/2.jpg"
-                                         class="img-fluid blur-up lazyload" alt="">
-                                </a>
 
-                                <div class="top-selling-detail">
-                                    <a href="product-left-thumbnail.html">
-                                        <h5>Potato</h5>
-                                    </a>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
-                                    </div>
-                                    <h6>$ 40.00</h6>
-                                </div>
-                            </div>
 
-                            <div class="top-selling-contain wow fadeIn" data-wow-delay="0.1s">
-                                <a href="product-left-thumbnail.html" class="top-selling-image">
-                                    <img src="../assets/images/veg-2/top-selling/3.jpg"
-                                         class="img-fluid blur-up lazyload" alt="">
-                                </a>
 
-                                <div class="top-selling-detail">
-                                    <a href="product-left-thumbnail.html">
-                                        <h5>Green Chilli</h5>
-                                    </a>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
-                                    </div>
-                                    <h6>$ 45.00</h6>
-                                </div>
-                            </div>
 
-                            <div class="top-selling-contain wow fadeIn" data-wow-delay="0.15s">
-                                <a href="product-left-thumbnail.html" class="top-selling-image">
-                                    <img src="../assets/images/veg-2/top-selling/4.jpg"
-                                         class="img-fluid blur-up lazyload" alt="">
-                                </a>
-
-                                <div class="top-selling-detail">
-                                    <a href="product-left-thumbnail.html">
-                                        <h5>Muffets Burger Bun</h5>
-                                    </a>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
-                                    </div>
-                                    <h6>$ 70.00</h6>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

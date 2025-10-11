@@ -33,8 +33,9 @@ public class Order {
     @Column(name = "order_id", nullable = false)
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int orderId;
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
     @Column(name = "shipper_id")
     private Integer shipperId;
     @Column(name = "order_status", nullable = false)

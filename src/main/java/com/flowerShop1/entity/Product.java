@@ -31,10 +31,12 @@ public class Product {
     @Column(name = "product_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
-    @Column(name = "category_id", nullable = false)
-    private int categoryId;
-    @Column(name = "supplier_id", nullable = false)
-    private int supplierId;
+    @ManyToOne
+    @JoinColumn (name = "category_id", nullable = false)
+    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "supplier_id", nullable = false)
+    private Supplier supplierId;
     @Column(name = "product_name", nullable = false, length = 150, columnDefinition = "nvarchar(150)")
     private String productName;
     @Column(name = "description", columnDefinition = "nvarchar(max)")

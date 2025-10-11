@@ -25,10 +25,12 @@ public class OrderDetail {
     @Column (name = "order_detail_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderDetailId;
-    @Column(name = "order_id", nullable = false)
-    private int orderId;
-    @Column(name = "product_id", nullable = false)
-    private int productId;
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private  Product product;
     @Column(name = "quantity", nullable = false)
     private int quantity;
     @Column(name = "price", nullable = false, precision = 10, scale = 2)
