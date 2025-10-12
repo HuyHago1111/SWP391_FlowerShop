@@ -15,4 +15,13 @@ public class ProductServiceimpl  implements ProductService {
     public List<Product> getAllProduct() {
         return productsRepository.findAll();
     }
+
+    @Override
+    public Product getProductById(int productId) {
+        Product product = productsRepository.findByProductId(productId);
+        if(product == null) {
+            throw new RuntimeException("Product not found");
+        }
+        return product;
+    }
 }
