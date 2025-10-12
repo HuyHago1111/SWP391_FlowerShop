@@ -12,7 +12,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+@EnableWebSecurity
 @Configuration
 public class SercurityConfig {
     private CustomUserDetailService customUserDetailService;
@@ -23,14 +25,20 @@ public class SercurityConfig {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+    //@Bean
+//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(customUserDetailService);
+//        provider.setPasswordEncoder(passwordEncoder());
+//        return new ProviderManager(provider);
+    //}
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(customUserDetailService);
         provider.setPasswordEncoder(passwordEncoder());
-        return new ProviderManager(provider);
+        return provider;
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
