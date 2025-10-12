@@ -1,4 +1,4 @@
-<header class="pb-md-4 pb-0" th:fragment="headerClient">
+<header class="pb-md-4 pb-0" th:fragment="headerClient" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="header-top">
         <div class="container-fluid-lg">
             <div class="row">
@@ -23,7 +23,7 @@
                                     <i class="fa-solid fa-bars"></i>
                                 </span>
                         </button>
-                        <a href="index.html" class="web-logo nav-logo">
+                        <a th:href="@{/}" class="web-logo nav-logo">
                             <img src="../assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="">
                         </a>
 
@@ -143,24 +143,38 @@
                                 </li>
                                 <li class="right-side onhover-dropdown">
                                     <div class="delivery-login-box">
-                                        <div class="delivery-icon">
-                                            <i data-feather="user"></i>
-                                        </div>
-                                        <div class="delivery-detail">
-                                            <h6>Hello,</h6>
-                                            <h5>My Account</h5>
-                                        </div>
+
+
+                                            <div sec:authorize="isAuthenticated()">
+                                                <h5 th:text="${#authentication.principal.getFullName()}"></h5>
+                                            </div>
+                                            <div sec:authorize="!isAuthenticated()">
+                                                <div class="delivery-icon">
+                                                    <i data-feather="user"></i>
+                                                </div>
+                                            </div>
                                     </div>
 
                                     <div class="onhover-div onhover-div-login">
                                         <ul class="user-box-name">
-                                            <li class="product-box-contain">
-                                                <i></i>
-                                                <a th:href="@{/login}">Log In</a>
-                                            </li>
+                                            <div sec:authorize="!isAuthenticated()">
+
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a th:href="@{/login}">Log In</a>
+                                                </li>
+                                            </div>
+
+                                            <div sec:authorize="isAuthenticated()">
+
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a th:href="@{/logout}">Log Out</a>
+                                                </li>
+                                            </div>
 
                                             <li class="product-box-contain">
-                                                <a href="sign-up.html">Register</a>
+                                                <a href="sign-up.html" th:href="@{/sign-up}">Register</a>
                                             </li>
 
                                             <li class="product-box-contain">
@@ -226,7 +240,7 @@
 
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a class="dropdown-item" href="index.html">Kartshop</a>
+                                                    <a class="dropdown-item" th:href="@{/}">Kartshop</a>
                                                 </li>
                                                 <li>
                                                     <a class="dropdown-item" href="index-2.html">Sweetshop</a>
