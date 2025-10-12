@@ -9,10 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.naming.Binding;
@@ -20,46 +17,20 @@ import javax.naming.Binding;
 @Controller
 @RequestMapping("/login")
 public class LoginController {
-    private final AuthenticationManager authenticationManager;
-
-    public LoginController(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-    }
     @GetMapping("")
-    public String getLogin(Model model) {
-        UserLoginDTO userLoginDTO = new UserLoginDTO();
-        model.addAttribute("userLoginDTO", userLoginDTO);
-        return "client/login";
-    }
-    @PostMapping("")
-    public String postLogin(@Valid @ModelAttribute("userLoginDTO") UserLoginDTO userLoginDTO,
-                            BindingResult result,
-                            Model model) {
-        System.out.println("Login: " + userLoginDTO);
+    public String showLoginForm(@RequestParam(value = "error", required = false) String error,
+                                @RequestParam(value = "logout", required = false) String logout,
+                                Model model) {
 
-        if (result.hasErrors()) {
-            return "client/login";
+        UserLoginDTO dto = new UserLoginDTO();
+        model.addAttribute("userLoginDTO", dto);
+
+        if (error != null) {
+            model.addAttribute("loginError", "Sai email hoặc mật khẩu!");
         }
-
-        try {
-            Authentication auth = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(userLoginDTO.getEmail(), userLoginDTO.getPassword())
-            );
-
-            // Nếu OK -> lưu vào SecurityContext
-            SecurityContextHolder.getContext().setAuthentication(auth);
-            return "redirect:/";
-
-        } catch (BadCredentialsException ex) {
-            model.addAttribute("loginError", "Sai tên đăng nhập hoặc mật khẩu!");
-        } catch (DisabledException ex) {
-            model.addAttribute("loginError", "Tài khoản bị vô hiệu hóa!");
-        } catch (LockedException ex) {
-            model.addAttribute("loginError", "Tài khoản bị khóa!");
-        } catch (Exception ex) {
-            model.addAttribute("loginError", "Lỗi xác thực, vui lòng thử lại!");
+        if (logout != null) {
+            model.addAttribute("logoutMessage", "Bạn đã đăng xuất thành công!");
         }
-
 
         return "client/login";
     }

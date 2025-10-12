@@ -34,12 +34,20 @@ public class SercurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // cho đơn giản demo; bật lại CSRF khi cần
                 .authorizeHttpRequests(auth -> auth
                         .anyRequest().permitAll()
                 )
-                .formLogin(form -> form.disable())
-                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+                .formLogin(form -> form
+                        .loginPage("/login")                 // Trang login custom
+                        .loginProcessingUrl("/login")        // URL form submit
+                        .usernameParameter("email")          // Dùng field email
+                        .passwordParameter("password")       // Field password
+                        .defaultSuccessUrl("/", true)        // Khi login thành công
+                        .failureUrl("/login?error=true")     // Khi sai mật khẩu
+                        .permitAll()
+                )// disable default form login
+                .headers(headers -> headers.frameOptions(frame -> frame.disable())) // để mở H2 console
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
