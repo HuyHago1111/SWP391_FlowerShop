@@ -42,7 +42,7 @@ public class User {
     @Column(name = "email", nullable = false, unique = true, length = 100, columnDefinition = "nvarchar(100)" )
    private String email;
     @Column(name = "password_hash", nullable = false, length = 255, columnDefinition = "nvarchar(255)")
-   private String passwordHash;
+   private String password;
     @Column(name = "phone", length = 20, columnDefinition = "nvarchar(20)")
    private String phone;
     @Column(name = "address", length = 255, columnDefinition = "nvarchar(255)")
