@@ -11,7 +11,7 @@
         </div>
         <div class="product-border border-row">
             <div class="slider-6_2 no-arrow">
-                <div  th:each="i : ${#numbers.sequence(0, #lists.size(products) - 1, 2)}">
+                <div  th:each="i : ${#numbers.sequence(0, #lists.size(products), 2)}">
                     <div class="row m-0">
                         <div class="col-12 px-0">
                             <div class="product-box wow fadeIn">
@@ -101,7 +101,7 @@
                             <div class="product-box wow fadeIn" data-wow-delay="0.1s">
                                 <div class="product-image">
                                     <a href="product-left-thumbnail.html">
-                                        <img th:src="@{${products[i+1].imageUrl}}"
+                                        <img th:src="@{${products[i].imageUrl}}"
                                              class="img-fluid blur-up lazyload" alt="">
                                     </a>
                                     <ul class="product-option justify-content-around">
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="product-detail">
                                     <a href="product-left-thumbnail.html">
-                                        <h6 class="name name-2 h-100" th:text="${products[i +1 ].productName}">Sandwich Cookies</h6>
+                                        <h6 class="name name-2 h-100" th:text="${products[i].productName}">Sandwich Cookies</h6>
                                     </a>
 
                                     <div class="product-rating mt-2">
@@ -154,7 +154,7 @@
                                     <h6 class="sold weight text-content fw-normal">1 KG</h6>
 
                                     <div class="counter-box">
-                                        <h6 class="sold theme-color" th:text="'$ ' + ${products[i +1].price}">$ 80.00</h6>
+                                        <h6 class="sold theme-color" th:text="'$ ' + ${products[i].price}">$ 80.00</h6>
 
                                         <div class="addtocart_btn">
                                             <button class="add-button addcart-button btn buy-button text-light">
