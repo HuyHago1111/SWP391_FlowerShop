@@ -9,4 +9,5 @@ public interface UserService {
     List<User> getAllUsers();
     void register(UserSignUpDTO user);
     boolean verifyOTP(String otp, UserSignUpDTO userSignUpDTO);
+    void updateStatus(Integer userId, String newStatus);
 }

@@ -10,6 +10,7 @@ import com.flowerShop1.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 public class UserServiceimpl implements UserService {
@@ -51,6 +52,15 @@ public class UserServiceimpl implements UserService {
         return false;
 
     }
+
+    public void updateStatus(Integer userId, String newStatus) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        user.setStatus(newStatus);
+        user.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
+
     public String generateOTP() {
         return String.valueOf((int) (Math.random() * 900000) + 100000);
     }
