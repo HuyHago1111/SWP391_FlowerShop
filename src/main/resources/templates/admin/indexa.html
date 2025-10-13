@@ -1,41 +1,208 @@
 <!DOCTYPE html>
-
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User Management</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/vendors/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <style>
+        .status-toggle {
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 6px;
+            padding: 5px 10px;
+            transition: 0.3s;
+        }
+        .status-active {
+            color: #0da487;
+            background-color: #e5f9f4;
+        }
+        .status-pending {
+            color: #856404;
+            background-color: #fff3cd;
+        }
+        .table th, .table td { vertical-align: middle !important; }
+        .action-icons i {
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: 0.3s;
+        }
+        .action-icons i:hover { color: #0da487; }
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0da487;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 9999;
+        }
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+            border-width: 0.2em;
+        }
+    </style>
 </head>
+
 <body>
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <div class="page-body-wrapper">
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card card-table">
+                            <div class="card-body">
+                                <div class="title-header option-title d-flex justify-content-between align-items-center mb-3">
+                                    <h5>All Users</h5>
+                                    <a href="#" class="btn btn-theme d-flex align-items-center">
+                                        <i data-feather="plus" class="me-2"></i>Add New
+                                    </a>
+                                </div>
 
+                                <!-- ✅ USERS TABLE -->
+                                <div class="table-responsive table-product">
+                                    <table class="table all-package theme-table">
+                                        <thead>
+                                        <tr>
+                                            <th>User ID</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Address</th>
+                                            <th>Role</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Updated At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="user : ${users}">
+                                            <td th:text="${user.userId}"></td>
+                                            <td th:text="${user.fullName}"></td>
+                                            <td th:text="${user.email}"></td>
+                                            <td th:text="${user.phone}"></td>
+                                            <td th:text="${user.address}"></td>
+                                            <td th:text="${user.roleName}"></td>
 
- <table>
-     <thead>
-     <tr>
-         <th>User ID</th>
-         <th>Full Name</th>
-         <th>Email</th>
-         <th>Phone</th>
-         <th>Address</th>
-         <th>Role</th>
-         <th>Status</th>
-         <th>Created At</th>
-         <th>Updated At</th>
-         <th>Action</th>
-     </tr>
-     </thead>
-     <tbody>
-     <tr th:each="user : ${users}">
-         <td th:text="${user.userId}"></td>
-         <td th:text="${user.fullName}"></td>
-         <td th:text="${user.email}"></td>
-         <td th:text="${user.phone}"></td>
-         <td th:text="${user.address}"></td>
-         <td th:text="${user.roleName}"></td>
-         <td th:text="${user.status}"></td>
-         <td th:text="${user.createdAt}"></td>
-         <td th:text="${user.updatedAt}"></td>
-     </tr>
-     <tbody>
- </table>
+                                            <!-- ✅ Toggle status -->
+                                            <td>
+                        <span th:id="'status-' + ${user.userId}"
+                              th:classappend="${user.status == 'ACTIVE'} ? 'status-toggle status-active' : 'status-toggle status-pending'"
+                              th:text="${user.status == 'ACTIVE' ? 'Active' : 'Pending'}"
+                              th:attr="data-userid=${user.userId}, data-status=${user.status}">
+                        </span>
+                                            </td>
+
+                                            <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+                                            <td th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm')}"></td>
+
+                                            <!-- ✅ Action buttons -->
+                                            <td>
+                                                <ul>
+                                                    <li>
+                                                        <a href="order-detail.html">
+                                                            <i class="ri-eye-line"></i>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0)">
+                                                            <i class="ri-pencil-line"></i>
+                                                        </a>
+                                                    </li>
+
+                                                    <li>
+                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                           data-bs-target="#exampleModalToggle">
+                                                            <i class="ri-delete-bin-line"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- ✅ END USERS TABLE -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer text-center mt-4">
+                <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<!-- ✅ Toast Notification -->
+<div id="toast" class="toast"></div>
+
+<!-- JS -->
+<script src="/assets/js/jquery-3.6.0.min.js"></script>
+<script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/icons/feather-icon/feather.min.js"></script>
+<script>
+    feather.replace();
+
+    // ✅ Toast function
+    function showToast(message, success = true) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.style.backgroundColor = success ? '#0da487' : '#dc3545';
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 2500);
+    }
+
+    // ✅ Toggle status (AJAX)
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.status-toggle').forEach(button => {
+            button.addEventListener('click', async function () {
+                const userId = this.getAttribute('data-userid');
+                const currentStatus = this.getAttribute('data-status');
+                const newStatus = currentStatus === 'ACTIVE' ? 'PENDING' : 'ACTIVE';
+
+                // Hiệu ứng loading nhỏ
+                const oldText = this.textContent;
+                this.innerHTML = `<span class="spinner-border spinner-border-sm" role="status"></span>`;
+
+                try {
+                    const response = await fetch(`/api/users/${userId}/status`, {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({status: newStatus})
+                    });
+
+                    if (response.ok) {
+                        this.setAttribute('data-status', newStatus);
+                        this.textContent = newStatus === 'ACTIVE' ? 'Active' : 'Pending';
+                        this.classList.toggle('status-active');
+                        this.classList.toggle('status-pending');
+                        showToast('Status updated successfully ✅');
+                    } else {
+                        this.textContent = oldText;
+                        showToast('Failed to update status ❌', false);
+                    }
+                } catch (e) {
+                    this.textContent = oldText;
+                    showToast('Error: ' + e.message, false);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
