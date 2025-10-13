@@ -23,6 +23,6 @@ public class UserController {
     public String getAllUsers(Model model) {
         List<UserDTO> users = userService.getAllUsers().stream().map(userMapper::entityToDto).toList();
         model.addAttribute("users", users);
-        return "indexa";
+        return "admin/indexa";
     }
 }
