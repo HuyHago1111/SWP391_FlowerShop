@@ -30,6 +30,7 @@ public class HomeController {
         model.addAttribute("products", productService.getAllProduct().stream().filter(product -> product.getCategory().getCategoryId() == 1).toList());
         model.addAttribute("products_2", productService.getAllProduct().stream().filter(product -> product.getCategory().getCategoryId() == 2).toList());
          model.addAttribute("topSellingProducts",orderDetailService.getTopSelilingProducts().stream().limit(4).toList());
+
         return "client/index";
     }
 
