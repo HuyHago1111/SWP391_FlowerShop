@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,6 +21,10 @@ public class UserSignUpDTO {
     @NotBlank (message = "Password is required")
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
+    private String otp;
+    private LocalDateTime otpExprirationTime;
+
+
 
     // Constructors, getters, and setters
 

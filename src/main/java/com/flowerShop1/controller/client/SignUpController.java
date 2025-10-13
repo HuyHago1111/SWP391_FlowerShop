@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/sign-up")
@@ -39,8 +36,10 @@ public class SignUpController {
         }
 
        try{
-           userService.register(userSignUpMapper.dtoToEntity(userSignUpDTO));
-           return "redirect:/login";
+
+           userService.register(userSignUpDTO);
+           model.addAttribute("userSignUpDTO", userSignUpDTO);
+           return "client/otp";
        } catch (Exception e) {
            model.addAttribute("error", e.getMessage());
 
@@ -48,6 +47,16 @@ public class SignUpController {
         return  "client/sign-up";
     }
 
+@PostMapping ("/verify-otp")
+    public String verifyOtp(@ModelAttribute("userSignUpDTO") UserSignUpDTO userSignUpDTO, Model model, @RequestParam("otpInput") String otp) {
+    System.out.println("[DEBUG] VerifyOTP : " + otp);
 
+    if(userService.verifyOTP(otp, userSignUpDTO)){
+        model.addAttribute("userLoginDTO", userSignUpDTO);
+        return "client/login";
+    }
+
+        return "client/sign-up";
+    }
 
 }

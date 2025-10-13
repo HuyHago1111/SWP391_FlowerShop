@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+
 public class Category {
     @Id
     @Column (name = "category_id", nullable = false)
