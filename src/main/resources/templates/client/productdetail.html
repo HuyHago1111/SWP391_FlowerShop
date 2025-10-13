@@ -98,7 +98,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="breadcrumb-contain">
-                    <h2>Creamy Chocolate Cake</h2>
+                    <h2>Flower</h2>
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">
@@ -107,7 +107,7 @@
                                 </a>
                             </li>
 
-                            <li class="breadcrumb-item active">Creamy Chocolate Cake</li>
+                            <li class="breadcrumb-item active">Flower</li>
                         </ol>
                     </nav>
                 </div>
@@ -246,9 +246,11 @@
                                         </button>
                                     </div>
                                 </div>
-
-                                <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                                <button
+                                        th:onclick="'addToCart(' + ${product.productId} + ', document.querySelector(\'.qty-input\').value)'"
+                                        class="btn btn-md bg-dark cart-button text-white w-100">
+                                    Add To Cart
+                                </button>
                             </div>
 
                             <div class="buy-box">
@@ -269,7 +271,7 @@
                                 </div>
 
                                 <div class="pickup-detail">
-                                    <h4 class="text-content" >Lollipop cake chocolate chocolate cake dessert jujubes.
+                                    <h4 class="text-content"  th:text="${product.description}">Lollipop cake chocolate chocolate cake dessert jujubes.
                                         Shortbread sugar plum dessert powder cookie sweet brownie.</h4>
                                 </div>
 
@@ -1080,6 +1082,70 @@
 
 <!-- theme setting js -->
 <script src="../assets/js/theme-setting.js"></script>
+<script>
+/*
+    <div class="note-box product-package">
+                                <div class="cart_qty qty-box product-qty">
+                                    <div class="input-group">
+                                        <button type="button" class="qty-right-plus" data-type="plus" data-field="">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                        <input class="form-control input-number qty-input" type="text"
+                                               name="quantity" value="0">
+                                        <button type="button" class="qty-left-minus" data-type="minus"
+                                                data-field="">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button onclick="location.href = 'cart.html';"
+                                        class="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                            </div>
+* */
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".cart_qty").forEach(
+        cartBox => {
+            const plusBtn = cartBox.querySelector(".qty-right-plus")
+            const minusBtn = cartBox.querySelector(".qty-left-minus")
+            const input = cartBox.querySelector(".qty-input")
+
+            plusBtn.addEventListener("click", function () {
+                input.value = parseInt(input.value) + 1
+            })
+            minusBtn.addEventListener("click", function () {
+                if (input.value > 0) {
+                    input.value = parseInt(input.value) - 1
+                }
+            })
+
+            input.addEventListener("change", function () {
+                this.value = this.value.replace(/[^0-9]/g, "");
+            })
+
+        }
+    );
+})
+function addToCart(productId, quantity) {
+    console.log("productId"+ productId + " quantity " + quantity);
+    if (quantity < 1) {
+        alert("Quantity must be greater than 0");
+        return;
+    }
+    try {
+        fetch(`/cart/addToCart?productId=${productId}&quantity=${quantity}`)
+            .then(response => response.text())
+            .then(data => {
+                console.log(data);
+            })
+    } catch (error) {
+        console.log(error);
+    }
+
+
+}
+
+</script>
 
 </body>
 
