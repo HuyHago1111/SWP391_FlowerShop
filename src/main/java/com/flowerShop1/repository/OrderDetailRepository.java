@@ -20,4 +20,19 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
 """, nativeQuery = true)
     List<Object[]> findBestSellingProductsNative();
 
+    @Query(value = """
+            SELECT TOP 10
+                p.product_id, p.product_name,p.image_url,p.price,
+                SUM(od.quantity) AS total_sold
+               
+            FROM OrderDetails od
+                     JOIN Orders o ON o.order_id = od.order_id
+                     JOIN Products p ON p.product_id = od.product_id
+            WHERE o.order_date >= DATEADD(DAY, -7, GETDATE())
+            GROUP BY p.product_id, p.product_name, p.price, p.image_url
+            ORDER BY total_sold DESC;
+            
+            """, nativeQuery = true)
+    List<Object[]> findTrendingProductsNative();
+
 }
