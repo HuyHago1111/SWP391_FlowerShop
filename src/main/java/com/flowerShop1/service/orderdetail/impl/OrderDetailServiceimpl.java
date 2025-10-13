@@ -20,4 +20,11 @@ public class OrderDetailServiceimpl implements OrderDetailService {
 
     }
 
+    @Override
+    public List<ProductTopSellingDTO> getTrendingProducts() {
+        List<Object[]> results = orderDetailRepository.findTrendingProductsNative();
+        return  results.stream().map(objects -> new ProductTopSellingDTO((int) objects[0], (String) objects[1], (String) objects[2], (BigDecimal) objects[3])).toList();
+    }
+
+
 }

@@ -12,6 +12,6 @@ import java.math.BigDecimal;
 public class ProductTopSellingDTO {
     private int prodcutId;
     private String productName;
-    private String inamgeUrl;
-    private BigDecimal Price;
+    private String imageUrl;
+    private BigDecimal price;
 }

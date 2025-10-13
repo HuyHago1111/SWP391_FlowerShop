@@ -16,7 +16,7 @@
                         <div class="col-12 px-0">
                             <div class="product-box wow fadeIn">
                                 <div class="product-image">
-                                    <a href="product-left-thumbnail.html">
+                                    <a th:href="@{/product-detail/{id}(id=${products[i].productId})}">
                                         <img th:src="@{${products[i].imageUrl}}"
                                              class="img-fluid blur-up lazyload" alt="">
                                     </a>
@@ -100,7 +100,7 @@
                         <div class="col-12 px-0">
                             <div class="product-box wow fadeIn" data-wow-delay="0.1s">
                                 <div class="product-image">
-                                    <a href="product-left-thumbnail.html">
+                                    <a th:href="@{/product-detail/{id}(id=${products[i +1 ].productId})}">
                                         <img th:src="@{${products[i+1].imageUrl}}"
                                              class="img-fluid blur-up lazyload" alt="">
                                     </a>
