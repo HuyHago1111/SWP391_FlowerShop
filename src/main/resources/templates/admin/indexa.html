@@ -78,6 +78,7 @@
                                             <th>Full Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
+                                            <th>Password</th>
                                             <th>Address</th>
                                             <th>Role</th>
                                             <th>Status</th>
@@ -92,6 +93,7 @@
                                             <td th:text="${user.fullName}"></td>
                                             <td th:text="${user.email}"></td>
                                             <td th:text="${user.phone}"></td>
+                                            <td th:text="${user.password}"></td>
                                             <td th:text="${user.address}"></td>
                                             <td th:text="${user.roleName}"></td>
 
@@ -99,7 +101,7 @@
                                             <td>
                         <span th:id="'status-' + ${user.userId}"
                               th:classappend="${user.status == 'ACTIVE'} ? 'status-toggle status-active' : 'status-toggle status-pending'"
-                              th:text="${user.status == 'ACTIVE' ? 'Active' : 'Pending'}"
+                              th:text="${user.status == 'ACTIVE' ? 'Pending' : 'Active'}"
                               th:attr="data-userid=${user.userId}, data-status=${user.status}">
                         </span>
                                             </td>
@@ -173,14 +175,14 @@
             button.addEventListener('click', async function () {
                 const userId = this.getAttribute('data-userid');
                 const currentStatus = this.getAttribute('data-status');
-                const newStatus = currentStatus === 'ACTIVE' ? 'PENDING' : 'ACTIVE';
+                const newStatus = currentStatus === 'ACTIVE' ? 'ACTIVE' : 'PENDING';
 
                 // Hiệu ứng loading nhỏ
                 const oldText = this.textContent;
                 this.innerHTML = `<span class="spinner-border spinner-border-sm" role="status"></span>`;
 
                 try {
-                    const response = await fetch(`/api/users/${userId}/status`, {
+                    const response = await fetch(`/users/{id}/status`, {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
                         body: JSON.stringify({status: newStatus})
@@ -188,13 +190,13 @@
 
                     if (response.ok) {
                         this.setAttribute('data-status', newStatus);
-                        this.textContent = newStatus === 'ACTIVE' ? 'Active' : 'Pending';
-                        this.classList.toggle('status-active');
+                        this.textContent = newStatus === 'ACTIVE' ? 'Pending' : 'Active';
                         this.classList.toggle('status-pending');
+                        this.classList.toggle('status-active');
                         showToast('Status updated successfully ✅');
                     } else {
                         this.textContent = oldText;
-                        showToast('Failed to update status ❌', false);
+                        showToast('Failed to update status ', false);
                     }
                 } catch (e) {
                     this.textContent = oldText;
