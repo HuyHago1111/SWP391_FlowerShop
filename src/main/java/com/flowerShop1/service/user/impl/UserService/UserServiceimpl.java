@@ -1,9 +1,14 @@
 package com.flowerShop1.service.user.impl.UserService;
 
+import com.flowerShop1.dto.user.UserCreationDTO;
 import com.flowerShop1.dto.user.UserSignUpDTO;
+import com.flowerShop1.entity.Order;
+import com.flowerShop1.entity.Role;
 import com.flowerShop1.entity.User;
 import com.flowerShop1.mapper.user.UserMapper;
 import com.flowerShop1.mapper.user.UserSignUpMapper;
+import com.flowerShop1.repository.OrdersRepository;
+import com.flowerShop1.repository.RoleRepository;
 import com.flowerShop1.repository.UserRepository;
 import com.flowerShop1.service.mail.MailService;
 import com.flowerShop1.service.user.UserService;
@@ -11,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class UserServiceimpl implements UserService {
     @Autowired
@@ -21,12 +28,53 @@ public class UserServiceimpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private UserSignUpMapper userSignUpMapper;
-
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private OrdersRepository orderRepository;
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @Override
+    public Optional<User> findUserById(Integer id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public User createUser(UserCreationDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new RuntimeException("Lỗi: Email này đã được sử dụng!");
+        }
+
+        if (userRepository.existsByPhone(userDTO.getPhone())) {
+            throw new RuntimeException("Lỗi: Số điện thoại này đã được đăng ký!");
+        }
+
+        User user = new User();
+        user.setFullName(userDTO.getFullName());
+        user.setEmail(userDTO.getEmail());
+        user.setPhone(userDTO.getPhone());
+        user.setPassword(userDTO.getPassword());
+        user.setAddress(userDTO.getAddress());
+        user.setStatus(userDTO.getStatus());
+
+
+        // Tìm và gán Role
+        Role role = roleRepository.findById(userDTO.getRoleId())
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        user.setRole(role);
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public List<Order> findOrdersByUserId(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return orderRepository.findByUserOrderByOrderDateDesc(user);
+    }
     @Override
     public void register(UserSignUpDTO user) {
         if (userRepository.existsByEmail(user.getEmail())) {
