@@ -17,4 +17,7 @@ public interface UserService {
     Optional<User> findUserById(Integer id);
     User createUser(UserCreationDTO userDTO);
     List<Order> findOrdersByUserId(Integer userId);
+    void updateStatus(Integer userId, String newStatus);
+
+
 }
