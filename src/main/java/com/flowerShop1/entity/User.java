@@ -15,11 +15,13 @@ package com.flowerShop1.entity;
 //    updated_at    datetime
 
 
+import com.flowerShop1.dto.Order.OrderDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -43,7 +45,7 @@ public class User {
    private String email;
     @Column(name = "password_hash", nullable = false, length = 255, columnDefinition = "nvarchar(255)")
    private String password;
-    @Column(name = "phone", length = 20, columnDefinition = "nvarchar(20)")
+    @Column(name = "phone",unique = true, length = 20, columnDefinition = "nvarchar(20)")
    private String phone;
     @Column(name = "address", length = 255, columnDefinition = "nvarchar(255)")
    private String address;
@@ -54,4 +56,15 @@ public class User {
     @Column(name = "updated_at")
    private LocalDateTime updatedAt;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Order> orders;
+
+    // ... getters and setters for orders
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
 }
