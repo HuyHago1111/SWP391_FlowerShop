@@ -66,4 +66,15 @@ public class CartService {
         }
 
     }
+    public void updateQuantity(int productId,int quantity ,HttpServletRequest request,HttpServletResponse response){
+        List<CartItermDTO> lsCart = getlsCart(request);
+        Optional<CartItermDTO> existingItem = lsCart.stream()
+                .filter(item -> item.getProductId() == productId)
+                .findFirst();
+        if(existingItem.isPresent()) {
+            CartItermDTO item = existingItem.get();
+            item.setQuantityCart(quantity);
+        }
+        saveLsCart(lsCart,response);
+    }
 }

@@ -16,4 +16,7 @@ public class CartItermDTO {
     private double totalPrice;
     private int quantityCart;
 
+    public double getTotalPrice() {
+        return productPrice * quantityCart;
+    }
 }

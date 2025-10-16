@@ -57,15 +57,32 @@ public class CartController {
     }
 
 
-    @GetMapping("")
+    @GetMapping("/showCart")
 
-    public String getCart() {
-        return "client/cart";
+    public String getCart(HttpServletRequest request, Model model) {
+        model.addAttribute("lsCart", cartService.getlsCart(request));
+
+
+        return "client/component/cartTable";
     }
 
-    @GetMapping("/showCart")
+
+    @GetMapping("")
+    public String viewCart( Model model) {
+        return "client/cart";
+    }
+    @GetMapping("/getlsCart")
     @ResponseBody
-    public List<CartItermDTO> showCart(HttpServletRequest request) {
-       return cartService.getlsCart(request);
+    public List<CartItermDTO> getlsCart(HttpServletRequest request){
+        return cartService.getlsCart(request);
+    }
+    @GetMapping("/updateQuantity")
+
+    public String updateQuantity( Model model,@RequestParam("productId") int productId, @RequestParam("quantity") int quantity, HttpServletRequest request, HttpServletResponse response) {
+        cartService.updateQuantity(productId, quantity, request, response);
+        model.addAttribute("lsCart", cartService.getlsCart(request));
+
+
+        return "client/component/cartTable";
     }
 }
