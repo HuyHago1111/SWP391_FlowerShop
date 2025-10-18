@@ -61,28 +61,36 @@ public class CartController {
 
     public String getCart(HttpServletRequest request, Model model) {
         model.addAttribute("lsCart", cartService.getlsCart(request));
-
+        model.addAttribute("sumTotalCart", cartService.getlsCart(request).stream().mapToDouble(CartItermDTO::getTotalPrice).sum());
 
         return "client/component/cartTable";
     }
 
 
     @GetMapping("")
-    public String viewCart( Model model) {
+    public String viewCart(Model model) {
         return "client/cart";
     }
+
     @GetMapping("/getlsCart")
     @ResponseBody
-    public List<CartItermDTO> getlsCart(HttpServletRequest request){
+    public List<CartItermDTO> getlsCart(HttpServletRequest request) {
         return cartService.getlsCart(request);
     }
+
     @GetMapping("/updateQuantity")
 
-    public String updateQuantity( Model model,@RequestParam("productId") int productId, @RequestParam("quantity") int quantity, HttpServletRequest request, HttpServletResponse response) {
+    public String updateQuantity(Model model, @RequestParam("productId") int productId, @RequestParam("quantity") int quantity, HttpServletRequest request, HttpServletResponse response) {
         cartService.updateQuantity(productId, quantity, request, response);
         model.addAttribute("lsCart", cartService.getlsCart(request));
 
 
+        return "client/component/cartTable";
+    }
+    @GetMapping("/removeItem")
+    public String removeIterm(Model model, @RequestParam("productId") int productId, HttpServletRequest request, HttpServletResponse response) {
+        cartService.removeCartItem(productId, request, response);
+        model.addAttribute("lsCart", cartService.getlsCart(request));
         return "client/component/cartTable";
     }
 }

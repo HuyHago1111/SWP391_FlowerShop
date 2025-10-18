@@ -81,63 +81,13 @@
                                     <div class="onhover-dropdown header-badge">
                                         <button type="button" class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="shopping-cart"></i>
-                                            <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                            <span class="position-absolute top-0 start-100 translate-middle badge" id="totalProduct">
                                                     <span class="visually-hidden">unread messages</span>
                                                 </span>
                                         </button>
 
-                                        <div class="onhover-div">
-                                            <ul class="cart-list">
-                                                <li class="product-box-contain">
-                                                    <div class="drop-cart">
-                                                        <a href="product-left-thumbnail.html" class="drop-image">
-                                                            <img src="../assets/images/vegetable/product/1.png"
-                                                                 class="blur-up lazyload" alt="">
-                                                        </a>
+                                        <div class="onhover-div" id="lsCartHeader">
 
-                                                        <div class="drop-contain">
-                                                            <a href="product-left-thumbnail.html">
-                                                                <h5>Fantasy Crunchy Choco Chip Cookies</h5>
-                                                            </a>
-                                                            <h6><span>1 x</span> $80.58</h6>
-                                                            <button class="close-button close_button">
-                                                                <i class="fa-solid fa-xmark"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    <div class="drop-cart">
-                                                        <a href="product-left-thumbnail.html" class="drop-image">
-                                                            <img src="../assets/images/vegetable/product/2.png"
-                                                                 class="blur-up lazyload" alt="">
-                                                        </a>
-
-                                                        <div class="drop-contain">
-                                                            <a href="product-left-thumbnail.html">
-                                                                <h5>Peanut Butter Bite Premium Butter Cookies 600 g
-                                                                </h5>
-                                                            </a>
-                                                            <h6><span>1 x</span> $25.68</h6>
-                                                            <button class="close-button close_button">
-                                                                <i class="fa-solid fa-xmark"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                            <div class="price-box">
-                                                <h5>Total :</h5>
-                                                <h4 class="theme-color fw-bold">$106.58</h4>
-                                            </div>
-
-                                            <div class="button-group">
-                                                <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                                <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
-                                                    text-white">Checkout</a>
-                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -535,17 +485,108 @@
                                                 </li>
                                             </ul>
                                         </li>
-
-
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',LoadLsCartHeader);
+        async function LoadLsCartHeader(){
+            const  lsCartHeader = document.getElementById('lsCartHeader');
+            const  totalProduct = document.getElementById('totalProduct');
+            try{
+                const response = await  fetch('/cart/getlsCart');
+                const lsCart = await response.json();
+
+                if(!lsCart || lsCart.legend === 0){
+                    lsCartHeader.innerHTML= "Your cart is empty.";
+                    return;
+                }
+                totalProduct.innerText =lsCart.length;
+                let total = 0;
+                let totalQuantity = 0;
+                const itemHtml = lsCart.map(item => {
+                    total += item.totalPrice;
+                    totalQuantity += item.quantityCart;
+                    return ` <ul class="cart-list">
+                                                <li class="product-box-contain">
+                                                    <div class="drop-cart">
+                                                        <a href="product-left-thumbnail.html" class="drop-image">
+                                                            <img src="../assets/images/vegetable/product/1.png"
+                                                                 class="blur-up lazyload" alt="">
+                                                        </a>
+
+                                                        <div class="drop-contain">
+                                                            <a href="product-left-thumbnail.html">
+                                                                <h5>${item.productName}</h5>
+                                                            </a>
+                                                            <h6><span>${item.quantityCart}X</span> ${item.productPrice}</h6>
+                                                            <button class="close-button close_button" onclick="removeItem(${item.productId})">
+                                                                <i class="fa-solid fa-xmark"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                         `;
+
+                }).join('');
+                lsCartHeader.innerHTML =` <ul class="cart-list">
+                                            ${itemHtml}
+                                            </ul>
+
+                                            <div class="price-box">
+                                                <h5>Total : </h5>
+                                                <h4 class="theme-color fw-bold">${total}</h4>
+                                            </div>
+
+                                            <div class="button-group">
+                                                <a href="/cart" class="btn btn-sm cart-button">View Cart (${totalQuantity})</a>
+                                                <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                            </div>
+
+
+                `
+
+            }catch (error) {
+                console.log(error);
+
+            }
+        }
+        function removeItem(productId) {
+            console.log("removeItem:", productId);
+            try {
+                fetch('/cart/removeItem'
+                    + '?productId=' + productId
+                ).then(response => response.text())
+                    .then(data => {
+                        LoadLsCartHeader();
+                    })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        async function addToCartItem(productId, quantity) {
+            console.log("productId"+ productId + " quantity " + quantity);
+            if (quantity < 1) {
+                alert("Quantity must be greater than 0");
+                return;
+            }
+            try {
+                const response = await fetch(`/cart/addToCart?productId=${productId}&quantity=${quantity}`)
+                if(response.ok){
+                    await LoadLsCartHeader();
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+
+        }
+    </script>
 </header>
