@@ -77,4 +77,9 @@ public class CartService {
         }
         saveLsCart(lsCart,response);
     }
+    public void removeCartItem(int productId,HttpServletRequest request,HttpServletResponse response){
+        List<CartItermDTO> lsCart = getlsCart(request);
+        lsCart.removeIf(item -> item.getProductId() == productId);
+        saveLsCart(lsCart,response);
+    }
 }

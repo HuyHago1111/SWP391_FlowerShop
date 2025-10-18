@@ -646,6 +646,20 @@
             renderCartTable();
         });
 
+        function removeCartItem(productId) {
+            console.log("removeItem:", productId);
+            try {
+                fetch('/cart/removeItem'
+                    + '?productId=' + productId
+                ).then(response => response.text())
+                    .then(data => {
+                        renderCartTable();
+                    })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
         // 🧩 Hàm render lại toàn bộ bảng giỏ hàng
         function renderCartTable() {
             fetch('/cart/showCart')
@@ -683,16 +697,41 @@
             // ✅ Gọi cập nhật sau khi input đã đổi
             updateQuantity(productId, quantity);
         }
+        function validateQuantity(inputElement,productId){
+            const stockQuantity = parseInt(inputElement.getAttribute('data-quantity'));
+            let quantity = parseInt(inputElement.value);
+            if(isNaN(quantity) || quantity < 1){
+                quantity =1;
+                inputElement.value = quantity;
+
+        }
+            if(quantity > stockQuantity){
+                alert('Not enough stock');
+                quantity = stockQuantity;
+                inputElement.value =quantity;
+            }
+            updateQuantity(productId,quantity);
+        }
+
+
 
         // 🧩 Nút cộng số lượng
-        function plusQuantity(productId) {
+        function plusQuantity(productId, stockQuantity) {
             const input = document.querySelector(`input[data-productId="${productId}"]`);
             if (!input) return;
             let quantity = parseInt(input.value) || 0;
-            quantity++;
-            input.value = quantity;
-            // ✅ Gọi cập nhật sau khi input đã đổi
-            updateQuantity(productId, quantity);
+           {
+               if(quantity < stockQuantity){
+                   quantity++;
+                   input.value = quantity;
+                   // ✅ Gọi cập nhật sau khi input đã đổi
+                   updateQuantity(productId, quantity);
+               }else {
+                     alert('Not enough stock');
+               }
+
+            }
+
         }
     </script>
 

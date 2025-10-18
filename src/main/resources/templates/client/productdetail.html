@@ -1126,18 +1126,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     );
 })
-function addToCart(productId, quantity) {
+ async function addToCart(productId, quantity) {
     console.log("productId"+ productId + " quantity " + quantity);
     if (quantity < 1) {
         alert("Quantity must be greater than 0");
         return;
     }
     try {
-        fetch(`/cart/addToCart?productId=${productId}&quantity=${quantity}`)
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-            })
+       const response = await fetch(`/cart/addToCart?productId=${productId}&quantity=${quantity}`)
+            if(response.ok){
+                await LoadLsCartHeader();
+            }
     } catch (error) {
         console.log(error);
     }

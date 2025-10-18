@@ -69,7 +69,7 @@ public class UserController {
         /**
          * Hiển thị lịch sử mua hàng của một người dùng cụ thể.
          */
-        @GetMapping("/{userId}/orders")
+        @GetMapping("/lo")
         public String viewUserOrderHistory(@PathVariable("userId") Integer userId, Model model) {
             // Sử dụng Optional để xử lý trường hợp không tìm thấy user
             return userService.findUserById(userId).map(user -> {
