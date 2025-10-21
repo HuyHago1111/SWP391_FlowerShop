@@ -1,0 +1,134 @@
+<section class="cart-section section-b-space" th:fragment="cartTable">
+    <div class="container-fluid-lg">
+        <div class="row g-sm-5 g-3">
+            <div class="col-xxl-9">
+                <div class="cart-table">
+                    <div class="table-responsive-xl">
+                        <table class="table">
+                            <tbody>
+                            <tr class="product-box-contain" th:each="item : ${lsCart}">
+                                <td class="product-detail">
+                                    <div class="product border-0">
+                                        <a href="product-left-thumbnail.html" class="product-image">
+                                            <img th:src="@{${item.productImage}}"
+                                                 class="img-fluid blur-up lazyload" alt="">
+                                        </a>
+                                        <div class="product-detail">
+                                            <ul>
+                                                <li class="name">
+                                                    <a href="product-left-thumbnail.html" th:text="${item.productName}">Bell
+                                                        pepper</a>
+                                                </li>
+
+
+                                                <li class="text-content"><span
+                                                        class="text-title">Quantity</span><span
+                                                        th:text="${item.stockQuantity}"
+                                                        ></span></li>
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="price">
+                                    <h4 class="table-title text-content">Price</h4>
+                                    <h5 th:text="${item.productPrice}" th:data-price="${item.productPrice}">$35.10
+                                        <del class="text-content">$45.68</del>
+                                    </h5>
+                                </td>
+
+                                <td class="quantity">
+                                    <h4 class="table-title text-content">Qty</h4>
+                                    <div class="quantity-price">
+                                        <div class="cart_qty">
+                                            <div class="input-group">
+                                                <button type="button"
+                                                        th:onclick="'minusQuantity(' + ${item.productId} + ' )'"
+                                                        class="btn qty-left-minus"
+                                                        data-type="minus">
+                                                    <i class="fa fa-minus ms-0"></i>
+                                                </button>
+
+                                                <input class="form-control input-number qty-input"
+                                                       type="text"
+                                                       name="quantity"
+                                                       th:data-quantity="${item.stockQuantity}"
+                                                       th:attr="onchange='validateQuantity(this, ' + ${item.productId} + ')'"
+                                                       th:data-productId="${item.productId}"
+                                                       th:value="${item.quantityCart}">
+
+                                                <button type="button"
+                                                        th:onclick="'plusQuantity(' + ${item.productId} + ', ' + ${item.stockQuantity} + ' )'"
+                                                        class="btn qty-right-plus"
+                                                        data-type="plus">
+                                                    <i class="fa fa-plus ms-0"></i>
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="subtotal">
+                                    <h4 class="table-title text-content">Total</h4>
+                                    <h5 th:text="${item.getTotalPrice()}" th:data-totalPrice="${item.totalPrice}">
+                                        $35.10</h5>
+                                </td>
+
+                                <td class="save-remove">
+                                    <h4 class="table-title text-content">Action</h4>
+
+
+                                    <button
+                                            class="remove close_button"  th:onclick="'removeCartItem(' + ${item.productId} + ' )'">Remove</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xxl-3">
+                <div class="summery-box p-sticky">
+                    <div class="summery-header">
+                        <h3>Cart Total</h3>
+                    </div>
+
+
+
+                    <ul class="summery-total">
+                        <li class="list-total border-top-0">
+                            <h4>Total (USD)</h4>
+                            <h4 class="price theme-color" th:text="${sumTotalCart}">$132.58</h4>
+                        </li>
+                    </ul>
+
+                    <div class="button-group cart-button">
+                        <ul>
+                            <li>
+
+                                    <input type="hidden" name="amount" id="amount" th:value="${sumTotalCart}"/>
+                                    <button  id="payBtn" th:attr="onclick='pay()'"
+                                             class="btn btn-animation proceed-btn fw-bold">Process To Checkout
+                                    </button>
+
+
+                            </li>
+
+                            <li>
+                                <button onclick="location.href = 'index.html';"
+                                        class="btn btn-light shopping-button text-dark">
+                                    <i class="fa-solid fa-arrow-left-long"></i>Return To Shopping
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

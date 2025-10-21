@@ -447,3 +447,71 @@ $(".navbar-toggler-icon-2").click(function () {
 $(".bg-overlay").click(function () {
     $(".bg-overlay, .sidebar-col").removeClass("show");
 });
+/**
+ * showAlert(message, type, position, timeout)
+ * - message: chuỗi
+ * - type: 'success'|'danger'|'warning'|'info'
+ * - position: 'top-right'|'top-left'|'bottom-right'|'bottom-left'
+ * - timeout: ms trước khi tự ẩn (nếu 0 -> không tự ẩn)
+ */
+function showAlert(message, type = 'info', position = 'top-right', timeout = 3000) {
+    console.log("hẹ hẹ hẹ ")
+    const map = {
+        'top-right': document.getElementById('alerts-top-right'),
+        'top-left': document.getElementById('alerts-top-left'),
+        'bottom-right': document.getElementById('alerts-bottom-right'),
+        'bottom-left': document.getElementById('alerts-bottom-left')
+    };
+    const container = map[position] || map['top-right'];
+
+    // Tạo element alert bootstrappy
+    const wrapper = document.createElement('div');
+    wrapper.className = `alert alert-${type} d-flex align-items-start`;
+    wrapper.setAttribute('role', 'alert');
+    wrapper.innerHTML = `
+        <div class="me-2 flex-grow-1">${message}</div>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+      `;
+
+    // ban đầu gán class enter để nó bắt đầu ngoài màn hình
+    wrapper.classList.add('enter');
+
+    // append vào container
+    container.appendChild(wrapper);
+
+    // Force reflow rồi thêm class showing để chạy transition vào
+    // (setTimeout 0 để đảm bảo transition được kích hoạt)
+    requestAnimationFrame(() => {
+        wrapper.classList.add('showing');
+        wrapper.classList.remove('enter');
+    });
+
+    // đóng khi click nút close
+    const closeBtn = wrapper.querySelector('.btn-close');
+    closeBtn.addEventListener('click', () => hideAlert(wrapper, container));
+
+    // Nếu timeout > 0 -> tự ẩn
+    if (timeout && timeout > 0) {
+        // tăng timeout nhỏ trước khi hide để hiển thị đủ animation
+        setTimeout(() => hideAlert(wrapper, container), timeout);
+    }
+}
+
+// Ẩn alert với animation rồi remove khỏi DOM
+function hideAlert(el, container) {
+    // tránh gọi nhiều lần
+    if (!el || el.dataset.hiding === '1') return;
+    el.dataset.hiding = '1';
+
+    el.classList.remove('showing');
+    el.classList.add('hiding');
+
+    // sau transition, remove node
+    // thời gian này nên khớp với CSS transition (khoảng 400ms)
+    setTimeout(() => {
+        if (container.contains(el)) container.removeChild(el);
+    }, 450);
+}
+
+// Ví dụ: showAlert có thể được gọi từ server-side (AJAX) hoặc từ bất cứ chỗ nào trong JS
+// showAlert('Xin chào!', 'success', 'top-right', 2000);

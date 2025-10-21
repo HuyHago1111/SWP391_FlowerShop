@@ -81,63 +81,13 @@
                                     <div class="onhover-dropdown header-badge">
                                         <button type="button" class="btn p-0 position-relative header-wishlist">
                                             <i data-feather="shopping-cart"></i>
-                                            <span class="position-absolute top-0 start-100 translate-middle badge">2
+                                            <span class="position-absolute top-0 start-100 translate-middle badge" id="totalProduct">
                                                     <span class="visually-hidden">unread messages</span>
                                                 </span>
                                         </button>
 
-                                        <div class="onhover-div">
-                                            <ul class="cart-list">
-                                                <li class="product-box-contain">
-                                                    <div class="drop-cart">
-                                                        <a href="product-left-thumbnail.html" class="drop-image">
-                                                            <img src="../assets/images/vegetable/product/1.png"
-                                                                 class="blur-up lazyload" alt="">
-                                                        </a>
+                                        <div class="onhover-div" id="lsCartHeader">
 
-                                                        <div class="drop-contain">
-                                                            <a href="product-left-thumbnail.html">
-                                                                <h5>Fantasy Crunchy Choco Chip Cookies</h5>
-                                                            </a>
-                                                            <h6><span>1 x</span> $80.58</h6>
-                                                            <button class="close-button close_button">
-                                                                <i class="fa-solid fa-xmark"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="product-box-contain">
-                                                    <div class="drop-cart">
-                                                        <a href="product-left-thumbnail.html" class="drop-image">
-                                                            <img src="../assets/images/vegetable/product/2.png"
-                                                                 class="blur-up lazyload" alt="">
-                                                        </a>
-
-                                                        <div class="drop-contain">
-                                                            <a href="product-left-thumbnail.html">
-                                                                <h5>Peanut Butter Bite Premium Butter Cookies 600 g
-                                                                </h5>
-                                                            </a>
-                                                            <h6><span>1 x</span> $25.68</h6>
-                                                            <button class="close-button close_button">
-                                                                <i class="fa-solid fa-xmark"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-
-                                            <div class="price-box">
-                                                <h5>Total :</h5>
-                                                <h4 class="theme-color fw-bold">$106.58</h4>
-                                            </div>
-
-                                            <div class="button-group">
-                                                <a href="cart.html" class="btn btn-sm cart-button">View Cart</a>
-                                                <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
-                                                    text-white">Checkout</a>
-                                            </div>
                                         </div>
                                     </div>
                                 </li>
@@ -535,17 +485,173 @@
                                                 </li>
                                             </ul>
                                         </li>
-
-
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',LoadLsCartHeader);
+        async function LoadLsCartHeader(){
+            const  lsCartHeader = document.getElementById('lsCartHeader');
+            const  totalProduct = document.getElementById('totalProduct');
+            try{
+                const response = await  fetch('/cart/getlsCart');
+                const lsCart = await response.json();
+
+                if(!lsCart || lsCart.legend === 0){
+                    lsCartHeader.innerHTML= "Your cart is empty.";
+                    return;
+                }
+                totalProduct.innerText =lsCart.length;
+                let total = 0;
+                let totalQuantity = 0;
+                const itemHtml = lsCart.map(item => {
+                    total += item.totalPrice;
+                    totalQuantity += item.quantityCart;
+                    return ` <ul class="cart-list">
+                                                <li class="product-box-contain">
+                                                    <div class="drop-cart">
+                                                        <a href="product-left-thumbnail.html" class="drop-image">
+                                                            <img src="${item.productImage}"
+                                                                 class="blur-up lazyload" alt="">
+                                                        </a>
+
+                                                        <div class="drop-contain">
+                                                            <a href="product-left-thumbnail.html">
+                                                                <h5>${item.productName}</h5>
+                                                            </a>
+                                                            <h6><span>${item.quantityCart}X</span> ${item.productPrice}</h6>
+                                                            <button class="close-button close_button" onclick="removeItem(${item.productId})">
+                                                                <i class="fa-solid fa-xmark"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                         `;
+
+                }).join('');
+                lsCartHeader.innerHTML =` <ul class="cart-list">
+                                            ${itemHtml}
+                                            </ul>
+
+                                            <div class="price-box">
+                                                <h5>Total : </h5>
+                                                <h4 class="theme-color fw-bold">${total}</h4>
+                                            </div>
+
+                                            <div class="button-group">
+                                                <a href="/cart" class="btn btn-sm cart-button">View Cart (${totalQuantity})</a>
+                                                <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
+                                                    text-white">Checkout</a>
+                                            </div>
+
+
+                `
+
+            }catch (error) {
+                console.log(error);
+
+            }
+        }
+        function removeItem(productId) {
+            console.log("removeItem:", productId);
+            try {
+                fetch('/cart/removeItem'
+                    + '?productId=' + productId
+                ).then(response => response.text())
+                    .then(data => {
+                        LoadLsCartHeader();
+                    })
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        async function addToCartItem(productId, quantity) {
+            console.log("productId"+ productId + " quantity " + quantity);
+            if (quantity < 1) {
+                alert("Quantity must be greater than 0");
+                return;
+            }
+            try {
+                const response = await fetch(`/cart/addToCart?productId=${productId}&quantity=${quantity}`)
+                if(response.ok){
+                    await LoadLsCartHeader();
+
+                    showAlert('Added to cart successfully!', 'success', 'top-right', 2000);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+
+
+        }
+
+
+        function showAlert(message, type = 'info', position = 'top-right', timeout = 3000) {
+            console.log("hẹ hẹ hẹ ")
+            const map = {
+                'top-right': document.getElementById('alerts-top-right'),
+                'top-left': document.getElementById('alerts-top-left'),
+                'bottom-right': document.getElementById('alerts-bottom-right'),
+                'bottom-left': document.getElementById('alerts-bottom-left')
+            };
+            const container = map[position] || map['top-right'];
+
+            // Tạo element alert bootstrappy
+            const wrapper = document.createElement('div');
+            wrapper.className = `alert alert-${type} d-flex align-items-start`;
+            wrapper.setAttribute('role', 'alert');
+            wrapper.innerHTML = `
+        <div class="me-2 flex-grow-1">${message}</div>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+      `;
+
+            // ban đầu gán class enter để nó bắt đầu ngoài màn hình
+            wrapper.classList.add('enter');
+
+            // append vào container
+            container.appendChild(wrapper);
+
+            // Force reflow rồi thêm class showing để chạy transition vào
+            // (setTimeout 0 để đảm bảo transition được kích hoạt)
+            requestAnimationFrame(() => {
+                wrapper.classList.add('showing');
+                wrapper.classList.remove('enter');
+            });
+
+            // đóng khi click nút close
+            const closeBtn = wrapper.querySelector('.btn-close');
+            closeBtn.addEventListener('click', () => hideAlert(wrapper, container));
+
+            // Nếu timeout > 0 -> tự ẩn
+            if (timeout && timeout > 0) {
+                // tăng timeout nhỏ trước khi hide để hiển thị đủ animation
+                setTimeout(() => hideAlert(wrapper, container), timeout);
+            }
+        }
+
+        // Ẩn alert với animation rồi remove khỏi DOM
+        function hideAlert(el, container) {
+            // tránh gọi nhiều lần
+            if (!el || el.dataset.hiding === '1') return;
+            el.dataset.hiding = '1';
+
+            el.classList.remove('showing');
+            el.classList.add('hiding');
+
+            // sau transition, remove node
+            // thời gian này nên khớp với CSS transition (khoảng 400ms)
+            setTimeout(() => {
+                if (container.contains(el)) container.removeChild(el);
+            }, 450);
+        }
+
+        // Ví dụ: showAlert có thể được gọi từ server-side (AJAX) hoặc từ bất cứ chỗ nào trong JS
+        // showAlert('Xin chào!', 'success', 'top-right', 2000);
+    </script>
 </header>
