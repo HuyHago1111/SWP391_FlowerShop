@@ -109,9 +109,13 @@
                     <div class="button-group cart-button">
                         <ul>
                             <li>
-                                <button onclick="location.href = 'checkout.html';"
-                                        class="btn btn-animation proceed-btn fw-bold">Process To Checkout
-                                </button>
+
+                                    <input type="hidden" name="amount" id="amount" th:value="${sumTotalCart}"/>
+                                    <button  id="payBtn" th:attr="onclick='pay()'"
+                                             class="btn btn-animation proceed-btn fw-bold">Process To Checkout
+                                    </button>
+
+
                             </li>
 
                             <li>
@@ -126,4 +130,5 @@
             </div>
         </div>
     </div>
+
 </section>

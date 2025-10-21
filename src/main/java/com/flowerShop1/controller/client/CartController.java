@@ -61,7 +61,7 @@ public class CartController {
 
     public String getCart(HttpServletRequest request, Model model) {
         model.addAttribute("lsCart", cartService.getlsCart(request));
-        model.addAttribute("sumTotalCart", cartService.getlsCart(request).stream().mapToDouble(CartItermDTO::getTotalPrice).sum());
+        model.addAttribute("sumTotalCart",(long)(cartService.getlsCart(request).stream().mapToDouble(CartItermDTO::getTotalPrice).sum()));
 
         return "client/component/cartTable";
     }
