@@ -98,7 +98,6 @@ public class UserServiceimpl implements UserService {
             return true;
         }
         return false;
-
     }
 
     public void updateStatus(Integer userId, String newStatus) {
