@@ -733,6 +733,29 @@
             }
 
         }
+        function pay(){
+            console.log("Pay function called");
+            const amount = document.getElementById('amount').value;
+            console.log(amount)
+            try {
+                fetch(`/api/payment/create?amount=${amount}`, {
+                    method: 'POST'
+                }).then(response => response.json())
+                    .then(data => {
+                      if(data.code==='00'){
+                            window.location.href = data.data;
+
+                      }else {
+                          alert(data.message);
+                      }
+                    })
+            } catch (error) {
+                console.log(error);
+
+            }
+
+        }
+
     </script>
 
 </body>
