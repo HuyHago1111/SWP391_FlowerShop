@@ -8,7 +8,6 @@ import com.flowerShop1.entity.User;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-@Service
 
 public interface UserService {
     List<User> getAllUsers();
@@ -17,4 +16,6 @@ public interface UserService {
     Optional<User> findUserById(Integer id);
     User createUser(UserCreationDTO userDTO);
     List<Order> findOrdersByUserId(Integer userId);
+    User getUserById(int userId);
+    void save (User user);
 }

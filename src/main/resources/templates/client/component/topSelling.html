@@ -10,10 +10,10 @@
                             </div>
 
                             <div class="top-selling-contain wow " th:each="product : ${topSellingProducts}">
-                                <a href="product-left-thumbnail.html" class="top-selling-image">
+                                <a th:href="@{/product-detail/{id}(id=${product.productId})}">
                                     <img th:src="@{${product.imageUrl}}"
 
-                                         class="img-fluid blur-up lazyload" alt="">
+                                         class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
 
                                 </a>
 
@@ -59,9 +59,9 @@
                             </div>
 
                             <div class="top-selling-contain wow " th:each="product : ${trendingProducts}">
-                                <a href="product-left-thumbnail.html" class="top-selling-image">
+                                <a th:href="@{/product-detail/{id}(id=${product.productId})}">
                                     <img th:src="@{${product.imageUrl}}"
-                                         class="img-fluid blur-up lazyload" alt="">
+                                         class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                 </a>
 
                                 <div class="top-selling-detail">

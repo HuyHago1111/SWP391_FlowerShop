@@ -7,7 +7,7 @@ import com.flowerShop1.entity.Role;
 import com.flowerShop1.entity.User;
 import com.flowerShop1.mapper.user.UserMapper;
 import com.flowerShop1.mapper.user.UserSignUpMapper;
-import com.flowerShop1.repository.OrdersRepository;
+import com.flowerShop1.repository.OrderRepository;
 import com.flowerShop1.repository.RoleRepository;
 import com.flowerShop1.repository.UserRepository;
 import com.flowerShop1.service.mail.MailService;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class UserServiceimpl implements UserService {
     @Autowired
@@ -31,7 +30,7 @@ public class UserServiceimpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-    private OrdersRepository orderRepository;
+    private OrderRepository orderRepository;
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -75,6 +74,21 @@ public class UserServiceimpl implements UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return orderRepository.findByUserOrderByOrderDateDesc(user);
     }
+
+    @Override
+    public User getUserById(int userId) {
+        System.out.println("[DEBUG] Fetching user with ID: " + userId);
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+    }
+
+    @Override
+    public void save(User user) {
+        System.out.println("[DEBUG] Saving user: " + user);
+        userRepository.save(user);
+    }
+
     @Override
     public void register(UserSignUpDTO user) {
         if (userRepository.existsByEmail(user.getEmail())) {

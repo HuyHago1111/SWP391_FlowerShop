@@ -18,7 +18,7 @@
                                 <div class="product-image">
                                     <a th:href="@{/product-detail/{id}(id=${products[i].productId})}">
                                         <img th:src="@{${products[i].imageUrl}}"
-                                             class="img-fluid blur-up lazyload" alt="">
+                                             class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                     </a>
                                     <ul class="product-option justify-content-around">
                                         <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
@@ -89,7 +89,7 @@
                                 <div class="product-image">
                                     <a th:href="@{/product-detail/{id}(id=${products[i +1 ].productId})}">
                                         <img th:src="@{${products[i+1].imageUrl}}"
-                                             class="img-fluid blur-up lazyload" alt="">
+                                             class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                     </a>
                                     <ul class="product-option justify-content-around">
                                         <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">

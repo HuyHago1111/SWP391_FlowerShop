@@ -93,4 +93,10 @@ public class CartController {
         model.addAttribute("lsCart", cartService.getlsCart(request));
         return "client/component/cartTable";
     }
+    @GetMapping("/checkout")
+    public String checkout( Model model, HttpServletRequest request,HttpServletResponse response) {
+        model.addAttribute("lsCart", cartService.getlsCart(request));
+        model.addAttribute("sumTotalCart",(long)(cartService.getlsCart(request).stream().mapToDouble(CartItermDTO::getTotalPrice).sum()));
+        return "client/checkout";
+    }
 }
