@@ -1,7 +1,10 @@
 package com.flowerShop1.controller.client;
 
+import com.flowerShop1.dto.product.CartItermDTO;
+import com.flowerShop1.service.cart.CartService;
 import com.flowerShop1.util.VNPayUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,8 @@ public class VNPayController {
     private String vnpay_Url;
     @Value("${vnp_ReturnUrl}")
     private String vnpay_Returnurl;
+    @Autowired
+    private CartService cartService;
 
     @PostMapping("/api/payment/create")
     @ResponseBody
@@ -101,11 +106,14 @@ public class VNPayController {
 
         // Hash lại
         String signValue = VNPayUtil.hmacSHA512(vnpay_HashSecret, hashData.toString());
+        List<CartItermDTO> lsCart = cartService.getlsCart(request);
+
 
         // So sánh chữ ký
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(params.get("vnp_ResponseCode"))) {
                 model.put("message", "Thanh toán thành công");
+
             } else {
                 model.put("message", "Thanh toán thất bại");
             }
