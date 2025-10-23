@@ -45,7 +45,7 @@ public class User {
    private String email;
     @Column(name = "password_hash", nullable = false, length = 255, columnDefinition = "nvarchar(255)")
    private String password;
-    @Column(name = "phone",unique = true, length = 20, columnDefinition = "nvarchar(20)")
+    @Column(name = "phone",nullable = false,unique = true, length = 20, columnDefinition = "nvarchar(20)")
    private String phone;
     @Column(name = "address", length = 255, columnDefinition = "nvarchar(255)")
    private String address;
