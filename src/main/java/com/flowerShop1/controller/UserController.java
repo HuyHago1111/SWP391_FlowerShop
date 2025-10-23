@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -30,7 +31,7 @@ public class UserController {
     public String getAllUsers(Model model) {
         List<UserDTO> users = userService.getAllUsers().stream().map(userMapper::entityToDto).toList();
         model.addAttribute("users", users);
-        return "indexa";
+        return "Admin/indexa";
     }
     // 2. TÍNH NĂNG THÊM USER (HIỂN THỊ FORM)
     @GetMapping("/add")
