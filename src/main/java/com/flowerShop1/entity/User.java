@@ -67,4 +67,19 @@ public class User {
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    // ✅ Helper method: trả về tên vai trò của người dùng
+    public String getRoleName() {
+        return role != null ? role.getRoleName() : null;
+    }
+
+
 }
