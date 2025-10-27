@@ -66,12 +66,25 @@
         public Optional<User> findUserById(Integer id) {
             return userRepository.findById(id);
         }
+        @Override
+        public void updateUserRole(Integer userId, Integer newRoleId) {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            Role newRole = roleRepository.findById(newRoleId)
+                    .orElseThrow(() -> new RuntimeException("Role not found"));
+
+            user.setRole(newRole);
+            user.setUpdatedAt(LocalDateTime.now());
+            userRepository.save(user);
+        }
 
         @Override
         public void createUser(UserCreationDTO userDTO) {
             if (userRepository.existsByEmail(userDTO.getEmail())) {
                 throw new RuntimeException("Lỗi: Email này đã được sử dụng!");
-            } else if (userRepository.existsByPhone(userDTO.getPhone())) {
+            }
+            if (userRepository.existsByPhone(userDTO.getPhone())) {
                 throw new RuntimeException("Lỗi: Số điện thoại này đã được đăng ký!");
             }
 

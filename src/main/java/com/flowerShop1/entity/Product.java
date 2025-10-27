@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 //  product_id     int identity
 //        primary key,
@@ -36,7 +37,7 @@ public class Product {
     private Category category;
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
-    private Supplier supplierId;
+    private Supplier supplier;
     @Column(name = "product_name", nullable = false, length = 150, columnDefinition = "nvarchar(150)")
     private String productName;
     @Column(name = "description", columnDefinition = "nvarchar(max)")
@@ -50,7 +51,8 @@ public class Product {
     @Column(name = "status", nullable = false, length = 20, columnDefinition = "nvarchar(20)" )
     private String status;
     @Column(name = "created_at", nullable = false)
-    private String createdAt;
-
+    private LocalDateTime createdAt;
+    @Column(name="updated_at" ,nullable =   false )
+    private LocalDateTime updatedAt;
 
 }

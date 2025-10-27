@@ -126,6 +126,9 @@
                             <h3>Welcome To Fastkart</h3>
                             <h4>Log In Your Account</h4>
                         </div>
+                        <div th:if="${session.loginError}" class="alert alert-danger text-center mt-3">
+                            <span th:text="${session.loginError}"></span>
+                        </div>
 
                         <div class="input-box">
                             <form class="row g-4" th:action="@{/login}" th:object="${userLoginDTO}" method="post" >
