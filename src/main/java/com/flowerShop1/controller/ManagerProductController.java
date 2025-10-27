@@ -116,7 +116,16 @@ public class ManagerProductController {
     @PostMapping("/new")
     public String createNewProduct(@ModelAttribute Product product,
                                    @RequestParam("imageFile") MultipartFile imageFile,
+                                   @RequestParam("categoryId") Integer categoryId,
+                                   @RequestParam("supplierId") Integer supplierId,
                                    RedirectAttributes ra) throws IOException {
+        // Gán Category & Supplier dựa theo id
+        categoryRepository.findById(categoryId).ifPresent(product::setCategory);
+        suppliersRepository.findById(supplierId).ifPresent(product::setSupplier);
+
+        // Tự động set status Active khi tạo mới
+        product.setStatus("Active");
+
         productService.save(product, imageFile);
         ra.addFlashAttribute("success", "✅ Product added successfully!");
         return "redirect:/manager/products";
