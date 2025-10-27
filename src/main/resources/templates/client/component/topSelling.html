@@ -21,27 +21,8 @@
                                     <a href="product-left-thumbnail.html">
                                         <h5 th:text="${product.productName}">Tuffets Whole Wheat Bread</h5>
                                     </a>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
-                                    </div>
-                                    <h6 th:text="${product.price}">$ 10.00</h6>
+
+                                    <h6 th:text="${product.price} + ' ₫'">$ 10.00</h6>
                                 </div>
                             </div>
 
@@ -69,26 +50,10 @@
                                         <h5 th:text="${product.productName}">Good Life Refined Sunflower Oil</h5>
                                     </a>
                                     <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
+
+                                        <span>.</span>
                                     </div>
-                                    <h6 th:text="${product.price}">$ 10.00</h6>
+                                    <h6 th:text="${product.price} + ' ₫'">$ 10.00</h6>
                                 </div>
                             </div>
 

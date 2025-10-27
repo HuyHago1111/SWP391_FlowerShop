@@ -34,7 +34,7 @@
 
                                 <td class="price">
                                     <h4 class="table-title text-content">Price</h4>
-                                    <h5 th:text="${item.productPrice}" th:data-price="${item.productPrice}">$35.10
+                                    <h5 th:text="${item.productPrice}  + ' ₫'" th:data-price="${item.productPrice} + ' ₫'">$35.10
                                         <del class="text-content">$45.68</del>
                                     </h5>
                                 </td>
@@ -73,7 +73,7 @@
 
                                 <td class="subtotal">
                                     <h4 class="table-title text-content">Total</h4>
-                                    <h5 th:text="${item.getTotalPrice()}" th:data-totalPrice="${item.totalPrice}">
+                                    <h5 th:text="${item.getTotalPrice()}  + ' ₫'" th:data-totalPrice="${item.totalPrice} + ' ₫'">
                                         $35.10</h5>
                                 </td>
 
@@ -101,8 +101,8 @@
 
                     <ul class="summery-total">
                         <li class="list-total border-top-0">
-                            <h4>Total (USD)</h4>
-                            <h4 class="price theme-color" th:text="${sumTotalCart}">$132.58</h4>
+                            <h4>Total (VND)</h4>
+                            <h4 class="price theme-color" th:text="${sumTotalCart} +' ₫' ">$132.58</h4>
                         </li>
                     </ul>
 
