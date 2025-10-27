@@ -20,26 +20,7 @@
                                         <img th:src="@{${products[i].imageUrl}}"
                                              class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                     </a>
-                                    <ul class="product-option justify-content-around">
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                            <a href="javascript:void(0)" data-bs-toggle="modal"
-                                               data-bs-target="#view">
-                                                <i data-feather="eye"></i>
-                                            </a>
-                                        </li>
 
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                            <a href="compare.html">
-                                                <i data-feather="refresh-cw"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                            <a href="wishlist.html" class="notifi-wishlist">
-                                                <i data-feather="heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                                 <div class="product-detail">
                                     <a href="product-left-thumbnail.html">
@@ -47,30 +28,14 @@
                                     </a>
 
                                     <div class="product-rating mt-2">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
+
+                                        <span>.</span>
                                     </div>
 
 
 
                                     <div class="counter-box">
-                                        <h6 class="sold theme-color" th:text="'$ ' + ${products[i].price}">$ 80.00</h6>
+                                        <h6 class="sold theme-color" th:text="${products[i].price} + ' ₫'">$ 80.00</h6>
 
                                         <div class="addtocart_btn">
                                             <button class="add-button addcart-button btn buy-button text-light" th:attr="onclick='addToCartItem(' + ${products[i].productId} + ', 1)'">
@@ -91,26 +56,7 @@
                                         <img th:src="@{${products[i+1].imageUrl}}"
                                              class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                     </a>
-                                    <ul class="product-option justify-content-around">
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                            <a href="javascript:void(0)" data-bs-toggle="modal"
-                                               data-bs-target="#view">
-                                                <i data-feather="eye"></i>
-                                            </a>
-                                        </li>
 
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                            <a href="compare.html">
-                                                <i data-feather="refresh-cw"></i>
-                                            </a>
-                                        </li>
-
-                                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                            <a href="wishlist.html" class="notifi-wishlist">
-                                                <i data-feather="heart"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                                 <div class="product-detail">
                                     <a href="product-left-thumbnail.html">
@@ -118,30 +64,14 @@
                                     </a>
 
                                     <div class="product-rating mt-2">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
+
+                                        <span>.</span>
                                     </div>
 
 
 
                                     <div class="counter-box">
-                                        <h6 class="sold theme-color" th:text="'$ ' + ${products[i + 1].price}">$ 80.00</h6>
+                                        <h6 class="sold theme-color" th:text="${products[i + 1].price} + ' ₫'">$ 80.00</h6>
 
                                         <div class="addtocart_btn">
                                             <button class="add-button addcart-button btn buy-button text-light" th:attr="onclick='addToCartItem(' + ${products[i+1].productId} + ', 1)'">

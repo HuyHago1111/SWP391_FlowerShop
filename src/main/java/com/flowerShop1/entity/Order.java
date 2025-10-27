@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Orders")
@@ -55,7 +56,7 @@ go
     @Column(name = "shipping_address", length = 255, columnDefinition = "nvarchar(255)")
     private String shippingAddress;
     @Column(name = "order_date", nullable = false)
-    private String orderDate;
+    private LocalDateTime orderDate;
     @Column(name = "updated_at", nullable = false)
     private String updatedAt;
     @Column(name = "note", length = 255, columnDefinition = "nvarchar(255)")

@@ -15,13 +15,13 @@ package com.flowerShop1.entity;
 //    updated_at    datetime
 
 
-import com.flowerShop1.dto.Order.OrderDTO;
+
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "Users")
@@ -58,6 +58,8 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Order> orders;
+
+
 
     // ... getters and setters for orders
     public Set<Order> getOrders() {

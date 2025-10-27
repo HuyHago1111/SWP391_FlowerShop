@@ -190,26 +190,10 @@
                             <h6 class="offer-top">30% Off</h6>
                             <h2 class="name" th:text="${product.productName}">Creamy Chocolate Cake</h2>
                             <div class="price-rating">
-                                <h3 class="theme-color price" th:text="'$ ' + ${product.price}">$49.50</h3>
+                                <h3 class="theme-color price" th:text="${product.price} + ' ₫'">$49.50</h3>
                                 <div class="product-rating custom-rate">
-                                    <ul class="rating">
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star" class="fill"></i>
-                                        </li>
-                                        <li>
-                                            <i data-feather="star"></i>
-                                        </li>
-                                    </ul>
-                                    <span class="review">23 Customer Review</span>
+
+
                                 </div>
                             </div>
 
