@@ -17,6 +17,7 @@ public interface UserService {
 //    List<User> getAllUsers();
 
     Page<User> searchUsers(String keyword, String status, Pageable pageable);
+    void updateUserRole(Integer userId, Integer newRoleId);
 
 //    Page<User> getAllUsers(Pageable pageable);
     void register(UserSignUpDTO user);

@@ -112,7 +112,7 @@
 
         /* Màu nền header xanh lá chủ đạo */
         .modal-header.bg-success {
-            background: linear-gradient(135deg, #16a34a, #22c55e);
+            background: linear-gradient(135deg, #856404, #22c55e);
             border: none;
         }
 
@@ -130,13 +130,13 @@
 
         /* Nút Delete */
         #confirmDeleteBtn {
-            background-color: #16a34a;
+            background-color: #ef3f3e;
             border: none;
             transition: all 0.2s ease;
         }
 
         #confirmDeleteBtn:hover {
-            background-color: #15803d;
+            background-color: #747dc6;
             transform: translateY(-2px);
         }
 
@@ -320,7 +320,8 @@
                                                     </li>
 
                                                     <li>
-                                                        <a href="javascript:void(0)">
+                                                        <a th:href="@{'/users/update-role/' + ${user.userId}}"
+                                                           class="btn btn-outline-success btn-sm" title="Update Role">
                                                             <i class="ri-pencil-line"></i>
                                                         </a>
                                                     </li>
@@ -421,7 +422,7 @@
         </div>
     </div>
     <!-- Modal End -->
-</div>
+
     <!-- Delete Modal Box Start -->
     <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">

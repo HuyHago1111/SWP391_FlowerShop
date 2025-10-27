@@ -105,7 +105,32 @@ public class UserController {
             return "redirect:/users";
         }
 
-        /**
+    @GetMapping("/update-role/{userId}")
+    public String showUpdateRoleForm(@PathVariable("userId") Integer userId, Model model ,RedirectAttributes redirectAttributes) {
+        User user = userService.findUserById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roleRepository.findAll());
+        return "Admin/update-role";
+    }
+
+    @PostMapping("/update-role/{userId}")
+    public String updateUserRole(@PathVariable("userId") Integer userId,
+                                 @RequestParam("newRoleId") Integer newRoleId,
+                                 RedirectAttributes redirectAttributes) {
+
+        try {
+            userService.updateUserRole(userId, newRoleId);
+            redirectAttributes.addFlashAttribute("successMessage", "✅ Cập nhật quyền người dùng thành công!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "❌ Lỗi khi cập nhật quyền: " + e.getMessage());
+        }
+
+        return "redirect:/users";
+    }
+
+    /**
          * Hiển thị lịch sử mua hàng của một người dùng cụ thể.
          */
         @GetMapping("/lo")
