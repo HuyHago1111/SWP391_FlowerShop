@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
     <meta name="author" content="pixelstrap">
     <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
     <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
-    <title>Fastkart - Manage Products</title>
+    <title>Fastkart - Add New User</title>
 
     <!-- Google font -->
     <link
@@ -49,46 +49,20 @@
     <!-- App css -->
     <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
 </head>
+
 <style>
-    .table-modern {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 10px;
+    .card {
+        border-radius: 1rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
-
-    .table-modern thead th {
-        background-color: #f8f9fa;
-        color: #444;
-        font-weight: 600;
-        padding: 14px 18px;
-        border: none;
-    }
-
-    .table-modern tbody tr {
-        background-color: #fff;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        border-radius: 10px;
-        transition: transform 0.2s ease;
-    }
-
-    .table-modern tbody tr:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-    }
-
-    .table-modern td {
-        vertical-align: middle;
-        padding: 14px 18px;
-        border-top: none !important;
-    }
-
     .product-img {
-        width: 75px;
-        height: 75px;
-        object-fit: cover;
+        max-width: 280px;
         border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-
+    .badge-status {
+        font-size: 0.9rem;
+    }
     /* STATUS BADGE */
     .status-badge {
         padding: 6px 12px;
@@ -108,51 +82,6 @@
     .status-outofstock {
         background-color: #f8d7da;
         color: #a94442;
-    }
-
-    /* ACTION ICONS */
-    .action-icons a {
-        margin: 0 6px;
-        font-size: 1.1rem;
-        color: #198754;
-        text-decoration: none;
-        transition: color 0.2s;
-    }
-
-    .action-icons a:hover {
-        color: #0a58ca;
-    }
-
-    .btn-delete {
-        background: none;
-        border: none;
-        color: #dc3545;
-        cursor: pointer;
-        padding: 0;
-        font-size: 1.1rem;
-        transition: color 0.2s;
-    }
-
-    .btn-delete:hover {
-        color: #b02a37;
-    }
-    .pagination .page-link {
-        border: 1px solid #28a745; /* xanh lá */
-        color: #28a745;
-        border-radius: 8px;
-        margin: 0 3px;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .pagination .page-link:hover {
-        background-color: #28a745;
-        color: #fff;
-    }
-
-    .pagination .active .page-link {
-        background-color: #28a745 !important;
-        border-color: #28a745 !important;
-        color: #fff !important;
     }
 
     /* Hiệu ứng mở modal */
@@ -197,7 +126,7 @@
     }
 
     #confirmDeleteBtn:hover {
-        background-color: #747dc6;
+        background-color:  #ef3f3e;
         transform: translateY(-2px);
     }
 
@@ -210,8 +139,6 @@
     .modal-content {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
-
-
 </style>
 <body>
 <!-- tap on top start -->
@@ -219,10 +146,9 @@
     <span class="lnr lnr-chevron-up"></span>
 </div>
 <!-- tap on tap end -->
-
-<!-- page-wrapper Start-->
+<!-- page-wrapper Start -->
 <div class="page-wrapper compact-wrapper" id="pageWrapper">
-    <!-- Page Header Start-->
+    <!-- Page Header Start -->
     <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
     <!-- Page Header End -->
     <!-- Page Body Start -->
@@ -232,137 +158,114 @@
         <!-- Page Sidebar Ends-->
 
         <div class="page-body">
-            <div class="title-header option-title">
-<!--                <div class="d-flex justify-content-between mb-3">-->
-                    <h5>Product Management</h5>
-                <form class="d-inline-flex">
-                    <a class="btn btn-success" th:href="@{/manager/products/new}">+ Add Product</a>
-                </form>
+            <div class="container mt-5 mb-5">
+                <div class="card shadow-lg border-0 rounded-3">
+                <!-- Header -->
+                <div class="title-header option-title">
+                    <div class="title-header option-title"><i class="ri-pencil-line me-1"></i> <h5>Product Detail</h5></div>
+                    <a th:href="@{/manager/products/{id}/edit(id=${product.productId})}" class="btn btn-success">
+                        <i class="ri-pencil-line"></i> Update Product</a>
+                        <button class="btn btn-secondary" data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${product.productId}" >
+                            <i class="ri-delete-bin-line"></i> Delete Product
+                        </button>
+                    <a th:href="@{/manager/products}" class="btn btn-success px-4 me-2">← Back to Product List</a>
                 </div>
 
-                <!-- Search + Filter -->
-                <form class="row g-2 mb-3" th:action="@{/manager/products}" method="get">
-                    <div class="col-md-3">
-                        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by name..." class="form-control"/>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="categoryId" class="form-select">
-                            <option value="">All Categories</option>
-                            <option th:each="c : ${categories}" th:value="${c.categoryId}" th:text="${c.categoryName}" th:selected="${c.categoryId == categoryId}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="supplierId" class="form-select">
-                            <option value="">All Suppliers</option>
-                            <option th:each="s : ${suppliers}" th:value="${s.supplierId}" th:text="${s.companyName}" th:selected="${s.supplierId == supplierId}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="sortBy" class="form-select">
-                            <option value="price" th:selected="${sortBy=='price'}">Sort by Price</option>
-                            <option value="stockQuantity" th:selected="${sortBy=='stockQuantity'}">Sort by Stock</option>
-                        </select>
-                    </div>
-                    <div class="col-md-1">
-                        <select name="sortDir" class="form-select">
-                            <option value="asc" th:selected="${sortDir=='asc'}">Tăng Dần</option>
-                            <option value="desc" th:selected="${sortDir=='desc'}">Giảm dần</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-outline-success w-100">Apply</button>
-                    </div>
-                </form>
+                <!-- Product Details -->
+                <div class="card p-4">
+                    <div class="row g-4">
+                        <div class="col-md-4 text-center">
+                            <img th:src="${product.imageUrl}" class="product-img img-fluid" alt="Product Image">
+                        </div>
 
-                <!-- Modern Product Table -->
-                <div class="table-responsive table-product">
-<!--                    <div class="card-body">-->
-                        <table class="table all-package theme-table">
-                            <thead>
-                            <tr class="text-center">
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
+                        <div class="col-md-8">
+                            <h4 class="fw-bold mb-3" th:text="${product.productName}"></h4>
 
-                            <tbody>
-                            <tr th:each="p : ${products}">
-                                <td class="text-center">
-                                    <img th:src="${p.imageUrl}" alt="Product Image" class="product-img">
-                                </td>
-                                <td th:text="${p.productName}"></td>
-                                <td th:text="${#strings.abbreviate(p.description,60)}"></td>
-                                <td th:text="${#numbers.formatDecimal(p.price, 1, 2)}"></td>
-                                <td th:text="${p.stockQuantity}"></td>
-                                <td>
-                    <span th:classappend="${p.status=='Active'} ? 'status-badge status-active' :
-                                           (${p.status=='Inactive'} ? 'status-badge status-inactive' :
+                            <div class="mb-2">
+                                <strong>Category:</strong>
+                                <span th:text="${product.category.categoryName}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>Supplier:</strong>
+                                <span th:text="${product.supplier.companyName}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>Price:</strong>
+                                <span class="text-primary fw-semibold"
+                                      th:text="${#numbers.formatDecimal(product.price, 1, 'COMMA', 2, 'POINT')} + ' VND'"></span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>Stock Quantity:</strong>
+                                <span th:text="${product.stockQuantity}"></span>
+                            </div>
+                            <div class="mb-2">
+                                <strong>Description:</strong>
+                                <p class="mt-1 text-muted" th:text="${product.description}"></p>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Status:</strong>
+                                <span th:classappend="${product.status=='Active'} ? 'status-badge status-active' :
+                                           (${product.status=='Inactive'} ? 'status-badge status-inactive' :
                                            'status-badge status-outofstock')"
-                          th:text="${p.status}"></span>
-                                </td>
-                                <td class="action-icons text-center">
-                                    <a th:href="@{/manager/products/{id}(id=${p.productId})}" title="View">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                    <a th:href="@{/manager/products/{id}/edit(id=${p.productId})}" title="Edit">
-                                        <i class="ri-pencil-line"></i>
-                                    </a>
-                                    <a data-bs-toggle="modal"
-                                          th:data-bs-target="'#deleteModal' + ${p.productId}"  style="display:inline"
-                                                type="submit" title="Delete Product" class="btn-delete">
-                                            <i class="ri-delete-bin-line"></i>
-                                    </a>
+                                      th:text="${product.status}"></span>
 
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                            </div>
+
+                            <!-- Status Change Form -->
+                            <form th:action="@{/manager/products/{id}/toggle-status(id=${product.productId})}" method="post" class="mt-3">
+                                <button type="submit" class="btn btn-warning"
+                                        th:if="${product.status != 'Out of Stock'}">
+                                    <i class="ri-refresh-line"></i> Toggle Status
+                                </button>
+                                <span class="text-muted" th:if="${product.status == 'Out of Stock'}">
+                        ⚠ This product is out of stock — status cannot be changed manually.
+                    </span>
+                            </form>
+
+                            <div class="mt-4 text-muted small">
+                                <p><strong>Created At:</strong> <span th:text="${#temporals.format(product.createdAt, 'dd/MM/yyyy HH:mm')}"></span></p>
+                                <p><strong>Last Updated:</strong> <span th:text="${#temporals.format(product.updatedAt, 'dd/MM/yyyy HH:mm')}"></span></p>
+                            </div>
+                        </div>
                     </div>
-            <!-- Pagination -->
-            <div th:replace="~{manager/products/pagination::pagination}"></div>
                 </div>
 
-            </div>
         </div>
-
-    <footer class="footer text-center mt-4">
-        <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
-    </footer>
-
+    </div>
+</div>
+    </div>
+</div>
 <!-- Confirm Delete Modal -->
-<div th:each="p : ${products}" class="modal fade"
-     th:id="'deleteModal' + ${p.productId}"
-     tabindex="-1"
-     aria-labelledby="deleteModalLabel"
-     aria-hidden="true">
+
+<div class="modal fade" th:id="'deleteModal' + ${product.productId}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-<!--        <div class="modal-content shadow-lg border-0 rounded-3">-->
-            <div class="modal-content border-0 rounded-4 shadow-sm">
-            <div class="modal-header bg-success text-white rounded-top-4 position-relative">
+        <div class="modal-content border-0 rounded-4 shadow-sm">
+
+            <!-- Header -->
+            <div class="modal-header bg-success text-white justify-content-center rounded-top-4 position-relative">
                 <h5 class="modal-title fw-semibold" id="deleteConfirmModalLabel">
                     <i class="ri-alert-line me-2"></i> Confirm Deletion
                 </h5>
                 <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+            <!-- Body -->
             <div class="modal-body text-center py-4 px-4 bg-white">
                 <p id="deleteModalText" class="fs-6 text-secondary mb-3">
                     Are you sure you want to permanently delete product
-                    <strong th:text="${p.productName}"></strong> ?
+                    <strong th:text="${product.productName}"></strong> ?
                 </p>
                 <p class="small text-success fst-italic mb-0">
                     ⚠️ Once deleted, this product cannot be restored.
                 </p>
             </div>
+
+            <!-- Footer -->
             <div class="modal-footer justify-content-center gap-3 bg-light rounded-bottom-4 border-0 py-3">
                 <button type="button" class="btn btn-outline-success px-4 py-2 fw-semibold rounded-3" data-bs-dismiss="modal">
                     <i class="ri-close-line"></i> Cancel
                 </button>
-                <form th:action="@{/manager/products/{id}/delete(id=${p.productId})}" method="post">
+                <form th:action="@{/manager/products/{id}/delete(id=${product.productId})}" method="post">
                     <input type="hidden" name="_method" value="delete"/>
                     <button type="submit" id="confirmDeleteBtn" class="btn btn-success px-4 py-2 fw-semibold rounded-3 shadow-sm">
                         <i class="ri-delete-bin-2-line"></i>  Delete
@@ -372,7 +275,9 @@
         </div>
     </div>
 </div>
-<!--</div>-->
+<footer class="footer text-center mt-4">
+    <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
+</footer>
 <!-- Modal Start -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -392,7 +297,6 @@
     </div>
 </div>
 <!-- Modal End -->
-
 <!-- latest js -->
 <script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
 
