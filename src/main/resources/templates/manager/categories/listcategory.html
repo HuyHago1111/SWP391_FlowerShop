@@ -244,10 +244,12 @@ box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
                                                 <a th:href="@{/manager/categories/{id}/edit(id=${c.categoryId})}" title="Edit">
                                                     <i class="ri-pencil-line"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                                        th:data-bs-target="'#deleteModal-' + ${c.categoryId}">
+                                                <a data-bs-toggle="modal"
+                                                        th:data-bs-target="'#deleteModal-' + ${c.categoryId} " style="display:inline"
+                                                   type="submit" title="Delete Product" class="btn-delete">
                                                     <i class="ri-delete-bin-line"></i>
-                                                </button>
+                                                </a>
+                                            </td>
                                                 <!-- Modal Delete -->
                                                 <div class="modal fade" th:id="'deleteModal-' + ${c.categoryId}" tabindex="-1">
                                                     aria-labelledby="deleteModalLabel"
@@ -284,7 +286,7 @@ box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </td>
+
                                         </tr>
                                         </tbody>
                                     </table>
