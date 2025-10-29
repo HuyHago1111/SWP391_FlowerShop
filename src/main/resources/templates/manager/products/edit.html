@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <title>Fastkart - Add New User</title>
+
+    <!-- Google font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            rel="stylesheet">
+
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/font-awesome.css}">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" th:href="@{/admin-assets/css/linearicon.css}">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/remixicon.css}">
+
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/themify.css}">
+
+    <!--Dropzon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/dropzone.css}">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/feather-icon.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/scrollbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/chartist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/date-picker.css}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/bootstrap.css}">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
+</head>
+
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+<!-- page-wrapper Start -->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start -->
+    <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
+    <!-- Page Header End -->
+    <!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div th:replace="~{Admin/ComponentAdmin/PageSidebar::PageSidebar}"></div>
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+            <div class="container mt-5 mb-5">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="title-header option-title">
+                        <div class="title-header option-title"><i class="ri-pencil-line me-1"></i> <h5>Update Product</h5></div>
+                        <a th:href="@{/manager/products}" class="btn btn-success px-4 me-2">← Back to Product List</a>
+                    </div>
+
+                    <div class="card-body px-4 py-4">
+<!--                        &lt;!&ndash; Alert messages &ndash;&gt;-->
+<!--                        <div th:if="${success}" class="alert alert-success text-center" th:text="${success}"></div>-->
+<!--                        <div th:if="${error}" class="alert alert-danger text-center" th:text="${error}"></div>-->
+
+                        <!-- Update Product Form -->
+                        <form th:action="@{'/manager/products/' + ${product.productId} + '/edit'}"
+                               method="post" enctype="multipart/form-data">
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Product Name</label>
+                                    <input type="text" class="form-control" th:field="*{product.productName}" required>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Category</label>
+                                    <select class="form-select" th:field="*{product.category}" required>
+                                        <option value="" disabled selected>-- Select Category --</option>
+                                        <option th:each="c : ${categories}"
+                                                th:value="${c.categoryId}"
+                                                th:text="${c.categoryName}"
+                                                th:selected="${c.categoryId == product.category.categoryId}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Supplier</label>
+                                    <select class="form-select" th:field="*{product.supplier}" required>
+                                        <option value="" disabled selected>-- Select Supplier --</option>
+                                        <option th:each="s : ${suppliers}"
+                                                th:value="${s.supplierId}"
+                                                th:text="${s.companyName}"
+                                                th:selected="${s.supplierId == product.supplier.supplierId}">
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Description</label>
+                                <textarea class="form-control" rows="4"
+                                          th:field="*{product.description}" placeholder="Enter product description..."></textarea>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Price (₫)</label>
+                                    <input type="number" step="0.01" min="0" class="form-control"
+                                           th:field="*{product.price}" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Stock Quantity</label>
+                                    <input type="number" min="0" class="form-control"
+                                           th:field="*{product.stockQuantity}" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Status</label>
+
+                                    <select class="form-select" th:field="*{product.status}">
+                                        <option value="Active" th:selected="${product.status == 'Active'}">Active</option>
+                                        <option value="Inactive" th:selected="${product.status == 'Inactive'}">Inactive</option>
+                                    </select>
+                                    <small class="text-muted fst-italic">
+                                        ⚠️ Status changes automatically if stock = 0 → "Out of Stock"
+                                    </small>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label fw-bold">Created At</label>
+                                    <input type="text" class="form-control" th:value="${#temporals.format(product.createdAt, 'dd/MM/yyyy HH:mm')}" readonly>
+                                </div>
+                            </div>
+
+                            <!-- Product Image Upload -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Product Image</label>
+                                    <input type="file" name="imageFile" class="form-control">
+                                    <small class="text-muted fst-italic">Leave empty to keep the current image.</small>
+                                </div>
+                                <div class="col-md-6 text-center">
+                                    <label class="form-label fw-bold">Current Image</label><br>
+                                    <img th:if="${product.imageUrl}"
+                                         th:src="${product.imageUrl}"
+                                         class="rounded shadow-sm border" style="width: 150px; height: 120px;">
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success px-4 me-2">
+                                    <i class="ri-check-line"></i> Update Product
+                                </button>
+                                <a th:href="@{/manager/products}" class="btn btn-secondary px-4">
+                                    <i class="ri-arrow-go-back-line"></i> Cancel
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!-- latest js -->
+<script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin-assets/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin-assets/js/scrollbar/custom.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin-assets/js/customizer.js}"></script>
+
+<!-- Sidebar js-->
+<script th:src="@{/admin-assets/js/config.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/admin-assets/js/sidebar-menu.js}"></script>
+<script th:src="@{/admin-assets/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin-assets/js/notify/index.js}"></script>
+
+<!--Dropzone js -->
+<script th:src="@{/admin-assets/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin-assets/js/dropzone/dropzone-script.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin-assets/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin-assets/js/script.js}"></script>
+</body>
+</html>

@@ -86,7 +86,7 @@ public class UserController {
                               Model model,
                               RedirectAttributes redirectAttributes) {
 
-            // Nếu có lỗi validation, quay lại form và hiển thị lỗi
+            // Nếu có lỗi validat ion,quay lại form và hiển thị lỗi
             if (result.hasErrors()) {
                 model.addAttribute("roles", roleRepository.findAll());
 

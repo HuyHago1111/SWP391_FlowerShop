@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/manager/products")
@@ -88,6 +89,9 @@ public class ManagerProductController {
     public String editForm(@PathVariable Integer productId, Model model) {
         Product product = productService.getById(productId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (product.getStatus() == null || product.getStatus().isEmpty()) {
+            product.setStatus("Active");
+        }
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("suppliers", suppliersRepository.findAll());
@@ -97,10 +101,30 @@ public class ManagerProductController {
     @PostMapping("/{productId}/edit")
     public String updateProduct(@PathVariable Integer productId,
                                 @ModelAttribute Product product,
-                                @RequestParam("imageFile") MultipartFile imageFile,
+                                @RequestParam(value = "categoryId" , required = false ) Integer categoryId,
+                                @RequestParam(value = "supplierId",required = false ) Integer supplierId,
+                                @RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
                                 RedirectAttributes ra) throws IOException {
-        product.setProductId(productId);
+
+        // Lấy product cũ để giữ lại dữ liệu không bị null
+        Product existing = productService.getById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        // Giữ nguyên các trường không được update
+        product.setProductId(existing.getProductId());
+        if (product.getCategory() == null) product.setCategory(existing.getCategory());
+        if (product.getSupplier() == null) product.setSupplier(existing.getSupplier());
+        if (product.getStatus() == null) product.setStatus(existing.getStatus());
+        if (product.getImageUrl() == null || product.getImageUrl().isEmpty())
+            product.setImageUrl(existing.getImageUrl());
+        if (product.getStockQuantity() == null)
+            product.setStockQuantity(existing.getStockQuantity());
+        if (product.getCreatedAt() == null)
+            product.setCreatedAt(existing.getCreatedAt());
+        product.setUpdatedAt(LocalDateTime.now());
+        // Lưu product (đồng thời xử lý upload ảnh)
         productService.save(product, imageFile);
+
         ra.addFlashAttribute("success", "✅ Product updated successfully!");
         return "redirect:/manager/products";
     }

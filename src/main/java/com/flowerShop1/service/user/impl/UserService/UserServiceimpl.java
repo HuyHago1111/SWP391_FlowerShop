@@ -1,14 +1,13 @@
     package com.flowerShop1.service.user.impl.UserService;
 
     import com.flowerShop1.dto.user.UserCreationDTO;
-    import com.flowerShop1.dto.user.UserDTO;
     import com.flowerShop1.dto.user.UserSignUpDTO;
     import com.flowerShop1.entity.Order;
     import com.flowerShop1.entity.Role;
     import com.flowerShop1.entity.User;
     import com.flowerShop1.mapper.user.UserMapper;
     import com.flowerShop1.mapper.user.UserSignUpMapper;
-    import com.flowerShop1.repository.OrdersRepository;
+    import com.flowerShop1.repository.OrderRepository;
     import com.flowerShop1.repository.RoleRepository;
     import com.flowerShop1.repository.UserRepository;
     import com.flowerShop1.service.mail.MailService;
@@ -35,7 +34,7 @@
         @Autowired
         private RoleRepository roleRepository;
         @Autowired
-        private OrdersRepository orderRepository;
+        private OrderRepository orderRepository;
 //        @Override
 //        public List<User> getAllUsers() {
 //            return userRepository.findAll();

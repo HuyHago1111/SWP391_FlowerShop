@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.List;
 @Service
 public class ProductServiceimpl  implements ProductService {
-    @Value("${upload.path:src/main/resources/static/admin-assets/images/products}")
+    @Value("${upload.path:src/main/resources/static/admin-assets/images/products/}")
     private String imageFolder;
 
 //    private final String imageFolder = "src/main/resources/static/admin-assets/images/products/";
@@ -93,6 +93,8 @@ public class ProductServiceimpl  implements ProductService {
                 }
             }
         }
+
+
 
         // 🟠 Cập nhật trạng thái tự động dựa trên tồn kho
         updateStatusBasedOnStock(product);
