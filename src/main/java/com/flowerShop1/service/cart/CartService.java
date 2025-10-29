@@ -83,6 +83,7 @@ public class CartService {
         saveLsCart(lsCart,response);
     }
     public void clearCart(HttpServletResponse response){
+
         CookieService.setCookie(response, "lscart", "", 0);
     }
 }

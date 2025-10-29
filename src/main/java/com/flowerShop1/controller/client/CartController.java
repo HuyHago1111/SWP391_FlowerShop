@@ -7,10 +7,12 @@ import com.flowerShop1.entity.Product;
 import com.flowerShop1.mapper.product.CartDTOMapper;
 import com.flowerShop1.service.cart.CartService;
 import com.flowerShop1.service.product.ProductService;
+import com.flowerShop1.service.sercurity.CustomUserDetails;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -94,7 +96,10 @@ public class CartController {
         return "client/component/cartTable";
     }
     @GetMapping("/checkout")
-    public String checkout( Model model, HttpServletRequest request,HttpServletResponse response) {
+    public String checkout(Model model, HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal CustomUserDetails customUserDetails) {
+        if(customUserDetails == null){
+            return "redirect:/login";
+        }
         model.addAttribute("lsCart", cartService.getlsCart(request));
         model.addAttribute("sumTotalCart",(long)(cartService.getlsCart(request).stream().mapToDouble(CartItermDTO::getTotalPrice).sum()));
         return "client/checkout";

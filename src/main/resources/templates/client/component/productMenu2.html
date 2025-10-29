@@ -13,7 +13,7 @@
             <div class="slider-6_2 no-arrow">
                 <div  th:each="i : ${#numbers.sequence(0, #lists.size(products) - 1, 2)}">
                     <div class="row m-0">
-                        <div class="col-12 px-0">
+                        <div class="col-12 px-0" th:if="${i + 1 < #lists.size(products)}">
                             <div class="product-box wow fadeIn">
                                 <div class="product-image">
                                     <a th:href="@{/product-detail/{id}(id=${products[i].productId})}">

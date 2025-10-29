@@ -10,4 +10,5 @@ public interface ProductService {
     List<Product> getAllProduct();
     Product getProductById(int productId);
     Page<ProductOrderDTO> getProductsOfOrderByUserId(int userId, Pageable pageable);
+    Product save(Product product);
 }
