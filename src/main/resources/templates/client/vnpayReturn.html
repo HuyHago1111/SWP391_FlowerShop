@@ -1,11 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán thành công</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Cài đặt cơ bản */
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e0e4eb 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Hộp chứa nội dung chính */
+        .success-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            padding: 45px 55px;
+            max-width: 500px;
+            width: 90%;
+            box-sizing: border-box;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeInScaleUp 0.6s ease-out forwards;
+        }
+
+        /* --- CSS cho Icon Checkmark SVG --- */
+        .checkmark-wrapper {
+            margin: 0 auto 25px;
+            width: 110px;
+            height: 110px;
+        }
+
+        .checkmark {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 3.5;
+            stroke: #4CAF50;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #4CAF50;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3.5;
+            stroke-miterlimit: 10;
+            stroke: #4CAF50;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            stroke-width: 3.5;
+            stroke: #ffffff;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        /* --- Keyframes cho Animation --- */
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.05, 1.05, 1);
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 55px #4CAF50;
+            }
+        }
+
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        /* --- Kết thúc CSS Icon --- */
+
+        /* Tiêu đề */
+        h1 {
+            color: #28a745; /* Màu xanh lá nổi bật hơn */
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        /* Văn bản mô tả */
+        .description {
+            color: #666;
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+
+        /* Thông tin chi tiết giao dịch */
+        .transaction-details {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #eee;
+        }
+
+        .transaction-details p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .transaction-details p:last-child {
+            margin-bottom: 0;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .transaction-details p span:first-child {
+            font-weight: 500;
+            color: #444;
+        }
+
+        .transaction-details p span:last-child {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Nút Call-to-Action (CTA) */
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #28a745, #218838); /* Gradient xanh lá */
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 17px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(45deg, #218838, #1e7e34);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .success-container {
+                padding: 30px 25px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+            .description {
+                font-size: 15px;
+            }
+            .transaction-details p {
+                font-size: 14px;
+            }
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 15px;
+            }
+        }
+
+    </style>
 </head>
 <body>
-<h1 th:text="${message}"></h1>
+
+<div class="success-container">
+
+    <div class="checkmark-wrapper">
+        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+        </svg>
+    </div>
+
+    <h1 th:text="${message}">Thanh toán thành công!</h1>
+
+    <p class="description">
+        Đơn hàng của bạn đã được xác nhận và đang được xử lý. Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi!
+    </p>
+
+
+
+    <a href="/" th:href="@{/}" class="cta-button">
+        Quay về trang chủ
+    </a>
+
+</div>
 
 </body>
 </html>

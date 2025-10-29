@@ -38,6 +38,7 @@ go
 */
     @Id
     @Column(name = "order_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderId;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

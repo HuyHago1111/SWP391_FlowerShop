@@ -16,4 +16,10 @@ public class OrderServiceimpl implements OrderService {
     public List<Order> getOrdersByUserId(int userId) {
         return orderRepository.findByUserUserId(userId);
     }
+
+    @Override
+    public Order save(Order order) {
+        return orderRepository.save(order);
+
+    }
 }

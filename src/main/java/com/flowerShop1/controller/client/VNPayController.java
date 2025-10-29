@@ -1,18 +1,26 @@
 package com.flowerShop1.controller.client;
 
 import com.flowerShop1.dto.product.CartItermDTO;
+import com.flowerShop1.entity.Order;
+import com.flowerShop1.entity.OrderStatus;
+import com.flowerShop1.entity.PaymentStatus;
 import com.flowerShop1.service.cart.CartService;
+import com.flowerShop1.service.order.OrderService;
+import com.flowerShop1.service.sercurity.CustomUserDetails;
+import com.flowerShop1.service.user.UserService;
 import com.flowerShop1.util.VNPayUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,10 +36,15 @@ public class VNPayController {
     private String vnpay_Returnurl;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private OrderService orderService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/api/payment/create")
     @ResponseBody
-    public Map<String, Object> createPayment(HttpServletRequest request, @RequestParam("amount") long amount) throws Exception {
+    public Map<String, Object> createPayment(HttpServletRequest request, @RequestParam("amount") long amount
+            , @RequestParam("paymentMethod") String paymentMethod, @RequestParam("addressId") String addressIdSelected) throws Exception {
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", "2.1.0");
         vnp_Params.put("vnp_Command", "pay");
@@ -41,7 +54,7 @@ public class VNPayController {
         vnp_Params.put("vnp_CurrCode", "VND");
         vnp_Params.put("vnp_IpAddr", request.getRemoteAddr());
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang");
+        vnp_Params.put("vnp_OrderInfo", paymentMethod + " - " + addressIdSelected);
         vnp_Params.put("vnp_OrderType", "other");
         vnp_Params.put("vnp_ReturnUrl", vnpay_Returnurl);
         vnp_Params.put("vnp_ExpireDate", new SimpleDateFormat("yyyyMMddHHmmss").format(new java.util.Date(System.currentTimeMillis() + 15 * 60 * 1000)));
@@ -76,7 +89,7 @@ public class VNPayController {
     }
 
     @GetMapping("/vnpay/returnurl")
-    public String returnUrl(HttpServletRequest request, Map<String, Object> model) throws Exception {
+    public String returnUrl(HttpServletRequest request, Map<String, Object> model, @AuthenticationPrincipal CustomUserDetails customUserDetails) throws Exception {
         Map<String, String> params = new HashMap<>();
         for (Enumeration<String> names = request.getParameterNames(); names.hasMoreElements(); ) {
             String name = names.nextElement();
@@ -107,11 +120,23 @@ public class VNPayController {
         // Hash lại
         String signValue = VNPayUtil.hmacSHA512(vnpay_HashSecret, hashData.toString());
         List<CartItermDTO> lsCart = cartService.getlsCart(request);
+        System.out.println("vnp_OrderInfo: " + params.get("vnp_OrderInfo"));
 
 
         // So sánh chữ ký
         if (signValue.equals(vnp_SecureHash)) {
             if ("00".equals(params.get("vnp_ResponseCode"))) {
+                Order order =new Order();
+                OrderStatus orderStatus = new OrderStatus();
+                orderStatus.setStatusId(5);
+                PaymentStatus paymentStatus = new PaymentStatus();
+                paymentStatus.setPayStatusId(10);
+                order.setUser(userService.getUserById(customUserDetails.getUserId()));
+                order.setOrderStatus(orderStatus);
+                order.setPaymentStatus(paymentStatus);
+
+                order.setTotalAmount(new BigDecimal(params.get("vnp_Amount")).divide(new BigDecimal(100)));
+                Order saveOrder = orderService.save(order);
                 model.put("message", "Thanh toán thành công");
 
             } else {

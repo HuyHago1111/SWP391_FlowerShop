@@ -12,6 +12,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Addresses")
 @Getter
@@ -58,10 +60,10 @@ public class Address {
     private String district;
     @Column(name = "is_default", nullable = false)
     private boolean isDefault;
-    @Column(name = "created_at", nullable = false)
-    private String createdAt;
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
     @Column(name = "address_detail", nullable = false, length = 255, columnDefinition = "nvarchar(255)")
     private String addressDetail;
 

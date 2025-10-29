@@ -1,6 +1,6 @@
 <section class="cart-section section-b-space" th:fragment="cartTable">
     <div class="container-fluid-lg">
-        <div class="row g-sm-5 g-3">
+        <div class="row g-sm-5 g-3" >
             <div class="col-xxl-9">
                 <div class="cart-table">
                     <div class="table-responsive-xl">
@@ -119,9 +119,9 @@
                             </li>
 
                             <li>
-                                <button onclick="location.href = 'index.html';"
+                                <button th:onclick="'location.href=\'' + @{/} + '\''" type="button"
                                         class="btn btn-light shopping-button text-dark">
-                                    <i class="fa-solid fa-arrow-left-long"></i>Return To Shopping
+                                    <i class="fa-solid fa-arrow-left-long" ></i>Return To Shopping
                                 </button>
                             </li>
                         </ul>
