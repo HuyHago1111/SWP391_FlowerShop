@@ -1,5 +1,6 @@
 package com.flowerShop1.service.product.impl;
 
+import com.flowerShop1.dto.product.ProductDTO;
 import com.flowerShop1.dto.product.ProductOrderDTO;
 import com.flowerShop1.entity.Product;
 import com.flowerShop1.repository.ProductsRepository;
@@ -54,4 +55,19 @@ public class ProductServiceimpl  implements ProductService {
         productsRepository.save(product);
         return product;
     }
+
+    @Override
+    public Page<ProductDTO> getProductsByManyFields(String searchName, String categoryIDs, BigDecimal minPrice, BigDecimal maxPrice, String sortBy, Pageable pageable) {
+        Page<Object[]> results = productsRepository.findProductsByManyFields(searchName, categoryIDs, minPrice, maxPrice, sortBy, pageable);
+        return results.map(item -> new ProductDTO(
+                (int) item[0],
+                (String) item[1],
+                ((BigDecimal) item[2]).doubleValue(),
+                (int) item[3],
+                (String) item[4],
+                (String) item[5]
+        ));
+    }
+
+
 }
