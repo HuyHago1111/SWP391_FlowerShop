@@ -113,6 +113,13 @@
                                                     <i></i>
                                                     <a th:href="@{/login}">Log In</a>
                                                 </li>
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html" th:href="@{/sign-up}">Register</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html" th:href="@{/forgot}">Forgot Password</a>
+                                                </li>
                                             </div>
 
                                             <div sec:authorize="isAuthenticated()">
@@ -127,13 +134,7 @@
                                                 </li>
                                             </div>
 
-                                            <li class="product-box-contain">
-                                                <a href="sign-up.html" th:href="@{/sign-up}">Register</a>
-                                            </li>
 
-                                            <li class="product-box-contain">
-                                                <a href="forgot.html" th:href="@{/forgot}">Forgot Password</a>
-                                            </li>
                                         </ul>
                                     </div>
                                 </li>
