@@ -132,7 +132,7 @@
                                             </li>
 
                                             <li class="product-box-contain">
-                                                <a href="forgot.html">Forgot Password</a>
+                                                <a href="forgot.html" th:href="@{/forgot}">Forgot Password</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -165,7 +165,7 @@
 
                             <ul class="category-list">
                                 <li class="onhover-category-list" th:each="category:${categories}">
-                                    <a href="javascript:void(0)" class="category-name">
+                                    <a th:href = "@{/flower(categoryIDs=${category.categoryId})}" class="category-name">
                                         <img src="../assets/images/Flower/logo.jpg" alt="">
                                         <h6 th:text ="${category.categoryName}">Vegetables & Fruit</h6>
 

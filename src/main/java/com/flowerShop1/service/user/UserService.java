@@ -18,6 +18,10 @@ public interface UserService {
     User createUser(UserCreationDTO userDTO);
     List<Order> findOrdersByUserId(Integer userId);
     User getUserById(int userId);
-    void save (User user);
+
     void updateStatus(Integer userId, String newStatus);
+
+    User getUserByEmail(String email);
+    void save (User user);
+    void forgotPassword(UserSignUpDTO userSignUpDTO);
 }

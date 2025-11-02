@@ -26,7 +26,7 @@ public class FlowerListController {
     @GetMapping("/flower-list")
     @ResponseBody
     public Map<String, Object> flowerList( @RequestParam(defaultValue = "0", name = "page") int page,
-                                           @RequestParam(defaultValue = "10", name = "size") int size ,@RequestParam(defaultValue = "popularity", name = "sortBy") String sortBy,
+                                           @RequestParam(defaultValue = "8", name = "size") int size ,@RequestParam(defaultValue = "popularity", name = "sortBy") String sortBy,
                                            @RequestParam(defaultValue = "", name = "searchName") String searchName,
                                            @RequestParam(defaultValue = "", name = "categoryIDs") String categoryIDs,
                                            @RequestParam(defaultValue = "", name = "minPrice") String minPrice,
@@ -49,9 +49,11 @@ public class FlowerListController {
 
     }
    @GetMapping("/flower")
-    public String getFlowerList(Model model){
+    public String getFlowerList(Model model, @RequestParam(name = "categoryIDs", required = false, defaultValue = "") String categoryIDs){
+       System.out.println("categoryIDs"+ categoryIDs);
+        model.addAttribute("categoriesDTO", categoryService.getAllCategoriesWithProductCount());
+       model.addAttribute("initialCategoryIDs", categoryIDs);
 
-        model.addAttribute("categories", categoryService.getAllCategoriesWithProductCount());
         return "client/flowerList";
    }
 
