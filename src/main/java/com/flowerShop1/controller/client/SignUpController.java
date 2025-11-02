@@ -1,3 +1,5 @@
+// src/main/java/com/flowerShop1/controller/client/SignUpController.java
+
 package com.flowerShop1.controller.client;
 
 
@@ -35,37 +37,39 @@ public class SignUpController {
 
         }
 
-       try{
+        try{
 
-           userService.register(userSignUpDTO);
-           model.addAttribute("userSignUpDTO", userSignUpDTO);
-           model.addAttribute("flag","signUp");
-           return "client/otp";
-       } catch (Exception e) {
-           model.addAttribute("error", e.getMessage());
+            userService.register(userSignUpDTO);
+            model.addAttribute("userSignUpDTO", userSignUpDTO);
+            model.addAttribute("flag","signUp");
+            return "client/otp";
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
 
-       }
+        }
         return  "client/sign-up";
     }
 
-@PostMapping ("/verify-otp")
-    public String verifyOtp(@ModelAttribute("userSignUpDTO") UserSignUpDTO userSignUpDTO,  @RequestParam("otpInput") String otp,@RequestParam("flag") String flag,Model model) {
-    System.out.println("[DEBUG] VerifyOTP : " + otp);
-    if(flag.equals("signUp")){
-        if(userService.verifyOTP(otp, userSignUpDTO)){
-            model.addAttribute("userLoginDTO", userSignUpDTO);
-            return "client/login";
+    @PostMapping ("/verify-otp")
+    public String verifyOtp(@ModelAttribute("userSignUpDTO") UserSignUpDTO userSignUpDTO, @RequestParam("otpInput") String otp, @RequestParam("flag") String flag, Model model) {
+        System.out.println("[DEBUG] VerifyOTP : " + otp);
+        if(flag.equals("signUp")){
+            if(userService.verifyOTP(otp, userSignUpDTO)){
+                model.addAttribute("userLoginDTO", new com.flowerShop1.dto.user.UserLoginDTO());
+                return "client/login";
+            }
+        }
+        if(flag.equals("forgot")) {
+            if (userService.verifyOTP(otp, userSignUpDTO)) {
+                model.addAttribute("email", userSignUpDTO.getEmail());
+                return "client/changePassword";
+            }
         }
 
+        // Nếu OTP sai, quay lại trang OTP với thông báo lỗi
+        model.addAttribute("error", "Invalid OTP or OTP has expired.");
+        model.addAttribute("userSignUpDTO", userSignUpDTO);
+        model.addAttribute("flag", flag);
+        return "client/otp";
     }
-    if(flag.equals("forgot")) {
-        if (userService.verifyOTP(otp, userSignUpDTO)) {
-            model.addAttribute("email", userSignUpDTO.getEmail());
-            return "client/changePassword";
-        }
-    }
-
-        return "client/sign-up";
-    }
-
 }

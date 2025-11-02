@@ -1,3 +1,5 @@
+// src/main/java/com/flowerShop1/service/user/impl/UserService/UserServiceimpl.java
+
 package com.flowerShop1.service.user.impl.UserService;
 
 import com.flowerShop1.dto.user.UserCreationDTO;
@@ -119,7 +121,10 @@ public class UserServiceimpl implements UserService {
     @Override
     public boolean verifyOTP(String otp, UserSignUpDTO userSignUpDTO){
         if (userSignUpDTO.getOtp().equals(otp) && userSignUpDTO.getOtpExprirationTime().isAfter(java.time.LocalDateTime.now())){
-            userRepository.save(userSignUpMapper.dtoToEntity(userSignUpDTO));
+            //Chỉ lưu khi đăng ký, không lưu khi quên mật khẩu
+            if(userRepository.findByEmail(userSignUpDTO.getEmail()) == null) {
+                userRepository.save(userSignUpMapper.dtoToEntity(userSignUpDTO));
+            }
             return true;
         }
         return false;

@@ -129,9 +129,13 @@
 
                         <div class="input-box">
                             <form class="row g-4" th:action="@{/login}" th:object="${userLoginDTO}" method="post" >
-                                <span th:if="${loginError}" th:text="${loginError}" style="color: red">
+                                <!-- THÊM ĐOẠN NÀY ĐỂ HIỂN THỊ THÔNG BÁO THÀNH CÔNG -->
+                                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
 
-                                </span>
+                                <span th:if="${loginError}" th:text="${loginError}" style="color: red"></span>
+                                <div th:if="${logoutMessage}" class="alert alert-info" th:text="${logoutMessage}"></div>
+
+                                <!-- ... Các phần còn lại của form ... -->
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
                                         <input type="email" class="form-control" id="email" placeholder="Email Address" th:field="*{email}" >
