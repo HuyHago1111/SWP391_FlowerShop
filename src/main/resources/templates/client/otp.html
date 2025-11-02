@@ -135,7 +135,8 @@
                                 <input type="hidden"  th:field="*{otpExprirationTime}">
                                 <input type="hidden"  th:field="*{password}">
                                 <input type="hidden" name="otpInput" id="otpInput">
-                                <input type="hidden" name="flag" th:value = "${flag}">
+                                <!-- Thêm dòng này -->
+                                <input type="hidden" name="flag" th:value="${flag}">
 
 
 

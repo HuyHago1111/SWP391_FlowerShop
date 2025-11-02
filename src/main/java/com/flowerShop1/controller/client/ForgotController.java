@@ -1,3 +1,5 @@
+// src/main/java/com/flowerShop1/controller/client/ForgotController.java
+
 package com.flowerShop1.controller.client;
 
 import com.flowerShop1.dto.user.UserSignUpDTO;
@@ -8,64 +10,59 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes; // Thêm import này
 
 @Controller
 public class ForgotController {
     @Autowired
-    private final UserService userService;
+    private UserService userService;
 
     @Autowired
     private UserSignUpMapper userSignUpMapper;
-
-    public ForgotController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/forgot")
     public String forgotPassword() {
         return "client/forgot";
     }
-@PostMapping("/forgot")
-    public String handleForgotFrom(@RequestParam("email") String email, Model model) {
-        try{
-            User user = userService.getUserByEmail(email);
-            if (user == null){
-                model.addAttribute("error", "User not found with this email");
-                return "client/forgot";
-            }
-            UserSignUpDTO userSignUpDTO = userSignUpMapper.entityToDto(user);
-            userService.forgotPassword(userSignUpDTO);
-            model.addAttribute("userSignUpDTO", userSignUpDTO);
-            model.addAttribute("flag", "forgot");
 
-            return "client/otp";
-        } catch (Exception e) {
-
+    @PostMapping("/forgot")
+    public String handleForgotForm(@RequestParam("email") String email, Model model) {
+        User user = userService.getUserByEmail(email);
+        if (user == null){
+            model.addAttribute("error", "User not found with this email");
+            return "client/forgot";
         }
-        return "client/forgot";
+        UserSignUpDTO userSignUpDTO = userSignUpMapper.entityToDto(user);
+        userService.forgotPassword(userSignUpDTO);
+        model.addAttribute("userSignUpDTO", userSignUpDTO);
+        model.addAttribute("flag", "forgot");
+
+        return "client/otp";
     }
-@PostMapping("/change-password")
-        public String changePassword(@RequestParam("password") String password, @RequestParam("confirmPassword") String confirmPassword,@RequestParam("email") String email,  Model model) {
-    try {
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("password") String password,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 @RequestParam("email") String email,
+                                 Model model,
+                                 RedirectAttributes redirectAttributes) { // Thêm RedirectAttributes
         if (!password.equals(confirmPassword)){
             model.addAttribute("errorMessage", "Password not match");
+            model.addAttribute("email", email);
             return "client/changePassword";
-
         }
         User user = userService.getUserByEmail(email);
-        user.setPassword(password);
-        userService.save(user);
-        model.addAttribute("message", "Change password successfully");
-        return "client/login";
-    } catch (Exception e) {
-        model.addAttribute("errorMessage", e.getMessage());
-
+        if (user != null) {
+            user.setPassword(password); // Bạn nên mã hóa mật khẩu ở đây
+            userService.save(user);
+            // Thêm flash attribute để hiển thị thông báo sau khi redirect
+            redirectAttributes.addFlashAttribute("successMessage", "Password changed successfully!");
+            return "redirect:/login"; // SỬA Ở ĐÂY: Chuyển hướng về trang login
+        } else {
+            model.addAttribute("errorMessage", "User not found.");
+            return "client/changePassword";
+        }
     }
-    return "client/changePassword";
-
-}
-
 }
