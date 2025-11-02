@@ -1,6 +1,8 @@
 package com.flowerShop1.config;
 
+import com.flowerShop1.service.sercurity.CustomAuthenticationFailureHandler;
 import com.flowerShop1.service.sercurity.CustomUserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @Configuration
 public class SercurityConfig {
     private CustomUserDetailService customUserDetailService;
+    @Autowired
+    private CustomAuthenticationFailureHandler customFailureHandler;
+
     public SercurityConfig (CustomUserDetailService customUserDetailService) {
         this.customUserDetailService = customUserDetailService;
     }
@@ -51,8 +56,9 @@ public class SercurityConfig {
                         .loginProcessingUrl("/login")        // URL form submit
                         .usernameParameter("email")          // Dùng field email
                         .passwordParameter("password")       // Field password
+                        .failureHandler(customFailureHandler)
                         .defaultSuccessUrl("/", true)        // Khi login thành công
-                        .failureUrl("/login?error=true")     // Khi sai mật khẩu
+//                        .failureUrl("/login?error=true")     // Khi sai mật khẩu
                         .permitAll()
                 )// disable default form login
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // để mở H2 console

@@ -42,5 +42,6 @@ public class CustomUserDetails implements UserDetails {
     public boolean isCredentialsNonExpired() { return true; }
 
     @Override
-    public boolean isEnabled() { return true; }
+    public boolean isEnabled() {
+        return "Active".equalsIgnoreCase(user.getStatus()); }
 }

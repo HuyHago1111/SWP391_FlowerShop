@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>User Management</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/vendors/bootstrap.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <title>Fastkart - Add New User</title>
+
+    <!-- Google font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            rel="stylesheet">
+
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/font-awesome.css}">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" th:href="@{/admin-assets/css/linearicon.css}">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/remixicon.css}">
+
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/themify.css}">
+
+    <!--Dropzon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/dropzone.css}">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/feather-icon.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/scrollbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/chartist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/date-picker.css}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/bootstrap.css}">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
+</head>
 
     <style>
         .status-toggle {
@@ -50,28 +92,187 @@
             height: 1rem;
             border-width: 0.2em;
         }
+
+
+        /* Hiệu ứng mở modal */
+        .modal-content {
+            animation: zoomIn 0.25s ease-in-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Màu nền header xanh lá chủ đạo */
+        .modal-header.bg-success {
+            background: linear-gradient(135deg, #856404, #22c55e);
+            border: none;
+        }
+
+        /* Nút Cancel */
+        .btn-outline-success {
+            border-color: #16a34a;
+            color: #16a34a;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-success:hover {
+            background-color: #16a34a;
+            color: white;
+        }
+
+        /* Nút Delete */
+        #confirmDeleteBtn {
+            background-color: #ef3f3e;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        #confirmDeleteBtn:hover {
+            background-color: #747dc6;
+            transform: translateY(-2px);
+        }
+
+        /* Căn chỉnh chữ */
+        .modal-body p {
+            line-height: 1.6;
+        }
+
+        /* Bóng nhẹ tổng thể */
+        .modal-content {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        .search-box {
+            width: 220px; /* 👈 thu nhỏ khung search */
+        }
+
+        #searchInput {
+            border: 1px solid #16a34a;
+            border-left: none;
+            border-radius: 0 6px 6px 0;
+            outline: none;
+            height: 14px; /* nhỏ gọn hơn */
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        #searchInput:focus {
+            box-shadow: 0 0 4px #22c55e;
+            border-color: #22c55e;
+        }
+
+        .input-group-text {
+            border: 1px solid #16a34a;
+            border-right: none;
+            background-color: #16a34a;
+            color: #fff;
+            font-weight: 450;
+            font-size: 14px;
+            padding: 4px 8px; /* thu gọn chữ “Search” */
+            border-radius: 6px 0 0 6px;
+        }
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .pagination .page-link {
+            color: #0da487;
+            border: 1px solid #e0e0e0;
+            background-color: #fff;
+            margin: 0 3px;
+            border-radius: 6px;
+            transition: all 0.25s ease;
+            font-weight: 500;
+            padding: 6px 12px;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #e5f9f4;
+            color: #0b7e68;
+            border-color: #0da487;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #0da487;
+            color: #fff;
+            border-color: #0da487;
+            font-weight: 600;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #a3a3a3;
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+
     </style>
-</head>
+
 
 <body>
-<div class="page-wrapper compact-wrapper" id="pageWrapper">
-    <div class="page-body-wrapper">
-        <div class="page-body">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card card-table">
-                            <div class="card-body">
-                                <div class="title-header option-title d-flex justify-content-between align-items-center mb-3">
-                                    <h5>All Users</h5>
-                                    <a href="#" class="btn btn-theme d-flex align-items-center">
-                                        <i data-feather="plus" class="me-2"></i>Add New
-                                    </a>
-                                </div>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
 
-                                <!-- ✅ USERS TABLE -->
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
+    <!-- Page Header End -->
+    <!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div th:replace="~{Admin/ComponentAdmin/PageSidebar::PageSidebar}"></div>
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+
+            <div class="title-header option-title">
+                <h5>All Users</h5>
+                <form class="d-inline-flex">
+                    <a th:href="@{/users/add}" class="align-items-center btn btn-theme d-flex">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Add New
+                    </a>
+                </form>
+            </div>
+            <!-- 🔍 Search + Filter Form -->
+            <form th:action="@{/users}" method="get" class="d-flex align-items-center mb-3 gap-2">
+                <label class="fw-semibold text-success">Search:</label>
+                <input type="text" name="keyword" th:value="${keyword}" placeholder="Enter name..."
+                       style="width: 160px; border-radius: 6px; padding: 5px 10px; border: 1px solid #ccc;" />
+
+                <label class="fw-semibold text-success ms-2">Status:</label>
+                <select name="status" class="form-select form-select-sm"
+                        style="width: 140px; border-radius: 6px; border: 1px solid #ccc;">
+                    <option th:value="all" th:selected="${status == 'all'}">All</option>
+                    <option th:value="Active" th:selected="${status == 'Active'}">Active</option>
+                    <option th:value="Pending" th:selected="${status == 'Pending'}">Pending</option>
+                </select>
+
+                <button type="submit" class="btn btn-success btn-sm ms-2 px-3">
+                    <i class="fas fa-filter"></i> Filter
+                </button>
+            </form>
+
+
+
+            <!-- ✅ USERS TABLE -->
                                 <div class="table-responsive table-product">
-                                    <table class="table all-package theme-table">
+                                    <table class="table all-package theme-table" id="table_id">
                                         <thead>
                                         <tr>
                                             <th>User ID</th>
@@ -100,8 +301,8 @@
                                             <!-- ✅ Toggle status -->
                                             <td>
                         <span th:id="'status-' + ${user.userId}"
-                              th:classappend="${user.status == 'ACTIVE'} ? 'status-toggle status-active' : 'status-toggle status-pending'"
-                              th:text="${user.status == 'ACTIVE' ? 'Pending' : 'Active'}"
+                              th:classappend="${user.status == 'Active'} ? 'status-toggle status-active' : 'status-toggle status-pending'"
+                              th:text="${user.status == 'Active' ? 'Active' : 'Pending'}"
                               th:attr="data-userid=${user.userId}, data-status=${user.status}">
                         </span>
                                             </td>
@@ -113,99 +314,364 @@
                                             <td>
                                                 <ul>
                                                     <li>
-                                                        <a href="order-detail.html">
+                                                        <a href="@{/orders/detail}">
                                                             <i class="ri-eye-line"></i>
                                                         </a>
                                                     </li>
 
                                                     <li>
-                                                        <a href="javascript:void(0)">
+                                                        <a th:href="@{'/users/update-role/' + ${user.userId}}"
+                                                           class="btn btn-outline-success btn-sm" title="Update Role">
                                                             <i class="ri-pencil-line"></i>
                                                         </a>
                                                     </li>
 
                                                     <li>
-                                                        <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                           data-bs-target="#exampleModalToggle">
-                                                            <i class="ri-delete-bin-line"></i>
+                                                        <a href="javascript:void(0)" class="delete-user"
+                                                           th:attr="data-userid=${user.userId}, data-username=${user.fullName}, data-role=${user.roleName}">
+                                                            <i class="ri-delete-bin-line text-danger"></i>
                                                         </a>
                                                     </li>
+
                                                 </ul>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- ✅ END USERS TABLE -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <!-- ✅ Smart Pagination (đã fix cú pháp, đồng bộ màu xanh lá + trắng) -->
+            <div class="pagination-container d-flex justify-content-center mt-4">
+                <ul class="pagination">
+
+                    <!-- Nút Previous -->
+                    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                        <a class="page-link text-success"
+                           th:href="@{/users(page=${currentPage - 1}, keyword=${keyword}, status=${status})}">
+                            &lt;
+                        </a>
+                    </li>
+
+                    <!-- Trang đầu -->
+                    <li class="page-item" th:if="${currentPage > 3}">
+                        <a class="page-link text-success"
+                           th:href="@{/users(page=1, keyword=${keyword}, status=${status})}">
+                            1
+                        </a>
+                    </li>
+
+                    <!-- Dấu ... đầu -->
+                    <li class="page-item disabled" th:if="${currentPage > 4}">
+                        <span class="page-link">...</span>
+                    </li>
+
+                    <!-- Các trang giữa -->
+                    <li class="page-item"
+                        th:each="i : ${#numbers.sequence((currentPage > 2 ? currentPage - 1 : 1),
+                                 (currentPage < totalPages - 1 ? currentPage + 1 : totalPages))}"
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link"
+                           th:classappend="${i == currentPage} ? 'bg-success border-success text-white' : 'text-success'"
+                           th:href="@{/users(page=${i}, keyword=${keyword}, status=${status})}"
+                           th:text="${i}"></a>
+                    </li>
+
+                    <!-- Dấu ... cuối -->
+                    <li class="page-item disabled" th:if="${currentPage < totalPages - 3}">
+                        <span class="page-link">...</span>
+                    </li>
+
+                    <!-- Trang cuối -->
+                    <li class="page-item" th:if="${currentPage < totalPages - 2}">
+                        <a class="page-link text-success"
+                           th:href="@{/users(page=${totalPages}, keyword=${keyword}, status=${status})}"
+                           th:text="${totalPages}"></a>
+                    </li>
+
+                    <!-- Nút Next -->
+                    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                        <a class="page-link text-success"
+                           th:href="@{/users(page=${currentPage + 1}, keyword=${keyword}, status=${status})}">
+                            &gt;
+                        </a>
+                    </li>
+                </ul>
             </div>
+
+            <!-- ✅ END USERS TABLE -->
+        </div>
+    </div>
 
             <footer class="footer text-center mt-4">
                 <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
             </footer>
         </div>
+    <!-- Modal Start -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                    <p>Are you sure you want to log out?</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="button-box">
+                        <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                        <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+    <!-- Modal End -->
 
-<!-- ✅ Toast Notification -->
-<div id="toast" class="toast"></div>
+    <!-- Delete Modal Box Start -->
+    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>The permission for the use/group, preview is inherited from the object, object will create a
+                            new permission for this object</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- JS -->
-<script src="/assets/js/jquery-3.6.0.min.js"></script>
-<script src="/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="/assets/js/icons/feather-icon/feather.min.js"></script>
+    <div class="modal fade theme-modal remove-coupon" id="exampleModalToggle2" aria-hidden="true" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <div class="wrapper">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                            </svg>
+                        </div>
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Delete Modal Box End -->
+
+<!-- latest js -->
+<script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin-assets/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin-assets/js/scrollbar/custom.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin-assets/js/customizer.js}"></script>
+
+<!-- Sidebar js-->
+<script th:src="@{/admin-assets/js/config.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/admin-assets/js/sidebar-menu.js}"></script>
+<script th:src="@{/admin-assets/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin-assets/js/notify/index.js}"></script>
+
+<!--Dropzone js -->
+<script th:src="@{/admin-assets/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin-assets/js/dropzone/dropzone-script.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin-assets/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin-assets/js/script.js}"></script>
+
 <script>
     feather.replace();
 
-    // ✅ Toast function
+    // ✅ Hiển thị thông báo đơn giản (toast)
     function showToast(message, success = true) {
-        const toast = document.getElementById('toast');
+        let toast = document.getElementById('toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toast';
+            toast.className = 'toast';
+            document.body.appendChild(toast);
+        }
         toast.textContent = message;
         toast.style.backgroundColor = success ? '#0da487' : '#dc3545';
         toast.style.display = 'block';
         setTimeout(() => toast.style.display = 'none', 2500);
     }
 
-    // ✅ Toggle status (AJAX)
+    // ✅ Toggle trạng thái (không dùng CSRF)
     document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.status-toggle').forEach(button => {
-            button.addEventListener('click', async function () {
+        document.querySelectorAll('.status-toggle').forEach(el => {
+            el.addEventListener('click', async function () {
                 const userId = this.getAttribute('data-userid');
                 const currentStatus = this.getAttribute('data-status');
-                const newStatus = currentStatus === 'ACTIVE' ? 'ACTIVE' : 'PENDING';
+                const newStatus = currentStatus === 'Active' ? 'Pending' : 'Active';
 
-
-                // Hiệu ứng loading nhỏ
                 const oldText = this.textContent;
+
+                // Hiệu ứng loading
                 this.innerHTML = `<span class="spinner-border spinner-border-sm" role="status"></span>`;
 
                 try {
-                    const response = await fetch(`/users/{id}/status`, {
+                    const response = await fetch(`/users/${userId}/status`, {
                         method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({status: newStatus})
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: newStatus })
                     });
 
                     if (response.ok) {
                         this.setAttribute('data-status', newStatus);
-                        this.textContent = newStatus === 'ACTIVE' ? 'Pending' : 'Active';
-                        this.classList.toggle('status-pending');
+                        this.textContent = newStatus === 'Active' ? 'Active' : 'Pending';
                         this.classList.toggle('status-active');
-                        showToast('Status updated successfully ✅');
+                        this.classList.toggle('status-pending');
+                        window.location.reload();
+                        showToast('✅ Status updated successfully');
                     } else {
                         this.textContent = oldText;
-                        showToast('Failed to update status ', false);
+                        showToast('❌ Failed to update status', false);
                     }
                 } catch (e) {
                     this.textContent = oldText;
-                    showToast('Error: ' + e.message, false);
+                    showToast('❌ Error: ' + e.message, false);
                 }
             });
         });
     });
+</script>
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-sm">
+
+            <!-- Header -->
+            <div class="modal-header bg-success text-white justify-content-center rounded-top-4 position-relative">
+                <h5 class="modal-title fw-semibold" id="deleteConfirmModalLabel">
+                    <i class="ri-alert-line me-2"></i> Confirm Deletion
+                </h5>
+                <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body text-center py-4 px-4 bg-white">
+                <p id="deleteModalText" class="fs-6 text-secondary mb-3">
+                    Are you sure you want to delete this user?
+                </p>
+                <p class="small text-success fst-italic mb-0">
+                    ⚠️ Once deleted, this user cannot be restored.
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer justify-content-center gap-3 bg-light rounded-bottom-4 border-0 py-3">
+                <button type="button" class="btn btn-outline-success px-4 py-2 fw-semibold rounded-3" data-bs-dismiss="modal">
+                    <i class="ri-close-line me-1"></i> Cancel
+                </button>
+                <button type="button" id="confirmDeleteBtn" class="btn btn-success px-4 py-2 fw-semibold rounded-3 shadow-sm">
+                    <i class="ri-delete-bin-6-line me-1"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let userToDelete = null;
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+        const confirmBtn = document.getElementById('confirmDeleteBtn');
+        const modalText = document.getElementById('deleteModalText');
+
+        // Khi click nút xóa
+        document.querySelectorAll('.delete-user').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const userId = this.getAttribute('data-userid');
+                const username = this.getAttribute('data-username');
+                const role = this.getAttribute('data-role');
+
+                // Nếu là ADMIN thì chặn
+                if (role === 'Admin') {
+                    alert("❌ You cannot delete an Admin account!");
+                    return;
+                }
+
+                userToDelete = userId;
+                modalText.textContent = `Are you sure you want to delete user "${username}" (ID: ${userId})?`;
+                deleteModal.show();
+            });
+        });
+
+        // Khi bấm xác nhận
+        confirmBtn.addEventListener('click', async function () {
+            if (!userToDelete) return;
+
+            try {
+                const response = await fetch(`/users/${userToDelete}`, { method: 'DELETE' });
+                if (response.ok) {
+                    deleteModal.hide();
+                    alert('✅ User deleted successfully!');
+                    window.location.reload();
+                } else {
+                    const err = await response.json();
+                    alert('❌ ' + (err.error || 'Failed to delete user'));
+                }
+            } catch (e) {
+                alert('❌ Error: ' + e.message);
+            }
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('searchInput');
+        const tableRows = document.querySelectorAll('table tbody tr');
+
+        searchInput.addEventListener('input', function () {
+            const query = this.value.toLowerCase().trim();
+
+            tableRows.forEach(row => {
+                const fullName = row.querySelector('td:nth-child(2)')?.textContent.toLowerCase() || '';
+                // Giả sử cột thứ 2 là cột full_name
+
+                if (fullName.includes(query)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+
 </script>
 </body>
 </html>

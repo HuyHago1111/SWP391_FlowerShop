@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 
 public interface ProductsRepository  extends JpaRepository <Product, Integer> {
@@ -102,4 +103,5 @@ where o.user_id = :userId
             @Param("sortBy") String sortBy,
             Pageable pageable
     );
+    boolean existsByProductName(String productName);
 }
