@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 //    amount         decimal(10, 2) not null,
 //    payment_date   datetime default getdate()
 @Entity
-@Table(name = "Users")
+@Table(name = "Payments")
 @Getter
 @Setter
 @NoArgsConstructor
