@@ -55,6 +55,12 @@
          return userRepository.findAll(pageable);
      }
  }
+        @Override
+        public Page<User> searchByKeywordAndRole(String keyword, String role, Pageable pageable) {
+            if (keyword == null) keyword = "";
+            if (role == null) role = "all";
+            return userRepository.searchByKeywordAndRole(keyword, role, pageable);
+        }
 
 //        @Override
 //        public Page<User> getAllUsers(Pageable pageable) {

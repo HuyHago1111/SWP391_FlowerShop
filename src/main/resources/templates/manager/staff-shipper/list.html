@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <title>Fastkart - Manage Staff & Shipper </title>
+
+    <!-- Google font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            rel="stylesheet">
+
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/font-awesome.css}">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" th:href="@{/admin-assets/css/linearicon.css}">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/remixicon.css}">
+
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/themify.css}">
+
+    <!--Dropzon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/dropzone.css}">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/feather-icon.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/scrollbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/chartist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/date-picker.css}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/bootstrap.css}">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
+</head>
+<style>
+    .table-modern {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+    .table-modern thead th {
+        background-color: #f8f9fa;
+        color: #444;
+        font-weight: 600;
+        padding: 14px 18px;
+        border: none;
+    }
+
+    .table-modern tbody tr {
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        transition: transform 0.2s ease;
+    }
+
+    .table-modern tbody tr:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+    }
+
+    .table-modern td {
+        vertical-align: middle;
+        padding: 14px 18px;
+        border-top: none !important;
+    }
+
+    .product-img {
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    /* STATUS BADGE */
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        display: inline-block;
+    }
+    .status-active {
+        background-color: #e6f7ed;
+        color: #28a745;
+    }
+    .status-inactive {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    .status-outofstock {
+        background-color: #f8d7da;
+        color: #a94442;
+    }
+
+    /* ACTION ICONS */
+    .action-icons a {
+        margin: 0 6px;
+        font-size: 1.1rem;
+        color: #198754;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .action-icons a:hover {
+        color: #0a58ca;
+    }
+
+    .btn-delete {
+        background: none;
+        border: none;
+        color: #dc3545;
+        cursor: pointer;
+        padding: 0;
+        font-size: 1.1rem;
+        transition: color 0.2s;
+    }
+
+    .btn-delete:hover {
+        color: #b02a37;
+    }
+    .pagination .page-link {
+        border: 1px solid #28a745; /* xanh lá */
+        color: #28a745;
+        border-radius: 8px;
+        margin: 0 3px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .pagination .page-link:hover {
+        background-color: #28a745;
+        color: #fff;
+    }
+
+    .pagination .active .page-link {
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+        color: #fff !important;
+    }
+
+    /* Hiệu ứng mở modal */
+    .modal-content {
+        animation: zoomIn 0.25s ease-in-out;
+    }
+
+    @keyframes zoomIn {
+        from {
+            transform: scale(0.95);
+            opacity: 0.8;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* Màu nền header xanh lá chủ đạo */
+    .modal-header.bg-success {
+        background: linear-gradient(135deg, #856404, #22c55e);
+        border: none;
+    }
+
+    /* Nút Cancel */
+    .btn-outline-success {
+        border-color: #16a34a;
+        color: #16a34a;
+        transition: all 0.2s ease;
+    }
+
+    .btn-outline-success:hover {
+        background-color: #16a34a;
+        color: white;
+    }
+
+    /* Nút Delete */
+    #confirmDeleteBtn {
+        background-color: #ef3f3e;
+        border: none;
+        transition: all 0.2s ease;
+    }
+
+    #confirmDeleteBtn:hover {
+        background-color: #747dc6;
+        transform: translateY(-2px);
+    }
+
+    /* Căn chỉnh chữ */
+    .modal-body p {
+        line-height: 1.6;
+    }
+
+    /* Bóng nhẹ tổng thể */
+    .modal-content {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+
+</style>
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
+    <!-- Page Header End -->
+    <!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div th:replace="~{Admin/ComponentAdmin/PageSidebar::PageSidebar}"></div>
+        <!-- Page Sidebar Ends-->
+
+        <div class="page-body">
+            <div class="title-header option-title">
+                <h5>Staff & Shipper Management</h5>
+            </div>
+            <!-- 🔍 Search + Filter -->
+            <form th:action="@{/manager/staff-shipper}" method="get" class="row g-2 mb-3">
+                <div class="col-md-3">
+                    <input type="text" name="keyword" class="form-control"
+                           placeholder="Search by name..." th:value="${keyword}">
+                </div>
+                <div class="col-md-3">
+                    <select name="role" class="form-select">
+                        <option th:value="'all'" th:selected="${role == 'all'}">Roles</option>
+                        <option th:value="'staff'" th:selected="${role == 'staff'}">Staff</option>
+                        <option th:value="'shipper'" th:selected="${role == 'shipper'}">Shipper</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+<!--            &lt;!&ndash; ✅ Success message &ndash;&gt;-->
+<!--            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>-->
+
+            <!-- 📋 Table -->
+            <div class="table-responsive table-product">
+            <table class="table all-package theme-table">
+                <thead >
+                <tr>
+                    <th>STT</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, iterStat : ${users}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${user.fullName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.role.roleName}"></td>
+                    <td>
+                <span th:classappend="${user.status == 'Active'} ?  'status-badge status-active' :
+                                      (${user.status == 'Pending'}?  'status-badge status-inactive' :
+                                      'status-badge')"
+                      th:text="${user.status}"></span>
+                    </td>
+                    <td class="action-icons text-center">
+                        <a th:href="@{'/manager/staff-shipper/' + ${user.userId}}"  title="View">
+                            <i class="ri-eye-line"></i>
+                        </a>
+
+<!--                        <form th:action="@{'/manager/staff-shipper/' + ${user.userId} + '/delete'}" method="post"-->
+<!--                              style="display:inline;" onsubmit="return confirm('Are you sure to delete this user?');">-->
+<!--                            <input type="hidden" name="_method" value="delete">-->
+<!--                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete">-->
+<!--                                <i class="bi bi-trash"></i>-->
+<!--                            </button>-->
+<!--                        </form>-->
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(users)}">
+                    <td colspan="6" class="text-center text-muted">No users found.</td>
+                </tr>
+                </tbody>
+            </table>
+                <!-- 📄 Pagination -->
+                <nav th:if="${totalPages > 1}">
+                    <ul class="pagination justify-content-center">
+                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
+                            th:classappend="${i == currentPage} ? 'active'">
+                            <a class="page-link"
+                               th:href="@{/manager/staff-shipper(page=${i}, keyword=${keyword}, role=${role})}"
+                               th:text="${i}"></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer text-center mt-4">
+    <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
+</footer>
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!-- latest js -->
+<script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin-assets/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin-assets/js/scrollbar/custom.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin-assets/js/customizer.js}"></script>
+
+<!-- Sidebar js-->
+<script th:src="@{/admin-assets/js/config.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/admin-assets/js/sidebar-menu.js}"></script>
+<script th:src="@{/admin-assets/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin-assets/js/notify/index.js}"></script>
+
+<!--Dropzone js -->
+<script th:src="@{/admin-assets/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin-assets/js/dropzone/dropzone-script.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin-assets/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin-assets/js/script.js}"></script>
+</body>
+</html>
