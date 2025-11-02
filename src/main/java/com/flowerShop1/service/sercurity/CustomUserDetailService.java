@@ -19,6 +19,10 @@ public class CustomUserDetailService  implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
+        // ✅ Chặn nếu người dùng đang ở trạng thái "Pending"
+        if ("Pending".equalsIgnoreCase(user.getStatus())) {
+            throw new RuntimeException("User is pending approval");
+        }
         return new CustomUserDetails(user);
     }
 }
