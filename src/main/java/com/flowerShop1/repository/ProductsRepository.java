@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 
-public interface ProductsRepository  extends JpaRepository <Product, Integer> {
+public interface ProductsRepository  extends JpaRepository <Product, Integer>, JpaSpecificationExecutor<Product> {
     Product findByProductId(int productId);
     @Query(value = """
 select p.product_id,p.product_name,p.image_url,od.quantity, od.price,o.order_date,os.status_name

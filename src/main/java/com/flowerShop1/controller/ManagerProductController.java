@@ -113,7 +113,7 @@ public class ManagerProductController {
     public String updateProduct(@PathVariable Integer productId,
                                 @Valid @ModelAttribute("product") Product product,
                                 BindingResult result,
-                                @RequestParam(value = "categoryId", required = false) Integer categoryId,
+                                @RequestParam(value = "categoryId", required = false) Long categoryId,
                                 @RequestParam(value = "supplierId", required = false) Integer supplierId,
                                 @RequestParam(value = "imageFile", required = false) MultipartFile imageFile,
                                 Model model,
@@ -165,7 +165,7 @@ public class ManagerProductController {
     public String createNewProduct(@Valid @ModelAttribute("product") Product product,
                                    BindingResult result,
                                    @RequestParam("imageFile") MultipartFile imageFile,
-                                   @RequestParam("categoryId") Integer categoryId,
+                                   @RequestParam("categoryId") Long categoryId,
                                    @RequestParam("supplierId") Integer supplierId,
                                    Model model,
                                    RedirectAttributes ra) throws IOException {

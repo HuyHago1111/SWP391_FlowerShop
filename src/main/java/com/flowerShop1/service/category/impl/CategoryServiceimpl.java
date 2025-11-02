@@ -44,7 +44,7 @@ public class CategoryServiceimpl implements CategoryService {
     }
 
     @Override
-    public Optional<Category> getById(Integer id) {
+    public Optional<Category> getById(Long id) {
         return categoryRepository.findById(id);
     }
 
@@ -54,7 +54,7 @@ public class CategoryServiceimpl implements CategoryService {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public void deleteById(Long id) {
         categoryRepository.deleteById(id);
     }
 }
