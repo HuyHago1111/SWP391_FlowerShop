@@ -19,4 +19,12 @@ public class UserSignUpMapper {
 
         return user;
     }
+    public UserSignUpDTO entityToDto (User user){
+        UserSignUpDTO dto = new UserSignUpDTO();
+        dto.setFullName(user.getFullName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
+
+        return dto;
+    }
 }

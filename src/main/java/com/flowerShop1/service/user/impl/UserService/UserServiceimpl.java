@@ -91,6 +91,17 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
+    public void forgotPassword(UserSignUpDTO userSignUpDTO) {
+
+        String otp = generateOTP();
+        userSignUpDTO.setOtp(otp);
+        userSignUpDTO.setOtpExprirationTime(java.time.LocalDateTime.now().plusMinutes(3));
+
+        mailService.sendOTP(userSignUpDTO.getEmail(), otp);
+        //hàm random otp 6 số ngẫu nhiên
+    }
+
+    @Override
     public void register(UserSignUpDTO user) {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException("Email already exists");
@@ -120,6 +131,11 @@ public class UserServiceimpl implements UserService {
         user.setStatus(newStatus);
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     public String generateOTP() {

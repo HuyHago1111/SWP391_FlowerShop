@@ -39,6 +39,7 @@ public class SignUpController {
 
            userService.register(userSignUpDTO);
            model.addAttribute("userSignUpDTO", userSignUpDTO);
+           model.addAttribute("flag","signUp");
            return "client/otp";
        } catch (Exception e) {
            model.addAttribute("error", e.getMessage());
@@ -48,12 +49,20 @@ public class SignUpController {
     }
 
 @PostMapping ("/verify-otp")
-    public String verifyOtp(@ModelAttribute("userSignUpDTO") UserSignUpDTO userSignUpDTO, Model model, @RequestParam("otpInput") String otp) {
+    public String verifyOtp(@ModelAttribute("userSignUpDTO") UserSignUpDTO userSignUpDTO,  @RequestParam("otpInput") String otp,@RequestParam("flag") String flag,Model model) {
     System.out.println("[DEBUG] VerifyOTP : " + otp);
+    if(flag.equals("signUp")){
+        if(userService.verifyOTP(otp, userSignUpDTO)){
+            model.addAttribute("userLoginDTO", userSignUpDTO);
+            return "client/login";
+        }
 
-    if(userService.verifyOTP(otp, userSignUpDTO)){
-        model.addAttribute("userLoginDTO", userSignUpDTO);
-        return "client/login";
+    }
+    if(flag.equals("forgot")) {
+        if (userService.verifyOTP(otp, userSignUpDTO)) {
+            model.addAttribute("email", userSignUpDTO.getEmail());
+            return "client/changePassword";
+        }
     }
 
         return "client/sign-up";
