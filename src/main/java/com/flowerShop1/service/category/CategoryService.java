@@ -12,7 +12,7 @@ public interface CategoryService {
     List<Category> getAllCategory();
     List<CategoryDTO> getAllCategoriesWithProductCount();
     Page<Category> getAllCategories(String keyword, Pageable pageable);
-    Optional<Category> getById(Integer id);
+    Optional<Category> getById(Long id);
     Category save(Category category);
-    void deleteById(Integer id);
+    void deleteById(Long id);
 }

@@ -30,7 +30,6 @@ public interface UserService {
     void save (User user);
     void forgotPassword(UserSignUpDTO userSignUpDTO);
 
-    List<User> getAllUsers();
 
     Page<User> searchUsers(String keyword, String status, Pageable pageable);
     void updateUserRole(Integer userId, Integer newRoleId);

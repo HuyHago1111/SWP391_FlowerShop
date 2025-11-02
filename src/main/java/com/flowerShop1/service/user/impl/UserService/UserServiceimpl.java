@@ -15,6 +15,8 @@ import com.flowerShop1.repository.UserRepository;
 import com.flowerShop1.service.mail.MailService;
 import com.flowerShop1.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -40,52 +42,12 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public Optional<User> findUserById(Integer id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
-    public User createUser(UserCreationDTO userDTO) {
-        if (userRepository.existsByEmail(userDTO.getEmail())) {
-            throw new RuntimeException("Lỗi: Email này đã được sử dụng!");
-        }
-
-        if (userRepository.existsByPhone(userDTO.getPhone())) {
-            throw new RuntimeException("Lỗi: Số điện thoại này đã được đăng ký!");
-        }
-
-        User user = new User();
-        user.setFullName(userDTO.getFullName());
-        user.setEmail(userDTO.getEmail());
-        user.setPhone(userDTO.getPhone());
-        user.setPassword(userDTO.getPassword());
-        user.setAddress(userDTO.getAddress());
-        user.setStatus(userDTO.getStatus());
-
-
-        // Tìm và gán Role
-        Role role = roleRepository.findById(userDTO.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        user.setRole(role);
-
-        return userRepository.save(user);
-    }
-
-    @Override
-    public List<Order> findOrdersByUserId(Integer userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return orderRepository.findByUserOrderByOrderDateDesc(user);
-    }
-
-    @Override
     public User getUserById(int userId) {
         System.out.println("[DEBUG] Fetching user with ID: " + userId);
         return userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
     }
-
 
     @Override
     public void save(User user) {
@@ -144,9 +106,6 @@ public class UserServiceimpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    public String generateOTP() {
-        return String.valueOf((int) (Math.random() * 900000) + 100000);
-    }
 
     @Override
 
@@ -170,6 +129,12 @@ public class UserServiceimpl implements UserService {
     public Optional<User> findUserById(Integer id) {
         return userRepository.findById(id);
     }
+
+    @Override
+    public User createUser(UserCreationDTO userDTO) {
+        return null;
+    }
+
     @Override
     public void updateUserRole(Integer userId, Integer newRoleId) {
         User user = userRepository.findById(userId)
@@ -184,61 +149,12 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public void createUser(UserCreationDTO userDTO) {
-        if (userRepository.existsByEmail(userDTO.getEmail())) {
-            throw new RuntimeException("Lỗi: Email này đã được sử dụng!");
-        }
-        if (userRepository.existsByPhone(userDTO.getPhone())) {
-            throw new RuntimeException("Lỗi: Số điện thoại này đã được đăng ký!");
-        }
-
-
-        User user = new User();
-        user.setFullName(userDTO.getFullName());
-        user.setEmail(userDTO.getEmail());
-        user.setPhone(userDTO.getPhone());
-        user.setPassword(userDTO.getPassword());
-        user.setAddress(userDTO.getAddress());
-        user.setStatus(userDTO.getStatus());
-
-
-        // Tìm và gán Role
-        Role role = roleRepository.findById(userDTO.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        user.setRole(role);
-        user.setCreatedAt(LocalDateTime.now());
-        userRepository.save(user);
-    }
-
-    @Override
     public List<Order> findOrdersByUserId(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return orderRepository.findByUserOrderByOrderDateDesc(user);
     }
-    @Override
-    public void register(UserSignUpDTO user) {
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Email already exists");
-        }
-        UserSignUpDTO dto = new UserSignUpDTO();
 
-        String otp = generateOTP();
-        user.setOtp(otp);
-        user.setOtpExprirationTime(java.time.LocalDateTime.now().plusMinutes(3));
-
-        mailService.sendOTP(user.getEmail(), otp);
-        //hàm random otp 6 số ngẫu nhiên
-
-    }
-    @Override
-    public boolean verifyOTP(String otp, UserSignUpDTO userSignUpDTO){
-        if (userSignUpDTO.getOtp().equals(otp) && userSignUpDTO.getOtpExprirationTime().isAfter(java.time.LocalDateTime.now())){
-            userRepository.save(userSignUpMapper.dtoToEntity(userSignUpDTO));
-            return true;
-        }
-        return false;
-    }
 
     public void updateUserStatus(Integer userId, String newStatus) {
         User user = userRepository.findById(userId)
