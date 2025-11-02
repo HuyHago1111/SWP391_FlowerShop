@@ -1281,11 +1281,7 @@
                                         <h5 class="price"><span class="theme-color">${item.price} ₫</span>
                                         </h5>
                                         <div class="add-to-cart-box bg-white">
-<button class="btn btn-add-cart addcart-button">Add
-                                                <span class="add-icon bg-light-gray">
-                                                    <i class="fa-solid fa-plus"></i>
-                                                </span>
-                                            </button>
+<button class="btn btn-add-cart addcart-button" onclick="addToCartItem(${item.productId},1)">Add</button>
                                             <div class="cart_qty qty-box">
                                                 <div class="input-group bg-white">
                                                     <button type="button" class="qty-left-minus bg-gray"
@@ -1470,12 +1466,33 @@
             sizeSelect.addEventListener('change',function (){
                 getProductList(0)
             })
+            async function addToCartItem(productId, quantity) {
+                console.log("productId"+ productId + " quantity " + quantity);
+                if (quantity < 1) {
+                    alert("Quantity must be greater than 0");
+                    return;
+                }
+                try {
+                    const response = await fetch(`/cart/addToCart?productId=${productId}&quantity=${quantity}`)
+                    if(response.ok){
+                        await LoadLsCartHeader();
+
+                        showAlert('Added to cart successfully!', 'success', 'top-right', 2000);
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+
+
+            }
 
 
 
             // Tải danh sách sản phẩm lần đầu khi trang được mở
             getProductList();
         });
+
+
 
 
 
