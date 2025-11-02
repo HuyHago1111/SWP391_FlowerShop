@@ -11,9 +11,9 @@
         </div>
         <div class="product-border border-row">
             <div class="slider-6_2 no-arrow">
-                <div  th:each="i : ${#numbers.sequence(0, #lists.size(products) - 1, 2)}">
+                <div th:each="i : ${#numbers.sequence(0, #lists.size(products) - 1, 2)}">
                     <div class="row m-0">
-                        <div class="col-12 px-0" th:if="${i + 1 < #lists.size(products)}">
+                        <div class="col-12 px-0">
                             <div class="product-box wow fadeIn">
                                 <div class="product-image">
                                     <a th:href="@{/product-detail/{id}(id=${products[i].productId})}">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12 px-0">
+                        <div class="col-12 px-0" th:if="${i + 1 < #lists.size(products)}">
                             <div class="product-box wow fadeIn" data-wow-delay="0.1s">
                                 <div class="product-image">
                                     <a th:href="@{/product-detail/{id}(id=${products[i+1].productId})}">
