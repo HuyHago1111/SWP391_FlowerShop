@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/user-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:50 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="../assets/images/favicon/1.png" type="image/x-icon">
+    <title>On-demand last-mile delivery</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+
+<body>
+
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Loader End -->
+
+    <!-- Header Start -->
+    <div th:replace="~{client/component/headerClient::headerClient}"></div>
+    <!-- Header End -->
+
+    <!-- mobile fix menu start -->
+    <div class="mobile-menu d-md-none d-block mobile-cart">
+        <ul>
+            <li class="active">
+                <a href="index.html">
+                    <i class="iconly-Home icli"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+
+            <li class="mobile-category">
+                <a href="javascript:void(0)">
+                    <i class="iconly-Category icli js-link"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="search.html" class="search-box">
+                    <i class="iconly-Search icli"></i>
+                    <span>Search</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="wishlist.html" class="notifi-wishlist">
+                    <i class="iconly-Heart icli"></i>
+                    <span>My Wish</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+                    <i class="iconly-Bag-2 icli fly-cate"></i>
+                    <span>Cart</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadcrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-contain">
+                        <h2>User Dashboard</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active">User Dashboard</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- User Dashboard Section Start -->
+    <section class="user-dashboard-section section-b-space">
+        <div class="container-fluid-lg">
+            <div class="row" style= "padding-top: 120px;">
+                <div class="col-xxl-3 col-lg-4">
+                    <div class="dashboard-left-sidebar">
+                        <div class="close-button d-flex d-lg-none">
+                            <button class="close-sidebar">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div class="profile-box">
+                            <div class="cover-image">
+                                <img src="../assets/images/inner-page/cover-img.jpg" class="img-fluid blur-up lazyload"
+                                    alt="">
+                            </div>
+
+                            <div class="profile-contain">
+                                <div class="profile-image">
+                                    <div class="position-relative">
+                                        <img src="../assets/images/inner-page/user/1.jpg"
+                                            class="blur-up lazyload update_img" alt="">
+                                        <div class="cover-icon">
+                                            <i class="fa-solid fa-pen">
+                                                <input type="file" onchange="readURL(this,0)">
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="profile-name">
+                                    <h3 th:text="${user.fullName}">Vicki E. Pope</h3>
+                                    <h6 class="text-content" th:text="${user.email}">vicki.pope@gmail.com</h6>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-pills user-nav-pills" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="pills-dashboard-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-dashboard" type="button"><i data-feather="home"></i>
+                                    DashBoard</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-order-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-order" type="button"><i
+                                        data-feather="shopping-bag"></i>Order</button>
+                            </li>
+
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-address-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-address" type="button" role="tab"><i
+                                        data-feather="map-pin"></i>Address</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-profile" type="button" role="tab"><i data-feather="user"></i>
+                                    Profile</button>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-xxl-9 col-lg-8">
+                    <button class="btn left-dashboard-show btn-animation btn-md fw-bold d-block mb-4 d-lg-none">Show
+                        Menu</button>
+                    <div class="dashboard-right-sidebar">
+                        <div class="tab-content" >
+                            <div class="tab-pane fade show active" id="pills-dashboard" role="tabpanel">
+                                <div class="dashboard-home">
+                                    <div class="title">
+                                        <h2>My Dashboard</h2>
+                                        <span class="title-leaf">
+                                            <svg class="icon-width bg-gray">
+                                                <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+
+                                    <div class="dashboard-user-name">
+                                        <h6 class="text-content">Hello,</h6>
+                                        <p class="text-content">Welcome,
+
+                                            From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information.
+                                            Select a link below to view or edit information.</p>
+                                    </div>
+
+                                    <div class="total-box">
+                                        <div class="row g-sm-4 g-3">
+                                            <div class="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="total-contain">
+                                                    <img src="../assets/images/svg/order.svg"
+                                                        class="img-1 blur-up lazyload" alt="">
+                                                    <img src="../assets/images/svg/order.svg" class="blur-up lazyload"
+                                                        alt="">
+                                                    <div class="total-detail">
+                                                        <h5>Total Order</h5>
+                                                        <h3 th:text="${totalOrder}">3658</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-xxl-4 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="total-contain">
+                                                    <img src="../assets/images/svg/pending.svg"
+                                                        class="img-1 blur-up lazyload" alt="">
+                                                    <img src="../assets/images/svg/pending.svg" class="blur-up lazyload"
+                                                        alt="">
+                                                    <div class="total-detail">
+                                                        <h5>Total Pending Order</h5>
+                                                        <h3 th:text="${totalOrderPending}">254</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="dashboard-title">
+                                        <h3>Account Information</h3>
+                                    </div>
+
+                                    <div class="row g-4">
+                                        <div class="col-xxl-6">
+                                            <div class="dashboard-content-title">
+                                                <h4>Contact Information <a href="javascript:void(0)"
+                                                        data-bs-toggle="modal" data-bs-target="#editProfile">Edit</a>
+                                                </h4>
+                                            </div>
+                                            <div class="dashboard-detail">
+                                                <h6 class="text-content" th:text="${user.fullName}">MARK JECNO</h6>
+                                                <h6 class="text-content" th:text="${user.email}">vicki.pope@gmail.com</h6>
+                                                <a href="javascript:void(0)">Change Password</a>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="tab-pane fade" id="pills-order" role="tabpanel">
+                                <div class="dashboard-order">
+                                    <div class="title">
+                                        <h2>My Orders History</h2>
+                                        <span class="title-leaf title-leaf-gray">
+                                            <svg class="icon-width bg-gray">
+                                                <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="order-contain" id="orderTable">
+                                    </div>
+
+
+                            </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-address" role="tabpanel">
+                                <div class="dashboard-address">
+                                    <div class="title title-flex">
+                                        <div>
+                                            <h2>My Address Book</h2>
+                                            <span class="title-leaf">
+                                                <svg class="icon-width bg-gray">
+                                                    <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                                                </svg>
+                                            </span>
+                                        </div>
+
+                                        <button class="btn theme-bg-color text-white btn-sm fw-bold mt-lg-0 mt-3"
+                                            data-bs-toggle="modal" data-bs-target="#add-address"><i data-feather="plus"
+                                                class="me-2"></i> Add New Address</button>
+                                    </div>
+
+                                    <div class="row g-sm-4 g-3" id="addressTable">
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel">
+                                <div class="dashboard-profile">
+                                    <div class="title">
+                                        <h2>My Profile</h2>
+                                        <span class="title-leaf">
+                                            <svg class="icon-width bg-gray">
+                                                <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+
+                                    <div class="profile-detail dashboard-bg-box">
+                                        <div class="dashboard-title">
+                                            <h3>Profile Name</h3>
+                                        </div>
+                                        <div class="profile-name-detail">
+                                            <div class="d-sm-flex align-items-center d-block">
+                                                <h3 th:text="${user.fullName}">Vicki E. Pope</h3>
+                                                <div class="product-rating profile-rating">
+
+                                                </div>
+                                            </div>
+
+                                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                data-bs-target="#editProfile">Edit</a>
+                                        </div>
+
+                                        <div class="location-profile">
+                                            <ul>
+                                                <li>
+                                                    <div class="location-box">
+                                                        <i data-feather="map-pin"></i>
+                                                        <h6>Downers Grove, IL</h6>
+                                                    </div>
+                                                </li>
+
+                                                <li>
+                                                    <div class="location-box">
+                                                        <i data-feather="mail"></i>
+                                                        <h6 th:text="${user.email}">vicki.pope@gmail.com</h6>
+                                                    </div>
+                                                </li>
+
+                                                <li>
+                                                    <div class="location-box">
+                                                        <i data-feather="check-square"></i>
+                                                        <h6>Licensed for 2 years</h6>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="profile-description">
+                                            <p>Residences can be classified by and how they are connected to
+                                                neighbouring residences and land. Different types of housing tenure can
+                                                be used for the same physical type.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="profile-about dashboard-bg-box">
+                                        <div class="row">
+                                            <div class="col-xxl-7">
+                                                <div class="dashboard-title mb-3">
+                                                    <h3>Profile About</h3>
+                                                </div>
+
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Gender :</td>
+                                                                <td>Female</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Birthday :</td>
+                                                                <td>21/05/1997</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Phone Number :</td>
+                                                                <td>
+                                                                    <a href="javascript:void(0)"> +91 846 - 547 -
+                                                                        210</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Address :</td>
+                                                                <td>549 Sulphur Springs Road, Downers, IL</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                            <div class="col-xxl-5">
+                                                <div class="profile-image">
+                                                    <img src="../assets/images/inner-page/dashboard-profile.png"
+                                                        class="img-fluid blur-up lazyload" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-download" role="tabpanel">
+                                <div class="dashboard-download">
+                                    <div class="title">
+                                        <h2>My Download</h2>
+                                        <span class="title-leaf">
+                                            <svg class="icon-width bg-gray">
+                                                <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                                            </svg>
+                                        </span>
+                                    </div>
+
+                                    <div class="download-detail dashboard-bg-box">
+                                        <form>
+                                            <div class="input-group download-form">
+                                                <input type="text" class="form-control"
+                                                    placeholder="Search your download">
+                                                <button class="btn theme-bg-color text-light" type="button"
+                                                    id="button-addon2">Search</button>
+                                            </div>
+                                        </form>
+
+                                        <div class="select-filter-box">
+                                            <select class="form-select">
+                                                <option selected="">All marketplaces</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+
+
+                                            <ul class="nav nav-pills filter-box"  role="tablist">
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link active" id="pills-data-tab"
+                                                        data-bs-toggle="pill" data-bs-target="#pills-data"
+                                                        type="button">Data Purchased</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="pills-title-tab" data-bs-toggle="pill"
+                                                        data-bs-target="#pills-title" type="button">Title</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="pills-rating-tab" data-bs-toggle="pill"
+                                                        data-bs-target="#pills-rating" type="button">My Rating</button>
+                                                </li>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link" id="pills-recent-tab" data-bs-toggle="pill"
+                                                        data-bs-target="#pills-recent" type="button">Recent
+                                                        Updates</button>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="tab-content" id="pills-tabContent">
+                                            <div class="tab-pane fade show active" id="pills-data" role="tabpanel">
+                                                <div class="download-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>Image</th>
+                                                                    <th>Name</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/1.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Sheltos - Real Estate Angular 17 Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/2.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Oslo - Multipurpose Shopify Theme. Fast, Clean,
+                                                                        and
+                                                                        Flexible. OS 2.0</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>3</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/3.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Boho - React JS Admin Dashboard Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-title">
+                                                <div class="download-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>Image</th>
+                                                                    <th>Name</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/1.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Sheltos - Real Estate Angular 17 Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/2.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Oslo - Multipurpose Shopify Theme. Fast, Clean,
+                                                                        and
+                                                                        Flexible. OS 2.0</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>3</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/3.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Boho - React JS Admin Dashboard Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-rating">
+                                                <div class="download-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>Image</th>
+                                                                    <th>Name</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/1.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Sheltos - Real Estate Angular 17 Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/2.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Oslo - Multipurpose Shopify Theme. Fast, Clean,
+                                                                        and
+                                                                        Flexible. OS 2.0</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>3</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/3.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Boho - React JS Admin Dashboard Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-recent">
+                                                <div class="download-table">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>Image</th>
+                                                                    <th>Name</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>1</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/1.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Sheltos - Real Estate Angular 17 Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>2</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/2.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Oslo - Multipurpose Shopify Theme. Fast, Clean,
+                                                                        and
+                                                                        Flexible. OS 2.0</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>3</td>
+                                                                    <td>
+                                                                        <img src="../assets/images/theme-icon/3.png"
+                                                                            class="img-fluid" alt="">
+                                                                    </td>
+                                                                    <td>Boho - React JS Admin Dashboard Template</td>
+                                                                    <td>
+                                                                        <div class="dropdown download-dropdown">
+                                                                            <button class="btn dropdown-toggle"
+                                                                                type="button"
+                                                                                data-bs-toggle="dropdown">Download</button>
+                                                                            <ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">All files
+                                                                                        & documentation</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (PDF)</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <a class="dropdown-item"
+                                                                                        href="#">License
+                                                                                        certificate & purchase code
+                                                                                        (text)</a>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="pills-security" role="tabpanel">
+                                <div class="dashboard-privacy">
+                                    <div class="dashboard-bg-box">
+                                        <div class="dashboard-title mb-4">
+                                            <h3>Privacy</h3>
+                                        </div>
+
+                                        <div class="privacy-box">
+                                            <div class="d-flex align-items-start">
+                                                <h6>Allows others to see my profile</h6>
+                                                <div class="form-check form-switch switch-radio ms-auto">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="redio">
+                                                    <label class="form-check-label" for="redio"></label>
+                                                </div>
+                                            </div>
+
+                                            <p class="text-content">all peoples will be able to see my profile</p>
+                                        </div>
+
+                                        <div class="privacy-box">
+                                            <div class="d-flex align-items-start">
+                                                <h6>who has save this profile only that people see my profile</h6>
+                                                <div class="form-check form-switch switch-radio ms-auto">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="redio2">
+                                                    <label class="form-check-label" for="redio2"></label>
+                                                </div>
+                                            </div>
+
+                                            <p class="text-content">all peoples will not be able to see my profile</p>
+                                        </div>
+
+                                        <button class="btn theme-bg-color btn-md fw-bold mt-4 text-white">Save
+                                            Changes</button>
+                                    </div>
+
+                                    <div class="dashboard-bg-box mt-4">
+                                        <div class="dashboard-title mb-4">
+                                            <h3>Account settings</h3>
+                                        </div>
+
+                                        <div class="privacy-box">
+                                            <div class="d-flex align-items-start">
+                                                <h6>Deleting Your Account Will Permanently</h6>
+                                                <div class="form-check form-switch switch-radio ms-auto">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="redio3">
+                                                    <label class="form-check-label" for="redio3"></label>
+                                                </div>
+                                            </div>
+                                            <p class="text-content">Once your account is deleted, you will be logged out
+                                                and will be unable to log in back.</p>
+                                        </div>
+
+                                        <div class="privacy-box">
+                                            <div class="d-flex align-items-start">
+                                                <h6>Deleting Your Account Will Temporary</h6>
+                                                <div class="form-check form-switch switch-radio ms-auto">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="redio4">
+                                                    <label class="form-check-label" for="redio4"></label>
+                                                </div>
+                                            </div>
+
+                                            <p class="text-content">Once your account is deleted, you will be logged out
+                                                and you will be create new account</p>
+                                        </div>
+
+                                        <button class="btn theme-bg-color btn-md fw-bold mt-4 text-white">Delete My
+                                            Account</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- User Dashboard Section End -->
+
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="service-section">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="service-contain">
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/product.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Every Fresh Products</h5>
+                                </div>
+                            </div>
+
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/delivery.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Free Delivery For Order Over $50</h5>
+                                </div>
+                            </div>
+
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/discount.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Daily Mega Discounts</h5>
+                                </div>
+                            </div>
+
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/market.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Best Price On The Market</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="../assets/images/logo/1.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>We are a friendly bar serving a variety of cocktails, wines and beers. Our bar is a
+                                    perfect place for a couple.</p>
+
+                                <ul class="address">
+                                    <li>
+                                        <i data-feather="home"></i>
+                                        <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
+                                    </li>
+                                    <li>
+                                        <i data-feather="mail"></i>
+                                        <a href="javascript:void(0)">support@fastkart.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>Categories</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="flowerList.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="flowerList.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="flowerList.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="flowerList.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="flowerList.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="flowerList.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl col-lg-2 col-sm-3">
+                        <div class="footer-title">
+                            <h4>Useful Links</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="index.html" class="text-content">Home</a>
+                                </li>
+                                <li>
+                                    <a href="flowerList.html" class="text-content">Shop</a>
+                                </li>
+                                <li>
+                                    <a href="about-us.html" class="text-content">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="blog-list.html" class="text-content">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="contact-us.html" class="text-content">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-sm-3">
+                        <div class="footer-title">
+                            <h4>Help Center</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="order-success.html" class="text-content">Your Order</a>
+                                </li>
+                                <li>
+                                    <a href="user-dashboard.html" class="text-content">Your Account</a>
+                                </li>
+                                <li>
+                                    <a href="order-tracking.html" class="text-content">Track Order</a>
+                                </li>
+                                <li>
+                                    <a href="wishlist.html" class="text-content">Your Wishlist</a>
+                                </li>
+                                <li>
+                                    <a href="search.html" class="text-content">Search</a>
+                                </li>
+                                <li>
+                                    <a href="faq.html" class="text-content">FAQ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>Contact Us</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul>
+                                <li>
+                                    <div class="footer-number">
+                                        <i data-feather="phone"></i>
+                                        <div class="contact-number">
+                                            <h6 class="text-content">Hotline 24/7 :</h6>
+                                            <h5>+91 888 104 2340</h5>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="footer-number">
+                                        <i data-feather="mail"></i>
+                                        <div class="contact-number">
+                                            <h6 class="text-content">Email Address :</h6>
+                                            <h5>fastkart@hotmail.com</h5>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="social-app">
+                                    <h5 class="mb-2 text-content">Download App :</h5>
+                                    <ul>
+                                        <li class="mb-0">
+                                            <a href="https://play.google.com/store/apps" target="_blank">
+                                                <img src="../assets/images/playstore.svg" class="blur-up lazyload"
+                                                    alt="">
+                                            </a>
+                                        </li>
+                                        <li class="mb-0">
+                                            <a href="https://www.apple.com/in/app-store/" target="_blank">
+                                                <img src="../assets/images/appstore.svg" class="blur-up lazyload"
+                                                    alt="">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-footer section-small-space">
+                <div class="reserve">
+                    <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
+                </div>
+
+                <div class="payment">
+                    <img src="../assets/images/payment/1.png" class="blur-up lazyload" alt="">
+                </div>
+
+                <div class="social-link">
+                    <h6 class="text-content">Stay connected :</h6>
+                    <ul>
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/" target="_blank">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/" target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://in.pinterest.com/" target="_blank">
+                                <i class="fa-brands fa-pinterest-p"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Deal Box Modal Start -->
+    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
+                        <p class="mt-1 text-content">Recommended deals for you.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="deal-offer-box">
+                        <ul class="deal-offer-list">
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="flowerList.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="flowerList.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-2">
+                                <div class="deal-offer-contain">
+                                    <a href="flowerList.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="flowerList.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-3">
+                                <div class="deal-offer-contain">
+                                    <a href="flowerList.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="flowerList.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="flowerList.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="flowerList.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Deal Box Modal End -->
+
+    <!-- Tap to top and theme setting button start -->
+    <div class="theme-option">
+        <div class="setting-box">
+            <button class="btn setting-button">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+
+            <div class="theme-setting-2">
+                <div class="theme-box">
+                    <ul>
+                        <li>
+                            <div class="setting-name">
+                                <h4>Color</h4>
+                            </div>
+                            <div class="theme-setting-button color-picker">
+                                <form class="form-control">
+                                    <label for="colorPick" class="form-label mb-0">Theme Color</label>
+                                    <input type="color" class="form-control form-control-color" id="colorPick"
+                                        value="#0da487" title="Choose your color">
+                                </form>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>Dark</h4>
+                            </div>
+                            <div class="theme-setting-button">
+                                <button class="btn btn-2 outline" id="darkButton">Dark</button>
+                                <button class="btn btn-2 unline" id="lightButton">Light</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>RTL</h4>
+                            </div>
+                            <div class="theme-setting-button rtl">
+                                <button class="btn btn-2 rtl-unline">LTR</button>
+                                <button class="btn btn-2 rtl-outline">RTL</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top and theme setting button end -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- Add address modal box start -->
+    <div class="modal fade theme-modal" id="add-address" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add a new address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <form id="addAddress">
+                    <div class="modal-body">
+
+
+
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <input type="text" class="form-control" id="fname" placeholder="Enter full Name">
+                            <label for="fname">full Name</label>
+                            <span class="text-danger" id="errAddress-fullName">
+
+
+                            </span>
+                        </div>
+
+
+
+
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <input type="number" class="form-control" id="phone" placeholder="Enter phone number">
+                            <label for="phone">phone</label>
+                            <span class="text-danger" id=" errAddress-phone">
+
+
+                            </span>
+                        </div>
+
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <select name="district" id="district" class="form-control">
+                                <option value="" selected disabled>Select province</option>
+                                <option value="Son Tay">Son Tay</option>
+                                <option value="Hoa Lac">Hoa Lac</option>
+                            </select>
+                            <label for="district">City</label>
+                            <span class="text-danger" id=" errAddress-district">
+
+
+                            </span>
+                        </div>
+
+
+
+                        <div class="form-floating mb-4 theme-form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="addressDetail"
+                                  style="height: 100px"></textarea>
+                            <label for="addressDetail">Enter Address</label>
+                            <span class="text-danger" id=" errAddress-addressDetail">
+
+
+                            </span>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn theme-bg-color btn-md text-white" >Save
+                            changes</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- Add address modal box end -->
+
+    <!-- Location Modal Start -->
+    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Choose your Delivery Location</h5>
+                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="location-list">
+                        <div class="search-input">
+                            <input type="search" class="form-control" placeholder="Search Your Area">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+
+                        <div class="disabled-box">
+                            <h6>Select a Location</h6>
+                        </div>
+
+                        <ul class="location-select custom-height">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Alabama</h6>
+                                    <span>Min: $130</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Arizona</h6>
+                                    <span>Min: $150</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>California</h6>
+                                    <span>Min: $110</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Colorado</h6>
+                                    <span>Min: $140</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Florida</h6>
+                                    <span>Min: $160</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Georgia</h6>
+                                    <span>Min: $120</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Kansas</h6>
+                                    <span>Min: $170</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Minnesota</h6>
+                                    <span>Min: $120</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>New York</h6>
+                                    <span>Min: $110</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Washington</h6>
+                                    <span>Min: $130</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Location Modal End -->
+
+    <!-- Edit Profile Start -->
+    <div class="modal fade theme-modal" id="editProfile" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
+            <form id="editProfileForm" th:object="${userEditProfileDTO}" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel2">Edit Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-4">
+                            <div class="col-xxl-12">
+
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="text" class="form-control" id="pname" th:field="*{fullName}" >
+
+                                        <label for="pname">Full Name</label>
+                                        <span style="color: red" id="error-pname"></span>
+                                    </div>
+
+                            </div>
+                            <input type="hidden" th:field="*{userId}" id="userId">
+
+
+                            <div class="col-xxl-6">
+
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="email" class="form-control" id="email1"  th:field="*{email}" readonly>
+                                        <label for="email1">Email address</label>
+                                        <span style="color: red" id="error-email"></span>
+                                    </div>
+
+                            </div>
+
+                            <div class="col-xxl-6">
+
+
+                                    <div class="form-floating theme-form-floating">
+
+                                        <input class="form-control" type="tel" th:field="*{phone}" name="mobile" id="mobile"
+
+                                               maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value =this.value.slice(0, this.maxLength);">
+
+                                        <label for="mobile" >Phone</label>
+                                        <span style="color: red" id="error-phone"></span>
+
+                                    </div>
+
+
+
+                            </div>
+
+                            <div class="col-12">
+
+                                    <div class="form-floating theme-form-floating">
+                                        <input type="text" class="form-control" id="address1"
+                                               th:field="*{address}" >
+                                        <label for="address1" >AddressDetail</label>
+                                        <span style="color: red" id="error-address"></span>
+                                    </div>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-animation btn-md fw-bold"
+                                data-bs-dismiss="modal">Close</button>
+                        <button type="submit"
+                                class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <!-- Edit Profile End -->
+
+    <!-- Edit Card Start -->
+    <div class="modal fade theme-modal" id="editCard" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel8">Edit Card</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-xxl-6">
+                            <form>
+                                <div class="form-floating theme-form-floating">
+                                    <input type="text" class="form-control" id="finame" value="Mark">
+                                    <label for="finame">First Name</label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-xxl-6">
+                            <form>
+                                <div class="form-floating theme-form-floating">
+                                    <input type="text" class="form-control" id="laname" value="Jecno">
+                                    <label for="laname">Last Name</label>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="col-xxl-4">
+                            <form>
+                                <div class="form-floating theme-form-floating">
+                                    <select class="form-select" id="floatingSelect12">
+                                        <option selected>Card Type</option>
+                                        <option value="kingdom">Visa Card</option>
+                                        <option value="states">MasterCard Card</option>
+                                        <option value="fra">RuPay Card</option>
+                                        <option value="china">Contactless Card</option>
+                                        <option value="spain">Maestro Card</option>
+                                    </select>
+                                    <label for="floatingSelect12">Card Type</label>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold"
+                        data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light">Update Card</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Edit Card End -->
+
+    <!-- Remove Profile Modal Start -->
+    <div class="modal fade theme-modal remove-profile" id="removeProfile" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header d-block text-center">
+                    <h5 class="modal-title w-100" id="exampleModalLabel22">Are You Sure ?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box">
+                        <p>The permission for the use/group, preview is inherited from the object, object will create a
+                            new permission for this object</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light"
+                        data-bs-target="#removeAddress" data-bs-toggle="modal">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade theme-modal remove-profile" id="removeAddress" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="remove-box text-center">
+                        <h4 class="text-content">It's Removed.</h4>
+                    </div>
+                </div>
+                <div class="modal-footer pt-0">
+                    <button type="button" class="btn theme-bg-color btn-md fw-bold text-light"
+                        data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Remove Profile Modal End -->
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="../assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="../assets/js/feather/feather.min.js"></script>
+    <script src="../assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="../assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="../assets/js/slick/slick.js"></script>
+    <script src="../assets/js/slick/custom_slick.js"></script>
+
+    <!-- Quantity js -->
+    <script src="../assets/js/quantity-2.js"></script>
+
+    <!-- Nav & tab upside js -->
+    <script src="../assets/js/nav-tab.js"></script>
+
+    <!-- script js -->
+    <script src="../assets/js/script.js"></script>
+
+    <!-- theme setting js -->
+    <script src="../assets/js/theme-setting.js"></script>
+
+    <script>
+        document.getElementById("editProfileForm").addEventListener("submit", function (e){
+            e.preventDefault()
+
+            const formData = {
+                userId: document.getElementById("userId").value,
+                fullName: document.getElementById("pname").value,
+                email: document.getElementById("email1").value,
+                phone: document.getElementById("mobile").value,
+                address: document.getElementById("address1").value
+
+            }
+            const errorPname = document.getElementById("error-pname")
+            errorPname.innerText=""
+            const errorEmail = document.getElementById("error-email")
+            errorEmail.innerText=""
+            const errorPhone = document.getElementById("error-phone")
+            errorPhone.innerText=""
+            const errorAddress = document.getElementById("error-address")
+            errorAddress.innerText=""
+            try {
+                fetch("/user/edit-profile",{
+                method: "POST",
+                headers : {
+                    "Content-Type" : "application/json"},
+                        body: JSON.stringify(formData)
+                    })
+                .then(res => res.json())
+                    .then(data => {
+                        if(data.status === "success"){
+                            const modal = document.getElementById("exampleModalLabel2").closest(".modal");
+                            const modalInstance = bootstrap.Modal.getInstance(modal);
+                            alert(data.message)
+                        }
+                        else {
+                           if(data.errors.fullName){
+                               errorPname.innerText = data.errors.fullName
+
+                           }
+                           if (data.errors.email){
+                               errorEmail.innerText = data.errors.email
+
+                           }
+                           if (data.errors.phone){
+                               errorPhone.innerText = data.errors.phone
+                        }
+                            if (data.errors.address){
+                                 errorAddress.innerText = data.errors.address
+                            }
+                            }
+
+                    })
+
+
+            }catch (e){
+
+
+            }
+
+
+        })
+    </script>
+
+<script>
+   function getProductsOrder(){
+       try{
+           fetch("/user/products-of-order",{
+               method: "GET",
+               headers: {
+                   "Content-Type" : "application/json"
+               }
+
+           }).then(res => res.json())
+               .then(data => {
+                   console.log(data)
+                   const content = document.getElementById("orderTable");
+
+
+                       const rows = data.data.content.map(item => {
+                           const statusClass =
+                               item.orderStatus === "Pending" ? "pending-bg" :
+                                   item.orderStatus === "Completed" ? "success-bg" :
+                                       item.orderStatus === "Cancelled" ? "cancel-bg" : "default-bg";
+
+
+                           return `
+                                        <div class="order-box dashboard-bg-box">
+                                            <div class="order-container">
+                                                <div class="order-icon">
+                                                    <i data-feather="box"></i>
+                                                </div>
+
+                                                <div class="order-detail" id="orderTable">
+                                                    <h4>Delivers <span  class="${statusClass}">${ item.orderStatus }</span></h4>
+                                                    <h6 class="text-content">Gouda parmesan caerphilly mozzarella
+                                                        cottage cheese cauliflower cheese taleggio gouda.</h6>
+                                                </div>
+                                            </div>
+
+                                            <div class="product-order-detail">
+                                                <a href="product-left-thumbnail.html" class="order-image">
+                                                    <img src="${item.imageUrl}" style="object-fit: cover; width: 150px; height:" 150px;"
+                                                        class="blur-up lazyload" alt="">
+                                                </a>
+
+                                                <div class="order-wrap">
+                                                    <a href="product-left-thumbnail.html">
+                                                        <h3>${item.productName}</h3>
+                                                    </a>
+                                                    <p class="text-content" ${item.orderStatus}>Cheddar dolcelatte gouda. Macaroni cheese
+                                                        cheese strings feta halloumi cottage cheese jarlsberg cheese
+                                                        triangles say cheese.</p>
+                                                    <ul class="product-size">
+                                                        <li>
+                                                            <div class="size-box">
+                                                                <h6 class="text-content">Price : </h6>
+                                                                <h5>${item.price}</h5>
+                                                            </div>
+                                                        </li>
+
+
+
+                                                        <li>
+                                                            <div class="size-box">
+                                                                <h6 class="text-content">OrderDate </h6>
+                                                                <h5 >${new Date(item.orderDate).toLocaleString()}</h5>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div class="size-box">
+                                                                <h6 class="text-content">Quantity : </h6>
+                                                                <h5 >${item.quantity}</h5>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+        `
+                       }).join("");
+                       content.innerHTML = rows;
+
+                   })
+
+       }catch (e){
+
+
+       }
+   }
+   getProductsOrder();
+</script>
+<script>
+    document.getElementById("addAddress").addEventListener("submit",function (e){
+        e.preventDefault()
+    const formData={
+        fullName : document.getElementById("fname").value,
+        phone : document.getElementById("phone").value,
+        district : document.getElementById("district").value,
+        addressDetail : document.getElementById("addressDetail").value
+
+
+    }
+    const  errFullName = document.getElementById("errAddress-fullName")
+        errFullName.innerText =""
+    const  errPhone = document.getElementById(" errAddress-phone")
+        errPhone.innerText =""
+    const  errDistrict = document.getElementById(" errAddress-district")
+        errDistrict.innerText =""
+    const  errAddressDetail = document.getElementById(" errAddress-addressDetail")
+        errAddressDetail.innerText =""
+    try{
+          fetch("/address",{
+              method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+              body : JSON.stringify(formData)
+          }).then(res => res.json())
+            .then(data => {
+                if(data.status === "error"){
+                    if(data.errors.fullName){
+                        errFullName.innerText = data.errors.fullName
+
+                    }
+                    if(data.errors.phone){
+                        errPhone.innerText = data.errors.phone
+
+                    }
+                    if(data.errors.district){
+                        errDistrict.innerText = data.errors.district
+
+                    }
+                    if(data.errors.addressDetail){
+                        errAddressDetail.innerText = data.errors.addressDetail
+
+                    }
+                }else {
+                    alert(data.message)
+                    getAddress();
+                }
+          })
+
+    }catch (e) {
+            console.log(error)
+
+    }
+    console.log(formData)
+    });
+
+
+</script>
+<script>
+    function getAddress(){
+        try{
+            fetch("/addresses",{
+                method : "GET",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            }).then(res => res.json())
+                .then(data => {
+                    console.log(data)
+
+                    const content = document.getElementById("addressTable");
+                    const rows = data.data.map(item => {
+                        const defaultAddress = item.default ? "checked" : ""
+                        return `
+                         <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-6" >
+                                            <div class="address-box">
+                                                <div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="jack"
+                                                            id="flexRadioDefault2" ${defaultAddress} onclick="setDefaultAddress(${item.addressId})">
+                                                    </div>
+
+
+
+                                                    <div class="table-responsive address-table">
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>${item.fullName}</td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>${item.phone}</td>
+                                                                    <td>
+                                                                        <p>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>${item.district}</td>
+
+                                                                </tr>
+
+                                                                <tr>
+                                                                    <td>${item.addressDetail}</td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="button-group">
+                                                    <button class="btn btn-sm add-button w-100" data-bs-toggle="modal"
+                                                        data-bs-target="#editProfile"><i data-feather="edit"></i>
+                                                        Edit</button>
+                                                    <button class="btn btn-sm add-button w-100" onclick="deleteAddressById(${item.addressId})"
+                                                        data-bs-target="#removeProfile"><i data-feather="trash-2"></i>
+                                                        Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                        `
+
+                    }).join("");
+                    content.innerHTML = rows;
+                })
+        }catch (e) {
+
+        }
+
+    }
+
+    function setDefaultAddress(addressId) {
+        console.log("hẹ hẹ hẹ")
+        try {
+            fetch(`/address/set-default?id=${addressId}`, {
+                method: 'POST'
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert(data.message);
+                    } else {
+                        alert(data.message);
+                    }
+                })
+        } catch (error) {
+            console.log(error);
+        }
+
+
+    }
+    function deleteAddressById(id){
+        try{
+            fetch("/address/delete?id=" + id,{
+                method : "DELETE",
+                headers : {
+                    "Content-Type" : "application/json"
+                }
+            }).then(res => res.json())
+                .then(data => {
+                    alert(data.message)
+                    getAddress();
+                })
+        }catch (e) {
+console.log(e)
+        }
+    }
+    getAddress();
+
+</script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/user-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:52 GMT -->
+</html>

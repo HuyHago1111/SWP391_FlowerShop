@@ -1,4 +1,4 @@
-<header class="pb-md-4 pb-0" th:fragment="headerClient" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header class="pb-md-4 pb-0" th:fragment="headerClient" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background-color:#ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
     <div class="header-top">
         <div class="container-fluid-lg">
             <div class="row">
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="top-nav top-header sticky-header">
+    <div class="top-nav top-header sticky-header" >
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-12">
@@ -113,23 +113,28 @@
                                                     <i></i>
                                                     <a th:href="@{/login}">Log In</a>
                                                 </li>
+                                                <li class="product-box-contain">
+                                                    <a href="sign-up.html" th:href="@{/sign-up}">Register</a>
+                                                </li>
+
+                                                <li class="product-box-contain">
+                                                    <a href="forgot.html" th:href="@{/forgot}">Forgot Password</a>
+                                                </li>
                                             </div>
 
                                             <div sec:authorize="isAuthenticated()">
 
                                                 <li class="product-box-contain">
                                                     <i></i>
+                                                    <a th:href="@{/user/dashboard}">My Account</a>
+                                                </li>
+                                                <li class="product-box-contain">
+                                                    <i></i>
                                                     <a th:href="@{/logout}">Log Out</a>
                                                 </li>
                                             </div>
 
-                                            <li class="product-box-contain">
-                                                <a href="sign-up.html" th:href="@{/sign-up}">Register</a>
-                                            </li>
 
-                                            <li class="product-box-contain">
-                                                <a href="forgot.html">Forgot Password</a>
-                                            </li>
                                         </ul>
                                     </div>
                                 </li>
@@ -161,7 +166,7 @@
 
                             <ul class="category-list">
                                 <li class="onhover-category-list" th:each="category:${categories}">
-                                    <a href="javascript:void(0)" class="category-name">
+                                    <a th:href = "@{/flower(categoryIDs=${category.categoryId})}" class="category-name">
                                         <img src="../assets/images/Flower/logo.jpg" alt="">
                                         <h6 th:text ="${category.categoryName}">Vegetables & Fruit</h6>
 
@@ -494,6 +499,9 @@
             </div>
         </div>
     </div>
+
+
+
     <script>
         document.addEventListener('DOMContentLoaded',LoadLsCartHeader);
         async function LoadLsCartHeader(){
@@ -503,38 +511,56 @@
                 const response = await  fetch('/cart/getlsCart');
                 const lsCart = await response.json();
 
-                if(!lsCart || lsCart.legend === 0){
+                if(!lsCart || lsCart.length === 0){ // Sửa: Dùng .length
                     lsCartHeader.innerHTML= "Your cart is empty.";
+                    totalProduct.innerText = 0; // Thêm: Đặt tổng sản phẩm về 0
                     return;
                 }
+
+                // Hiển thị tổng số *loại* sản phẩm (đây là logic cũ của bạn, giữ nguyên)
                 totalProduct.innerText =lsCart.length;
+
+                // --- PHẦN CHỈNH SỬA ---
+
+                // 1. Tính toán tổng tiền và tổng số lượng từ TOÀN BỘ giỏ hàng
                 let total = 0;
                 let totalQuantity = 0;
-                const itemHtml = lsCart.map(item => {
+                lsCart.forEach(item => {
                     total += item.totalPrice;
                     totalQuantity += item.quantityCart;
-                    return ` <ul class="cart-list">
-                                                <li class="product-box-contain">
-                                                    <div class="drop-cart">
-                                                        <a href="product-left-thumbnail.html" class="drop-image">
-                                                            <img src="${item.productImage}"
-                                                                 class="blur-up lazyload" alt="">
-                                                        </a>
+                });
 
-                                                        <div class="drop-contain">
-                                                            <a href="product-left-thumbnail.html">
-                                                                <h5>${item.productName}</h5>
-                                                            </a>
-                                                            <h6><span>${item.quantityCart}X</span> ${item.productPrice}</h6>
-                                                            <button class="close-button close_button" onclick="removeItem(${item.productId})">
-                                                                <i class="fa-solid fa-xmark"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                         `;
+                // 2. Lấy 5 sản phẩm đầu tiên để hiển thị
+                const itemsToDisplay = lsCart.slice(0, 5);
 
+                // 3. Tạo HTML chỉ từ 5 sản phẩm đó
+                // (Tôi cũng đã sửa lại cấu trúc HTML của bạn một chút,
+                // bạn đang lặp <ul> thay vì <li>, gây lỗi HTML)
+                const itemHtml = itemsToDisplay.map(item => {
+                    // Không cần tính tổng ở đây nữa
+                    return `
+                        <li class="product-box-contain">
+                            <div class="drop-cart">
+                                <a href="product-left-thumbnail.html" class="drop-image">
+                                    <img src="${item.productImage}"
+                                         class="blur-up lazyload" alt="">
+                                </a>
+
+                                <div class="drop-contain">
+                                    <a href="product-left-thumbnail.html">
+                                        <h5>${item.productName}</h5>
+                                    </a>
+                                    <h6><span>${item.quantityCart}X</span> ${item.productPrice}</h6>
+                                    <button class="close-button close_button" onclick="removeItem(${item.productId})">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    `; // Sửa: Chỉ trả về <li>, bỏ <ul> thừa
                 }).join('');
+
+                // 4. Hiển thị danh sách 5 sản phẩm, nhưng với tổng tiền/số lượng của CẢ GIỎ HÀNG
                 lsCartHeader.innerHTML =` <ul class="cart-list">
                                             ${itemHtml}
                                             </ul>
@@ -546,18 +572,19 @@
 
                                             <div class="button-group">
                                                 <a href="/cart" class="btn btn-sm cart-button">View Cart (${totalQuantity})</a>
-                                                <a href="checkout.html" class="btn btn-sm cart-button theme-bg-color
-                                                    text-white">Checkout</a>
+
                                             </div>
-
-
                 `
+                // --- KẾT THÚC PHẦN CHỈNH SỬA ---
 
             }catch (error) {
                 console.log(error);
 
             }
         }
+
+        // ... (Các hàm còn lại của bạn giữ nguyên) ...
+
         function removeItem(productId) {
             console.log("removeItem:", productId);
             try {
@@ -593,7 +620,7 @@
 
 
         function showAlert(message, type = 'info', position = 'top-right', timeout = 3000) {
-            console.log("hẹ hẹ hẹ ")
+
             const map = {
                 'top-right': document.getElementById('alerts-top-right'),
                 'top-left': document.getElementById('alerts-top-left'),
@@ -650,8 +677,9 @@
                 if (container.contains(el)) container.removeChild(el);
             }, 450);
         }
-
-        // Ví dụ: showAlert có thể được gọi từ server-side (AJAX) hoặc từ bất cứ chỗ nào trong JS
-        // showAlert('Xin chào!', 'success', 'top-right', 2000);
     </script>
-</header>
+
+
+
+</header >
+

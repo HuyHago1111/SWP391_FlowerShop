@@ -8,5 +8,6 @@ import java.util.List;
 public interface OrderDetailService {
     List<ProductTopSellingDTO> getTopSelilingProducts();
     List<ProductTopSellingDTO> getTrendingProducts();
+    OrderDetail save(OrderDetail orderDetail);
 
 }

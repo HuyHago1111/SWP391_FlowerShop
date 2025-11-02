@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 //    quantity        int            not null,
 //    price           decimal(10, 2) not null
 @Entity
-@Table(name = "Order_Details")
+@Table(name = "OrderDetails")
 @Getter
 @Setter
 @NoArgsConstructor
