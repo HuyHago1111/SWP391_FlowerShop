@@ -48,7 +48,7 @@ public class ManagerCategoryController {
     }
 
     @GetMapping("/{id}/edit")
-    public String editCategory(@PathVariable Integer id, Model model) {
+    public String editCategory(@PathVariable Long id, Model model) {
         Category category = categoryService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
         model.addAttribute("category", category);
@@ -64,7 +64,7 @@ public class ManagerCategoryController {
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteCategory(@PathVariable Integer id, RedirectAttributes ra) {
+    public String deleteCategory(@PathVariable Long id, RedirectAttributes ra) {
         categoryService.deleteById(id);
         ra.addFlashAttribute("success", "🗑 Category deleted successfully!");
         return "redirect:/manager/categories";

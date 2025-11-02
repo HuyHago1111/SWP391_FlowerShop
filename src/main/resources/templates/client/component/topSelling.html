@@ -10,10 +10,10 @@
                             </div>
 
                             <div class="top-selling-contain wow " th:each="product : ${topSellingProducts}">
-                                <a href="product-left-thumbnail.html" class="top-selling-image">
+                                <a th:href="@{/product-detail/{id}(id=${product.productId})}">
                                     <img th:src="@{${product.imageUrl}}"
 
-                                         class="img-fluid blur-up lazyload" alt="">
+                                         class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
 
                                 </a>
 
@@ -21,27 +21,8 @@
                                     <a href="product-left-thumbnail.html">
                                         <h5 th:text="${product.productName}">Tuffets Whole Wheat Bread</h5>
                                     </a>
-                                    <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
-                                    </div>
-                                    <h6 th:text="${product.price}">$ 10.00</h6>
+
+                                    <h6 th:text="${product.price} + ' ₫'">$ 10.00</h6>
                                 </div>
                             </div>
 
@@ -59,9 +40,9 @@
                             </div>
 
                             <div class="top-selling-contain wow " th:each="product : ${trendingProducts}">
-                                <a href="product-left-thumbnail.html" class="top-selling-image">
+                                <a th:href="@{/product-detail/{id}(id=${product.productId})}">
                                     <img th:src="@{${product.imageUrl}}"
-                                         class="img-fluid blur-up lazyload" alt="">
+                                         class="img-fluid blur-up lazyload" alt="" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px;">
                                 </a>
 
                                 <div class="top-selling-detail">
@@ -69,26 +50,10 @@
                                         <h5 th:text="${product.productName}">Good Life Refined Sunflower Oil</h5>
                                     </a>
                                     <div class="product-rating">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span>(34)</span>
+
+                                        <span>.</span>
                                     </div>
-                                    <h6 th:text="${product.price}">$ 10.00</h6>
+                                    <h6 th:text="${product.price} + ' ₫'">$ 10.00</h6>
                                 </div>
                             </div>
 

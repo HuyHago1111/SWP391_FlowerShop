@@ -82,4 +82,8 @@ public class CartService {
         lsCart.removeIf(item -> item.getProductId() == productId);
         saveLsCart(lsCart,response);
     }
+    public void clearCart(HttpServletResponse response){
+
+        CookieService.setCookie(response, "lscart", "", 0);
+    }
 }

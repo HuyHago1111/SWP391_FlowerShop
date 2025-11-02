@@ -1,3 +1,5 @@
+// src/main/java/com/flowerShop1/service/user/UserService.java
+
 package com.flowerShop1.service.user;
 
 import com.flowerShop1.dto.user.UserCreationDTO;
@@ -14,18 +16,23 @@ import java.util.Optional;
 @Service
 
 public interface UserService {
-//    List<User> getAllUsers();
-
-    Page<User> searchUsers(String keyword, String status, Pageable pageable);
-    void updateUserRole(Integer userId, Integer newRoleId);
-    Page<User> searchByKeywordAndRole(String keyword, String role, Pageable pageable);
-
-//    Page<User> getAllUsers(Pageable pageable);
+    List<User> getAllUsers();
     void register(UserSignUpDTO user);
     boolean verifyOTP(String otp, UserSignUpDTO userSignUpDTO);
     Optional<User> findUserById(Integer id);
-    void createUser(UserCreationDTO userDTO);
+    User createUser(UserCreationDTO userDTO);
     List<Order> findOrdersByUserId(Integer userId);
+    User getUserById(int userId);
+    Page<User> searchByKeywordAndRole(String keyword, String role, Pageable pageable);
+    void updateStatus(Integer userId, String newStatus);
+
+    User getUserByEmail(String email);
+    void save (User user);
+    void forgotPassword(UserSignUpDTO userSignUpDTO);
+
+
+    Page<User> searchUsers(String keyword, String status, Pageable pageable);
+    void updateUserRole(Integer userId, Integer newRoleId);
     void updateUserStatus(Integer userId, String newStatus);
     void deleteUserById(Integer userId);
 }

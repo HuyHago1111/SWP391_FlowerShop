@@ -27,17 +27,17 @@ public class Payment {
     @Id
     @Column (name = "payment_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int paymentId;
+    private int payment_id;
     @Column(name = "order_id", nullable = false)
-    private int orderId;
+    private int order_id;
     @Column(name = "payment_method", nullable = false, length = 20, columnDefinition = "nvarchar(20)" )
-    private String paymentMethod;
+    private String payment_method;
     @Column(name = "payment_status", nullable = false)
-    private int paymentStatus;
+    private int payment_status;
     @Column(name = "transaction_id", length = 100, columnDefinition = "nvarchar(100)" )
-    private String transactionId;
+    private String transaction_id;
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
     @Column(name = "payment_date", nullable = false)
-    private String paymentDate;
+    private String payment_date;
 }

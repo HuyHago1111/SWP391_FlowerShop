@@ -89,7 +89,7 @@
     <!-- Breadcrumb Section Start -->
     <section class="breadcrumb-section pt-0">
         <div class="container-fluid-lg">
-            <div class="row">
+            <div class="row" style= "padding-top: 230px;">
                 <div class="col-12">
                     <div class="breadcrumb-contain">
                         <h2 class="mb-2">Log In</h2>
@@ -132,9 +132,13 @@
 
                         <div class="input-box">
                             <form class="row g-4" th:action="@{/login}" th:object="${userLoginDTO}" method="post" >
-                                <span th:if="${loginError}" th:text="${loginError}" style="color: red">
+                                <!-- THÊM ĐOẠN NÀY ĐỂ HIỂN THỊ THÔNG BÁO THÀNH CÔNG -->
+                                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
 
-                                </span>
+                                <span th:if="${loginError}" th:text="${loginError}" style="color: red"></span>
+                                <div th:if="${logoutMessage}" class="alert alert-info" th:text="${logoutMessage}"></div>
+
+                                <!-- ... Các phần còn lại của form ... -->
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
                                         <input type="email" class="form-control" id="email" placeholder="Email Address" th:field="*{email}" >
@@ -196,7 +200,7 @@
 
                         <div class="sign-up-box">
                             <h4>Don't have an account?</h4>
-                            <a href="sign-up.html">Sign Up</a>
+                            <a th:href="@{/sign-up}">Sign Up</a>
                         </div>
                     </div>
                 </div>
@@ -253,22 +257,22 @@
                         <div class="footer-contain">
                             <ul>
                                 <li>
-                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                    <a href="flowerList.html" class="text-content">Vegetables & Fruit</a>
                                 </li>
                                 <li>
-                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                    <a href="flowerList.html" class="text-content">Beverages</a>
                                 </li>
                                 <li>
-                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                    <a href="flowerList.html" class="text-content">Meats & Seafood</a>
                                 </li>
                                 <li>
-                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                    <a href="flowerList.html" class="text-content">Frozen Foods</a>
                                 </li>
                                 <li>
-                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                    <a href="flowerList.html" class="text-content">Biscuits & Snacks</a>
                                 </li>
                                 <li>
-                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                    <a href="flowerList.html" class="text-content">Grocery & Staples</a>
                                 </li>
                             </ul>
                         </div>
@@ -285,7 +289,7 @@
                                     <a href="index.html" class="text-content">Home</a>
                                 </li>
                                 <li>
-                                    <a href="shop-left-sidebar.html" class="text-content">Shop</a>
+                                    <a href="flowerList.html" class="text-content">Shop</a>
                                 </li>
                                 <li>
                                     <a href="about-us.html" class="text-content">About Us</a>
