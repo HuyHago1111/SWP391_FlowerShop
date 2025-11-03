@@ -35,4 +35,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
             """, nativeQuery = true)
     List<Object[]> findTrendingProductsNative();
 
+    
+
 }
