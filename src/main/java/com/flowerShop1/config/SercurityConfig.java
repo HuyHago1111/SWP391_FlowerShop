@@ -49,7 +49,21 @@ public class SercurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // cho đơn giản demo; bật lại CSRF khi cần
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()
+                        // Cho phép truy cập công khai các tài nguyên tĩnh, trang chủ, login, sign-up
+                        .requestMatchers("/assets/**", "/css/**", "/js/**", "/images/**", "/svg/**").permitAll()
+                        .requestMatchers("/", "/login", "/logout", "/sign-up", "/forgot", "/sign-up/verify-otp", "/change-password").permitAll()
+                        .requestMatchers("/flower", "/flower-list", "/product-detail/**").permitAll()
+                        .requestMatchers("/cart", "/cart/addToCart", "/cart/showCart", "/cart/getlsCart", "/cart/updateQuantity", "/cart/removeItem").permitAll()
+
+                        // Các URL yêu cầu vai trò ADMIN
+                        // Giả sử bạn có một controller cho /admin/** và trang /users là dành cho admin
+                        .requestMatchers("/admin/**", "/users/**").hasAnyAuthority("Admin")
+
+                        // Các URL yêu cầu người dùng phải đăng nhập (bất kể vai trò gì)
+                        .requestMatchers("/user/**", "/address/**", "/cart/checkout", "/api/payment/create", "/vnpay/returnurl").authenticated()
+
+                        // Tất cả các yêu cầu còn lại phải được xác thực (đã đăng nhập)
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")                 // Trang login custom
@@ -61,6 +75,9 @@ public class SercurityConfig {
 //                        .failureUrl("/login?error=true")     // Khi sai mật khẩu
                         .permitAll()
                 )// disable default form login
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/403") // 🔥 Khi truy cập sai role, redirect đến /403
+                )
                 .headers(headers -> headers.frameOptions(frame -> frame.disable())) // để mở H2 console
                 .logout(logout -> logout
                         .logoutUrl("/logout")
