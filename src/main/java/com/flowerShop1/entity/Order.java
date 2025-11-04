@@ -15,27 +15,27 @@ import java.time.LocalDateTime;
 @Builder
 public class Order {
     /*
-    * create table Orders
-(
-    order_id         int identity
-        primary key,
-    user_id          int            not null
-        references Users,
-    shipper_id       int
-        references Shippers,
-    order_status     int            not null
-        references Orders_Status_enum,
-    payment_status   int            not null
-        references Orders_PaymentStatus_enum,
-    total_amount     decimal(10, 2) not null,
-    shipping_address nvarchar(255),
-    order_date       datetime default getdate(),
-    updated_at       datetime,
-    note             nvarchar(255)
-)
-go
-
-*/
+     * create table Orders
+     * (
+     * order_id int identity
+     * primary key,
+     * user_id int not null
+     * references Users,
+     * shipper_id int
+     * references Shippers,
+     * order_status int not null
+     * references Orders_Status_enum,
+     * payment_status int not null
+     * references Orders_PaymentStatus_enum,
+     * total_amount decimal(10, 2) not null,
+     * shipping_address nvarchar(255),
+     * order_date datetime default getdate(),
+     * updated_at datetime,
+     * note nvarchar(255)
+     * )
+     * go
+     * 
+     */
     @Id
     @Column(name = "order_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,12 +54,14 @@ go
     private PaymentStatus paymentStatus;
     @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalAmount;
-    @Column(name = "shipping_address", length = 255, columnDefinition = "nvarchar(255)")
-    private String shippingAddress;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private Address address;
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
-    @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
+    @Column(name = "updated_at") // Cho phép null
+    private LocalDateTime updatedAt; // Đổi kiểu dữ liệu thành LocalDateTime
+
     @Column(name = "note", length = 255, columnDefinition = "nvarchar(255)")
     private String note;
 }
