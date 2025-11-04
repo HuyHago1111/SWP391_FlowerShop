@@ -97,7 +97,7 @@ public class UserDashBoardController {
             @RequestParam(defaultValue = "4", name = "size") int size) {
 
         Map<String, Object> response = new HashMap<>();
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page, size, org.springframework.data.domain.Sort.by("orderDate").descending());
 
         // 1. Lấy về đối tượng Page<Order> từ service
         Page<Order> orderPage = orderService.getOrdersByUserId(customUserDetails.getUserId(), pageable);

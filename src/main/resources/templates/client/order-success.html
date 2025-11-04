@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt Hàng Thành Công</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+
+    <style>
+        .success-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+
+        .success-box {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .checkmark-wrapper {
+            margin: 0 auto 20px;
+            width: 90px;
+            height: 90px;
+        }
+
+        .checkmark {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 3;
+            stroke: #0DA487;
+            stroke-miterlimit: 10;
+            box-shadow: inset 0px 0px 0px #0DA487;
+            animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 3;
+            stroke-miterlimit: 10;
+            stroke: #0DA487;
+            fill: none;
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark__check {
+            transform-origin: 50% 50%;
+            stroke-dasharray: 48;
+            stroke-dashoffset: 48;
+            animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+        }
+
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 45px #0DA487;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Start -->
+    <div th:replace="~{client/component/headerClient::headerClient}"></div>
+    <!-- Header End -->
+
+    <!-- Order Success Section Start -->
+    <section class="success-section section-b-space">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="success-box">
+                        <div class="checkmark-wrapper">
+                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                            </svg>
+                        </div>
+
+                        <div class="success-contain">
+                            <h2 class="text-black">Đặt Hàng Thành Công</h2>
+                            <h5 class="text-content">Mã đơn hàng của bạn là: <a class="theme-color"
+                                    th:text="${orderId}">#12345</a></h5>
+                            <p class="text-content">Chúng tôi sẽ sớm xử lý đơn hàng của bạn. Bạn sẽ nhận được email xác
+                                nhận trong ít phút.</p>
+                        </div>
+
+                        <div class="button-group mt-4">
+                            <a th:href="@{/}" class="btn btn-animation-2">Tiếp Tục Mua Sắm</a>
+                            <a th:href="@{/user/dashboard}" class="btn btn-animation-2 ms-2">Xem Lịch Sử Đơn Hàng</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Order Success Section End -->
+
+    <!-- Footer Section Start -->
+    <div th:replace="~{client/component/footerMenu::footerMenu}"></div>
+    <!-- Footer Section End -->
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- script js -->
+    <script src="../assets/js/script.js"></script>
+
+</body>
+
+</html>
