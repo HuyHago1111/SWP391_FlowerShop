@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 
-<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/product-bottom-thumbnail.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:08 GMT -->
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/productdetail.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:13 GMT -->
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,9 +18,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&amp;display=swap"
-          rel="stylesheet">
+        rel="stylesheet">
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
 
     <!-- bootstrap css -->
     <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
@@ -36,1093 +37,1202 @@
 
 <body>
 
-<!-- Loader Start -->
-<div class="fullpage-loader">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-</div>
-<!-- Loader End -->
-
-<!-- Header Start -->
-<div th:replace="~{client/component/headerClient::headerClient}"></div>
-<!-- Header End -->
-
-<!-- mobile fix menu start -->
-<div class="mobile-menu d-md-none d-block mobile-cart">
-    <ul>
-        <li class="active">
-            <a href="index.html">
-                <i class="iconly-Home icli"></i>
-                <span>Home</span>
-            </a>
-        </li>
-
-        <li class="mobile-category">
-            <a href="javascript:void(0)">
-                <i class="iconly-Category icli js-link"></i>
-                <span>Category</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="search.html" class="search-box">
-                <i class="iconly-Search icli"></i>
-                <span>Search</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="wishlist.html" class="notifi-wishlist">
-                <i class="iconly-Heart icli"></i>
-                <span>My Wish</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="cart.html">
-                <i class="iconly-Bag-2 icli fly-cate"></i>
-                <span>Cart</span>
-            </a>
-        </li>
-    </ul>
-</div>
-<!-- mobile fix menu end -->
-
-<!-- Breadcrumb Section Start -->
-<section class="breadcrumb-section pt-0">
-    <div class="container-fluid-lg">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb-contain">
-                    <h2>Flower</h2>
-                    <nav>
-                        <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item">
-                                <a href="index.html">
-                                    <i class="fa-solid fa-house"></i>
-                                </a>
-                            </li>
-
-                            <li class="breadcrumb-item active">Flower</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
+    <!-- Loader Start -->
+    <div class="fullpage-loader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-</section>
-<!-- Breadcrumb Section End -->
+    <!-- Loader End -->
 
-<!-- Product Left Sidebar Start -->
-<section class="product-section">
-    <div class="container-fluid-lg">
-        <div class="row" style= "padding-top: 130px;">
-            <div class="col-xxl-9 col-xl-8 col-lg-7 wow fadeInUp">
-                <div class="row g-4">
-                    <div class="col-xl-6 wow fadeInUp">
-                        <div class="product-left-box">
-                            <div class="row g-2" >
-                                <div class="col-12 position-relative">
-                                    <div class="product-label-group">
-                                        <div class="product-label-tag warning-label-tag">
-                                            <span>Featured</span>
-                                        </div>
-                                    </div>
-                                    <div class="product-main-1 no-arrow">
-                                        <div>
-                                            <div class="slider-image">
-                                                <img th:src="@{${product.imageUrl}}" id="img-1"
-                                                     data-zoom-image="../assets/images/product/category/1.jpg"
-                                                     class="img-fluid image_zoom_cls-0 blur-up lazyload" alt="" style="width: 100%; height: 100%; object-fit: cover;">
-                                            </div>
-                                        </div>
+    <!-- Header Start -->
+    <div th:replace="~{client/component/headerClient::headerClient}"></div>
+    <!-- Header End -->
 
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="../assets/images/product/category/2.jpg"
-                                                     data-zoom-image="../assets/images/product/category/2.jpg"
-                                                     class="img-fluid image_zoom_cls-1 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
+    <!-- mobile fix menu start -->
+    <div class="mobile-menu d-md-none d-block mobile-cart">
+        <ul>
+            <li class="active">
+                <a href="index.html">
+                    <i class="iconly-Home icli"></i>
+                    <span>Home</span>
+                </a>
+            </li>
 
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="../assets/images/product/category/3.jpg"
-                                                     data-zoom-image="../assets/images/product/category/3.jpg"
-                                                     class="img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
+            <li class="mobile-category">
+                <a href="javascript:void(0)">
+                    <i class="iconly-Category icli js-link"></i>
+                    <span>Category</span>
+                </a>
+            </li>
 
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="../assets/images/product/category/4.jpg"
-                                                     data-zoom-image="../assets/images/product/category/4.jpg"
-                                                     class="img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
+            <li>
+                <a href="search.html" class="search-box">
+                    <i class="iconly-Search icli"></i>
+                    <span>Search</span>
+                </a>
+            </li>
 
-                                        <div>
+            <li>
+                <a href="wishlist.html" class="notifi-wishlist">
+                    <i class="iconly-Heart icli"></i>
+                    <span>My Wish</span>
+                </a>
+            </li>
 
-                                        </div>
-
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="../assets/images/product/category/6.jpg"
-                                                     data-zoom-image="../assets/images/product/category/6.jpg"
-                                                     class="img-fluid image_zoom_cls-5 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="right-box-contain">
-                            <h6 class="offer-top">30% Off</h6>
-                            <h2 class="name" th:text="${product.productName}">Creamy Chocolate Cake</h2>
-                            <div class="price-rating">
-                                <h3 class="theme-color price" th:text="${product.price} + ' ₫'">$49.50</h3>
-                                <div class="product-rating custom-rate">
-
-
-                                </div>
-                            </div>
-
-                            <div class="product-contain">
-                                <p th:text="${product.description}">Lollipop cake chocolate chocolate cake dessert jujubes. Shortbread sugar plum
-                                    dessert
-                                    powder cookie sweet brownie. Cake cookie apple pie dessert sugar plum muffin
-                                    cheesecake.
-                                </p>
-                            </div>
-
-                            <div class="product-package">
-                            </div>
-
-                            <div class="time deal-timer product-deal-timer mx-md-0 mx-auto" id="clockdiv-1"
-                                 data-hours="1" data-minutes="2" data-seconds="3">
-
-
-                            </div>
-
-
-
-                            <div class="note-box product-package">
-                                <div class="cart_qty qty-box product-qty">
-                                    <div class="input-group">
-                                        <button type="button" class="qty-right-plus" data-type="plus" data-field="">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                        <input class="form-control input-number qty-input" type="text"
-                                               name="quantity" value="0">
-                                        <button type="button" class="qty-left-minus" data-type="minus"
-                                                data-field="">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <button
-                                        th:onclick="'addToCart(' + ${product.productId} + ', document.querySelector(\'.qty-input\').value)'"
-                                        class="btn btn-md bg-dark cart-button text-white w-100">
-                                    Add To Cart
-                                </button>
-                            </div>
-
-
-                            </div>
-
-                            <div class="pickup-box">
-                                <div class="product-title">
-                                    <h4>Store Information</h4>
-                                </div>
-
-                                <div class="pickup-detail">
-                                    <h4 class="text-content"  th:text="${product.description}">Lollipop cake chocolate chocolate cake dessert jujubes.
-                                        Shortbread sugar plum dessert powder cookie sweet brownie.</h4>
-                                </div>
-
-                                <div class="product-info">
-
-                                </div>
-                            </div>
-
-
-                                <ul>
-
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <img src="../assets/images/product/payment/5.svg"
-                                                 class="blur-up lazyload" alt="">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-        </div>
+            <li>
+                <a href="cart.html">
+                    <i class="iconly-Bag-2 icli fly-cate"></i>
+                    <span>Cart</span>
+                </a>
+            </li>
+        </ul>
     </div>
-</section>
-<!-- Product Left Sidebar End -->
+    <!-- mobile fix menu end -->
 
-<!-- Related Product Section Start -->
-<section class="product-list-section section-b-space">
-
-</section>
-<!-- Related Product Section End -->
-
-<!-- Footer Section Start -->
-<footer class="section-t-space">
-    <div class="container-fluid-lg">
-        <div class="service-section">
-            <div class="row g-3">
+    <!-- Breadcrumb Section Start -->
+    <section class="breadcrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row" style="padding-top: 230px;">
                 <div class="col-12">
-                    <div class="service-contain">
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="../assets/svg/product.svg" class="blur-up lazyload" alt="">
-                            </div>
+                    <div class="breadcrumb-contain">
+                        <h2 th:text="${product.productName}"></h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
 
-                            <div class="service-detail">
-                                <h5>Every Fresh Products</h5>
-                            </div>
-                        </div>
-
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="../assets/svg/delivery.svg" class="blur-up lazyload" alt="">
-                            </div>
-
-                            <div class="service-detail">
-                                <h5>Free Delivery For Order Over $50</h5>
-                            </div>
-                        </div>
-
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="../assets/svg/discount.svg" class="blur-up lazyload" alt="">
-                            </div>
-
-                            <div class="service-detail">
-                                <h5>Daily Mega Discounts</h5>
-                            </div>
-                        </div>
-
-                        <div class="service-box">
-                            <div class="service-image">
-                                <img src="../assets/svg/market.svg" class="blur-up lazyload" alt="">
-                            </div>
-
-                            <div class="service-detail">
-                                <h5>Best Price On The Market</h5>
-                            </div>
-                        </div>
+                                <li class="breadcrumb-item active" th:text="${product.productName}"></li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <!-- Breadcrumb Section End -->
 
-        <div class="main-footer section-b-space section-t-space">
-            <div class="row g-md-4 g-3">
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="footer-logo">
-                        <div class="theme-logo">
-                            <a href="index.html">
-                                <img src="../assets/images/logo/1.png" class="blur-up lazyload" alt="">
-                            </a>
-                        </div>
+    <!-- Product Left Sidebar Start -->
+    <section class="product-section">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-xxl-9 col-xl-8 col-lg-7 wow fadeInUp">
+                    <div class="row g-4">
+                        <div class="col-xl-6 wow fadeInUp">
+                            <div class="product-left-box">
+                                <div class="row g-2">
+                                    <div class="col-xxl-10 col-lg-12 col-md-10 order-xxl-2 order-lg-1 order-md-2">
+                                        <div class="product-main-2 no-arrow">
+                                            <div>
+                                                <div class="slider-image">
+                                                    <img th:src="@{${product.imageUrl}}" id="img-1"
+                                                        data-zoom-image="../assets/images/product/category/1.jpg"
+                                                        class="img-fluid image_zoom_cls-0 blur-up lazyload" alt="">
+                                                </div>
+                                            </div>
 
-                        <div class="footer-logo-contain">
-                            <p>We are a friendly bar serving a variety of cocktails, wines and beers. Our bar is a
-                                perfect place for a couple.</p>
 
-                            <ul class="address">
-                                <li>
-                                    <i data-feather="home"></i>
-                                    <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
-                                </li>
-                                <li>
-                                    <i data-feather="mail"></i>
-                                    <a href="javascript:void(0)">support@fastkart.com</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <div class="footer-title">
-                        <h4>Categories</h4>
-                    </div>
-
-                    <div class="footer-contain">
-                        <ul>
-                            <li>
-                                <a href="flowerList.html" class="text-content">Vegetables & Fruit</a>
-                            </li>
-                            <li>
-                                <a href="flowerList.html" class="text-content">Beverages</a>
-                            </li>
-                            <li>
-                                <a href="flowerList.html" class="text-content">Meats & Seafood</a>
-                            </li>
-                            <li>
-                                <a href="flowerList.html" class="text-content">Frozen Foods</a>
-                            </li>
-                            <li>
-                                <a href="flowerList.html" class="text-content">Biscuits & Snacks</a>
-                            </li>
-                            <li>
-                                <a href="flowerList.html" class="text-content">Grocery & Staples</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl col-lg-2 col-sm-3">
-                    <div class="footer-title">
-                        <h4>Useful Links</h4>
-                    </div>
-
-                    <div class="footer-contain">
-                        <ul>
-                            <li>
-                                <a href="index.html" class="text-content">Home</a>
-                            </li>
-                            <li>
-                                <a href="flowerList.html" class="text-content">Shop</a>
-                            </li>
-                            <li>
-                                <a href="about-us.html" class="text-content">About Us</a>
-                            </li>
-                            <li>
-                                <a href="blog-list.html" class="text-content">Blog</a>
-                            </li>
-                            <li>
-                                <a href="contact-us.html" class="text-content">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl-2 col-sm-3">
-                    <div class="footer-title">
-                        <h4>Help Center</h4>
-                    </div>
-
-                    <div class="footer-contain">
-                        <ul>
-                            <li>
-                                <a href="order-success.html" class="text-content">Your Order</a>
-                            </li>
-                            <li>
-                                <a href="user-dashboard.html" class="text-content">Your Account</a>
-                            </li>
-                            <li>
-                                <a href="order-tracking.html" class="text-content">Track Order</a>
-                            </li>
-                            <li>
-                                <a href="wishlist.html" class="text-content">Your Wishlist</a>
-                            </li>
-                            <li>
-                                <a href="search.html" class="text-content">Search</a>
-                            </li>
-                            <li>
-                                <a href="faq.html" class="text-content">FAQ</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="footer-title">
-                        <h4>Contact Us</h4>
-                    </div>
-
-                    <div class="footer-contact">
-                        <ul>
-                            <li>
-                                <div class="footer-number">
-                                    <i data-feather="phone"></i>
-                                    <div class="contact-number">
-                                        <h6 class="text-content">Hotline 24/7 :</h6>
-                                        <h5>+91 888 104 2340</h5>
+                                        </div>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
+                        </div>
 
-                            <li>
-                                <div class="footer-number">
-                                    <i data-feather="mail"></i>
-                                    <div class="contact-number">
-                                        <h6 class="text-content">Email Address :</h6>
-                                        <h5>fastkart@hotmail.com</h5>
-                                    </div>
+                        <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.1s">
+                            <div class="right-box-contain">
+
+                                <!-- Tên sản phẩm -->
+                                <h2 class="name" th:text="${product.productName}"></h2>
+
+                                <!-- Nhà cung cấp và Danh mục -->
+                                <div class="product-vendor-category mb-2" style="font-size: 14px; color: #555;">
+                                    <span>Nhà cung cấp: </span>
+                                    <a href="#" class="theme-color" th:text="${product.supplier.companyName}">Tiệm Bánh
+                                        ABC</a>
+                                    <span class="mx-2">|</span>
+                                    <span>Danh mục: </span>
+                                    <a th:href="@{/flower(categoryIDs=${product.category.categoryId})}" class="theme-color" th:text="${product.category.categoryName}">Bánh Kem
+                                        & Bánh Ngọt</a>
                                 </div>
-                            </li>
 
-                            <li class="social-app">
-                                <h5 class="mb-2 text-content">Download App :</h5>
-                                <ul>
-                                    <li class="mb-0">
-                                        <a href="https://play.google.com/store/apps" target="_blank">
-                                            <img src="../assets/images/playstore.svg" class="blur-up lazyload"
-                                                 alt="">
-                                        </a>
-                                    </li>
-                                    <li class="mb-0">
-                                        <a href="https://www.apple.com/in/app-store/" target="_blank">
-                                            <img src="../assets/images/appstore.svg" class="blur-up lazyload"
-                                                 alt="">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="sub-footer section-small-space">
-            <div class="reserve">
-                <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
-            </div>
-
-            <div class="payment">
-                <img src="../assets/images/payment/1.png" class="blur-up lazyload" alt="">
-            </div>
-
-            <div class="social-link">
-                <h6 class="text-content">Stay connected :</h6>
-                <ul>
-                    <li>
-                        <a href="https://www.facebook.com/" target="_blank">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/" target="_blank">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/" target="_blank">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://in.pinterest.com/" target="_blank">
-                            <i class="fa-brands fa-pinterest-p"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- Footer Section End -->
-
-<!-- Quick View Modal Box Start -->
-<div class="modal fade theme-modal view-modal" id="view" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
-        <div class="modal-content">
-            <div class="modal-header p-0">
-                <button type="button" class="btn-close" data-bs-dismiss="modal">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row g-sm-4 g-2">
-                    <div class="col-lg-6">
-                        <div class="slider-image">
-                            <img src="../assets/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
-                                 alt="">
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="right-sidebar-modal">
-                            <h4 class="title-name">Peanut Butter Bite Premium Butter Cookies 600 g</h4>
-                            <h4 class="price">$36.99</h4>
-                            <div class="product-rating">
-                                <ul class="rating">
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star"></i>
-                                    </li>
-                                </ul>
-                                <span class="ms-2">8 Reviews</span>
-                                <span class="ms-2 text-danger">6 sold in last 16 hours</span>
-                            </div>
-
-                            <div class="product-detail">
-                                <h4>Product Details :</h4>
-                                <p>Candy canes sugar plum tart cotton candy chupa chups sugar plum chocolate I love.
-                                    Caramels marshmallow icing dessert candy canes I love soufflé I love toffee.
-                                    Marshmallow pie sweet sweet roll sesame snaps tiramisu jelly bear claw. Bonbon
-                                    muffin I love carrot cake sugar plum dessert bonbon.</p>
-                            </div>
-
-                            <ul class="brand-list">
-                                <li>
-                                    <div class="brand-box">
-                                        <h5>Brand Name:</h5>
-                                        <h6>Black Forest</h6>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="brand-box">
-                                        <h5>Product Code:</h5>
-                                        <h6>W0690034</h6>
-                                    </div>
-                                </li>
-
-                                <li>
-                                    <div class="brand-box">
-                                        <h5>Product Type:</h5>
-                                        <h6>White Cream Cake</h6>
-                                    </div>
-                                </li>
-                            </ul>
-
-                            <div class="select-size">
-                                <h4>Cake Size :</h4>
-                                <select class="form-select select-form-size">
-                                    <option selected>Select Size</option>
-                                    <option value="1.2">1/2 KG</option>
-                                    <option value="0">1 KG</option>
-                                    <option value="1.5">1/5 KG</option>
-                                    <option value="red">Red Roses</option>
-                                    <option value="pink">With Pink Roses</option>
-                                </select>
-                            </div>
-
-                            <div class="modal-button">
-                                <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md add-cart-button icon">Add
-                                    To Cart</button>
-                                <button onclick="location.href = 'product-left.html';"
-                                        class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
-                                    View More Details</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Quick View Modal Box End -->
-
-<!-- Location Modal Start -->
-<div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
-                <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
-                <button type="button" class="btn-close" data-bs-dismiss="modal">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="location-list">
-                    <div class="search-input">
-                        <input type="search" class="form-control" placeholder="Search Your Area">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </div>
-
-                    <div class="disabled-box">
-                        <h6>Select a Location</h6>
-                    </div>
-
-                    <ul class="location-select custom-height">
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Alabama</h6>
-                                <span>Min: $130</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Arizona</h6>
-                                <span>Min: $150</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>California</h6>
-                                <span>Min: $110</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Colorado</h6>
-                                <span>Min: $140</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Florida</h6>
-                                <span>Min: $160</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Georgia</h6>
-                                <span>Min: $120</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Kansas</h6>
-                                <span>Min: $170</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Minnesota</h6>
-                                <span>Min: $120</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>New York</h6>
-                                <span>Min: $110</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="javascript:void(0)">
-                                <h6>Washington</h6>
-                                <span>Min: $130</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Location Modal End -->
-
-<!-- Deal Box Modal Start -->
-<div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div>
-                    <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
-                    <p class="mt-1 text-content">Recommended deals for you.</p>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="deal-offer-box">
-                    <ul class="deal-offer-list">
-                        <li class="list-1">
-                            <div class="deal-offer-contain">
-                                <a href="flowerList.html" class="deal-image">
-                                    <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload"
-                                         alt="">
-                                </a>
-
-                                <a href="flowerList.html" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="list-2">
-                            <div class="deal-offer-contain">
-                                <a href="flowerList.html" class="deal-image">
-                                    <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload"
-                                         alt="">
-                                </a>
-
-                                <a href="flowerList.html" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="list-3">
-                            <div class="deal-offer-contain">
-                                <a href="flowerList.html" class="deal-image">
-                                    <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload"
-                                         alt="">
-                                </a>
-
-                                <a href="flowerList.html" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-
-                        <li class="list-1">
-                            <div class="deal-offer-contain">
-                                <a href="flowerList.html" class="deal-image">
-                                    <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload"
-                                         alt="">
-                                </a>
-
-                                <a href="flowerList.html" class="deal-contain">
-                                    <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
-                                    <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Deal Box Modal End -->
-
-<!-- Add to cart Modal Start -->
-<div class="add-cart-box">
-    <div class="add-image">
-        <img src="../assets/images/cake/pro/1.jpg" class="img-fluid" alt="">
-    </div>
-
-    <div class="add-contain">
-        <h6>Added to Cart</h6>
-    </div>
-</div>
-<!-- Add to cart Modal End -->
-
-<!-- Tap to top and theme setting button start -->
-<div class="theme-option theme-option-2">
-    <div class="setting-box">
-        <button class="btn setting-button">
-            <i class="fa-solid fa-gear"></i>
-        </button>
-
-        <div class="theme-setting-2">
-            <div class="theme-box">
-                <ul>
-                    <li>
-                        <div class="setting-name">
-                            <h4>Color</h4>
-                        </div>
-                        <div class="theme-setting-button color-picker">
-                            <form class="form-control">
-                                <label for="colorPick" class="form-label mb-0">Theme Color</label>
-                                <input type="color" class="form-control form-control-color" id="colorPick"
-                                       value="#0da487" title="Choose your color">
-                            </form>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="setting-name">
-                            <h4>Dark</h4>
-                        </div>
-                        <div class="theme-setting-button">
-                            <button class="btn btn-2 outline" id="darkButton">Dark</button>
-                            <button class="btn btn-2 unline" id="lightButton">Light</button>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="setting-name">
-                            <h4>RTL</h4>
-                        </div>
-                        <div class="theme-setting-button rtl">
-                            <button class="btn btn-2 rtl-unline">LTR</button>
-                            <button class="btn btn-2 rtl-outline">RTL</button>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="back-to-top">
-        <a id="back-to-top" href="#">
-            <i class="fas fa-chevron-up"></i>
-        </a>
-    </div>
-</div>
-<!-- Tap to top and theme setting button end -->
-
-<!-- Sticky Cart Box Start -->
-<div class="sticky-bottom-cart">
-    <div class="container-fluid-lg">
-        <div class="row">
-            <div class="col-12">
-                <div class="cart-content">
-                    <div class="product-image">
-                        <img src="../assets/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
-                             alt="">
-                        <div class="content">
-                            <h5>Creamy Chocolate Cake</h5>
-                            <h6>$32.96<del class="text-danger">$96.00</del><span>55% off</span></h6>
-                        </div>
-                    </div>
-                    <div class="selection-section">
-                        <div class="form-group mb-0">
-                            <select id="input-state" class="form-control form-select">
-                                <option selected disabled>Choose Weight...</option>
-                                <option>1/2 KG</option>
-                                <option>1 KG</option>
-                                <option>1.5 KG</option>
-                            </select>
-                        </div>
-                        <div class="cart_qty qty-box product-qty m-0">
-                            <div class="input-group h-100">
-                                <button type="button" class="qty-left-minus" data-type="minus" data-field="">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                                <input class="form-control input-number qty-input" type="text" name="quantity"
-                                       value="1">
-                                <button type="button" class="qty-right-plus" data-type="plus" data-field="">
-                                    <i class="fa fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="add-btn">
-                        <a class="btn theme-bg-color text-white wishlist-btn" href="wishlist.html"><i
-                                class="fa fa-bookmark"></i> Wishlist</a>
-                        <a class="btn theme-bg-color text-white" href="cart.html"><i
-                                class="fas fa-shopping-cart"></i> Add To Cart</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Sticky Cart Box End -->
-
-<!-- Review Modal Start -->
-<div class="modal fade theme-modal question-modal" id="writereview" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <div class="modal-body pt-0">
-                <form class="product-review-form">
-                    <div class="product-wrapper">
-                        <div class="product-image">
-                            <img class="img-fluid" alt="Solid Collared Tshirts"
-                                 src="../assets/images/fashion/product/26.jpg">
-                        </div>
-                        <div class="product-content">
-                            <h5 class="name">Solid Collared Tshirts</h5>
-                            <div class="product-review-rating">
-                                <div class="product-rating">
-                                    <h6 class="price-number">$16.00</h6>
+                                <!-- Giá sản phẩm -->
+                                <div class="price-section mb-3">
+                                    <h3 class="price theme-color" style="font-weight: 700;"
+                                        th:text="${product.price} + ' ₫'">150.000 VND</h3>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-box">
-                        <div class="product-review-rating">
-                            <label>Rating</label>
-                            <div class="product-rating">
-                                <ul class="rating">
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star" class="fill"></i>
-                                    </li>
-                                    <li>
-                                        <i data-feather="star"></i>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-box">
-                        <label for="content" class="form-label">Your Question *</label>
-                        <textarea id="content" rows="3" class="form-control" placeholder="Your Question"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-md btn-theme-outline fw-bold"
-                        data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-md fw-bold text-light theme-bg-color">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Review Modal End -->
 
-<!-- Bg overlay Start -->
-<div class="bg-overlay"></div>
-<!-- Bg overlay End -->
+                                <!-- Mô tả sản phẩm -->
+                                <div class="product-contain mb-3">
+                                    <p th:text="${product.description}"></p>
+                                </div>
 
-<!-- latest jquery-->
-<script src="../assets/js/jquery-3.6.0.min.js"></script>
+                                <!-- Số lượng tồn kho -->
+                                <div class="stock-quantity mb-4">
+                                    <span style="font-weight: 600;">Số lượng còn lại: </span>
+                                    <span th:text="${product.stockQuantity}"></span>
+                                </div>
 
-<!-- jquery ui-->
-<script src="../assets/js/jquery-ui.min.js"></script>
+                                <!-- Nút thêm vào giỏ hàng và chọn số lượng -->
+                                <div class="note-box product-package"
+                                    style="display: flex; flex-direction: column; gap: 15px;">
 
-<!-- Bootstrap js-->
-<script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
-<script src="../assets/js/bootstrap/popper.min.js"></script>
-
-<!-- feather icon js-->
-<script src="../assets/js/feather/feather.min.js"></script>
-<script src="../assets/js/feather/feather-icon.js"></script>
-
-<!-- Lazyload Js -->
-<script src="../assets/js/lazysizes.min.js"></script>
-
-<!-- Slick js-->
-<script src="../assets/js/slick/slick.js"></script>
-<script src="../assets/js/slick/slick-animation.min.js"></script>
-<script src="../assets/js/custom-slick-animated.js"></script>
-<script src="../assets/js/slick/custom_slick.js"></script>
-
-<!-- Price Range Js -->
-<script src="../assets/js/ion.rangeSlider.min.js"></script>
-
-<!-- sidebar open js -->
-<script src="../assets/js/filter-sidebar.js"></script>
-
-<!-- Quantity js -->
-<script src="../assets/js/quantity-2.js"></script>
-
-<!-- Zoom Js -->
-<script src="../assets/js/jquery.elevatezoom.js"></script>
-<script src="../assets/js/zoom-filter.js"></script>
-
-<!-- Timer Js -->
-<script src="../assets/js/timer1.js"></script>
-
-<!-- Sticky-bar js -->
-<script src="../assets/js/sticky-cart-bottom.js"></script>
-
-<!-- WOW js -->
-<script src="../assets/js/wow.min.js"></script>
-<script src="../assets/js/custom-wow.js"></script>
-
-<!-- script js -->
-<script src="../assets/js/script.js"></script>
-
-<!-- theme setting js -->
-<script src="../assets/js/theme-setting.js"></script>
-<script>
-/*
-    <div class="note-box product-package">
-                                <div class="cart_qty qty-box product-qty">
-                                    <div class="input-group">
-                                        <button type="button" class="qty-right-plus" data-type="plus" data-field="">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                        <input class="form-control input-number qty-input" type="text"
-                                               name="quantity" value="0">
-                                        <button type="button" class="qty-left-minus" data-type="minus"
+                                    <!-- Thêm class w-100 để khối này chiếm toàn bộ chiều rộng -->
+                                    <div class="cart_qty qty-box product-qty w-100">
+                                        <div class="input-group">
+                                            <button type="button" class="qty-right-plus" data-type="plus" data-field="">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                            <input id="quantityInput" class="form-control input-number qty-input"
+                                                type="text" name="quantity" value="1">
+                                            <button type="button" class="qty-left-minus" data-type="minus"
                                                 data-field="">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <button id="addToCartBtn" th:data-product-id="${product.productId}"
+                                        class="btn btn-md bg-dark cart-button text-white w-100">
+                                        Thêm vào giỏ hàng
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-xxl-3 col-xl-4 col-lg-5 d-none d-lg-block wow fadeInUp">
+                    <div class="right-sidebar-box">
+
+                        <!-- Trending Product -->
+                        <div class="pt-25">
+                            <div class="category-menu">
+                                <h3>Sản phẩm nổi bật</h3>
+
+                                <!-- Danh sách sản phẩm sẽ được lặp qua ở đây -->
+                                <ul class="product-list product-right-sidebar border-0 p-0">
+
+                                    <!-- Vòng lặp Thymeleaf để hiển thị các sản phẩm nổi bật -->
+                                    <!-- 'trendingProd' là một đối tượng Product trong danh sách 'trendingProducts' -->
+                                    <li th:each="trendingProd : ${trendingProducts}">
+                                        <div class="offer-product">
+                                            <!-- Liên kết và hình ảnh sản phẩm -->
+                                            <a th:href="@{/product-detail/{id}(id=${trendingProd.productId})}"
+                                                class="offer-image">
+                                                <img th:src="${trendingProd.imageUrl}"
+                                                    th:alt="${trendingProd.productName}"
+                                                    class="img-fluid blur-up lazyload">
+                                            </a>
+
+                                            <div class="offer-detail">
+                                                <div>
+                                                    <!-- Liên kết và tên sản phẩm -->
+                                                    <a th:href="@{/product-detail/{id}(id=${trendingProd.productId})}">
+                                                        <h6 class="name" th:text="${trendingProd.productName}">Meatigo
+                                                            Premium Goat Curry</h6>
+                                                    </a>
+                                                    <!-- Hiển thị số lượng tồn kho -->
+                                                    <span th:text="'Còn lại: ' + ${trendingProd.stockQuantity}">Còn lại:
+                                                        15</span>
+                                                    <!-- Giá sản phẩm -->
+                                                    <h6 class="price theme-color"
+                                                        th:text="${#numbers.formatDecimal(trendingProd.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">
+                                                        $ 70.00</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <!-- Dòng mb-0 (margin-bottom: 0) sẽ được áp dụng tự động cho phần tử cuối cùng bằng CSS,
+                 vì vậy bạn không cần lo lắng về việc xóa nó khỏi li cuối cùng.
+                 Nếu không, bạn có thể dùng th:classappend="${iterStat.last} ? 'mb-0'" trên <li> -->
+
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Left Sidebar End -->
+
+    <!-- Related Product Section Start -->
+    <section class="product-list-section section-b-space">
+        <div class="container-fluid-lg">
+            <div class="title">
+                <h2>Sản phẩm liên quan</h2>
+                <span class="title-leaf">
+                    <svg class="icon-width">
+                        <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                    </svg>
+                </span>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="slider-6_1 product-wrapper">
+
+                        <!-- Vòng lặp Thymeleaf để hiển thị các sản phẩm liên quan -->
+                        <!-- 'relatedProd' là một đối tượng Product trong danh sách 'relatedProducts' -->
+                        <div th:each="relatedProd : ${relatedProducts}">
+                            <div class="product-box-3 wow fadeInUp">
+                                <div class="product-header">
+                                    <div class="product-image">
+                                        <!-- Liên kết đến trang chi tiết của sản phẩm liên quan -->
+                                        <a th:href="@{/product-detail/{id}(id=${relatedProd.productId})}">
+                                            <!-- Hình ảnh sản phẩm -->
+                                            <img th:src="${relatedProd.imageUrl}" th:alt="${relatedProd.productName}"
+                                                class="img-fluid blur-up lazyload">
+                                        </a>
+
+                                        <ul class="product-option">
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                                <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                    data-bs-target="#view">
+                                                    <i data-feather="eye"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
+                                                <a href="compare.html">
+                                                    <i data-feather="refresh-cw"></i>
+                                                </a>
+                                            </li>
+
+                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                                                <a href="wishlist.html" class="notifi-wishlist">
+                                                    <i data-feather="heart"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
 
-                                <button onclick="location.href = 'cart.html';"
-                                        class="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                                <div class="product-footer">
+                                    <div class="product-detail">
+                                        <!-- Tên danh mục (Category) -->
+                                        <span class="span-name"
+                                            th:text="${relatedProd.category.categoryName}">Cake</span>
+
+                                        <!-- Tên sản phẩm -->
+                                        <a th:href="@{/product-detail/{id}(id=${relatedProd.productId})}">
+                                            <h5 class="name" th:text="${relatedProd.productName}">Chocolate Chip Cookies
+                                                250 g</h5>
+                                        </a>
+
+                                        <!-- Rating (hiện tại là tĩnh, bạn có thể thay đổi sau) -->
+                                        <div class="product-rating mt-2">
+                                            <ul class="rating">
+                                                <li><i data-feather="star" class="fill"></i></li>
+                                                <li><i data-feather="star" class="fill"></i></li>
+                                                <li><i data-feather="star" class="fill"></i></li>
+                                                <li><i data-feather="star" class="fill"></i></li>
+                                                <li><i data-feather="star"></i></li>
+                                            </ul>
+                                            <span>(4.0)</span>
+                                        </div>
+
+                                        <!-- Số lượng tồn kho -->
+                                        <h6 class="unit" th:text="'Còn lại: ' + ${relatedProd.stockQuantity}">Còn lại:
+                                            50</h6>
+
+                                        <!-- Giá sản phẩm -->
+                                        <h5 class="price">
+                                            <span class="theme-color"
+                                                th:text="${#numbers.formatDecimal(relatedProd.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">$10.25</span>
+                                            <!-- Bạn có thể thêm giá cũ nếu có trong database -->
+                                            <!-- <del>$12.57</del> -->
+                                        </h5>
+
+                                        <div class="add-to-cart-box bg-white">
+                                            <button class="btn btn-add-cart addcart-button">Thêm
+                                                <span class="add-icon bg-light-gray">
+                                                    <i class="fa-solid fa-plus"></i>
+                                                </span>
+                                            </button>
+                                            <div class="cart_qty qty-box">
+                                                <div class="input-group bg-white">
+                                                    <button type="button" class="qty-left-minus bg-gray"
+                                                        data-type="minus" data-field="">
+                                                        <i class="fa fa-minus"></i>
+                                                    </button>
+                                                    <input class="form-control input-number qty-input" type="text"
+                                                        name="quantity" value="0">
+                                                    <button type="button" class="qty-right-plus bg-gray"
+                                                        data-type="plus" data-field="">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-* */
-document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".cart_qty").forEach(
-        cartBox => {
-            const plusBtn = cartBox.querySelector(".qty-right-plus")
-            const minusBtn = cartBox.querySelector(".qty-left-minus")
-            const input = cartBox.querySelector(".qty-input")
+                        </div>
 
-            plusBtn.addEventListener("click", function () {
-                input.value = parseInt(input.value) + 1
-            })
-            minusBtn.addEventListener("click", function () {
-                if (input.value > 0) {
-                    input.value = parseInt(input.value) - 1
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Related Product Section End -->
+
+    <!-- Footer Section Start -->
+    <footer class="section-t-space">
+        <div class="container-fluid-lg">
+            <div class="service-section">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="service-contain">
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/product.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Every Fresh Products</h5>
+                                </div>
+                            </div>
+
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/delivery.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Free Delivery For Order Over $50</h5>
+                                </div>
+                            </div>
+
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/discount.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Daily Mega Discounts</h5>
+                                </div>
+                            </div>
+
+                            <div class="service-box">
+                                <div class="service-image">
+                                    <img src="../assets/svg/market.svg" class="blur-up lazyload" alt="">
+                                </div>
+
+                                <div class="service-detail">
+                                    <h5>Best Price On The Market</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-footer section-b-space section-t-space">
+                <div class="row g-md-4 g-3">
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="footer-logo">
+                            <div class="theme-logo">
+                                <a href="index.html">
+                                    <img src="../assets/images/logo/1.png" class="blur-up lazyload" alt="">
+                                </a>
+                            </div>
+
+                            <div class="footer-logo-contain">
+                                <p>We are a friendly bar serving a variety of cocktails, wines and beers. Our bar is a
+                                    perfect place for a couple.</p>
+
+                                <ul class="address">
+                                    <li>
+                                        <i data-feather="home"></i>
+                                        <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
+                                    </li>
+                                    <li>
+                                        <i data-feather="mail"></i>
+                                        <a href="javascript:void(0)">support@fastkart.com</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>Categories</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl col-lg-2 col-sm-3">
+                        <div class="footer-title">
+                            <h4>Useful Links</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="index.html" class="text-content">Home</a>
+                                </li>
+                                <li>
+                                    <a href="shop-left-sidebar.html" class="text-content">Shop</a>
+                                </li>
+                                <li>
+                                    <a href="about-us.html" class="text-content">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="blog-list.html" class="text-content">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="contact-us.html" class="text-content">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-2 col-sm-3">
+                        <div class="footer-title">
+                            <h4>Help Center</h4>
+                        </div>
+
+                        <div class="footer-contain">
+                            <ul>
+                                <li>
+                                    <a href="order-success.html" class="text-content">Your Order</a>
+                                </li>
+                                <li>
+                                    <a href="user-dashboard.html" class="text-content">Your Account</a>
+                                </li>
+                                <li>
+                                    <a href="order-tracking.html" class="text-content">Track Order</a>
+                                </li>
+                                <li>
+                                    <a href="wishlist.html" class="text-content">Your Wishlist</a>
+                                </li>
+                                <li>
+                                    <a href="search.html" class="text-content">Search</a>
+                                </li>
+                                <li>
+                                    <a href="faq.html" class="text-content">FAQ</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-4 col-sm-6">
+                        <div class="footer-title">
+                            <h4>Contact Us</h4>
+                        </div>
+
+                        <div class="footer-contact">
+                            <ul>
+                                <li>
+                                    <div class="footer-number">
+                                        <i data-feather="phone"></i>
+                                        <div class="contact-number">
+                                            <h6 class="text-content">Hotline 24/7 :</h6>
+                                            <h5>+91 888 104 2340</h5>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="footer-number">
+                                        <i data-feather="mail"></i>
+                                        <div class="contact-number">
+                                            <h6 class="text-content">Email Address :</h6>
+                                            <h5>fastkart@hotmail.com</h5>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="social-app">
+                                    <h5 class="mb-2 text-content">Download App :</h5>
+                                    <ul>
+                                        <li class="mb-0">
+                                            <a href="https://play.google.com/store/apps" target="_blank">
+                                                <img src="../assets/images/playstore.svg" class="blur-up lazyload"
+                                                    alt="">
+                                            </a>
+                                        </li>
+                                        <li class="mb-0">
+                                            <a href="https://www.apple.com/in/app-store/" target="_blank">
+                                                <img src="../assets/images/appstore.svg" class="blur-up lazyload"
+                                                    alt="">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-footer section-small-space">
+                <div class="reserve">
+                    <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
+                </div>
+
+                <div class="payment">
+                    <img src="../assets/images/payment/1.png" class="blur-up lazyload" alt="">
+                </div>
+
+                <div class="social-link">
+                    <h6 class="text-content">Stay connected :</h6>
+                    <ul>
+                        <li>
+                            <a href="https://www.facebook.com/" target="_blank">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://twitter.com/" target="_blank">
+                                <i class="fa-brands fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/" target="_blank">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://in.pinterest.com/" target="_blank">
+                                <i class="fa-brands fa-pinterest-p"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Quick View Modal Box Start -->
+    <div class="modal fade theme-modal view-modal" id="view" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header p-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-sm-4 g-2">
+                        <div class="col-lg-6">
+                            <div class="slider-image">
+                                <img src="../assets/images/product/category/1.jpg" class="img-fluid blur-up lazyload"
+                                    alt="">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="right-sidebar-modal">
+                                <h4 class="title-name">Peanut Butter Bite Premium Butter Cookies 600 g</h4>
+                                <h4 class="price">$36.99</h4>
+                                <div class="product-rating">
+                                    <ul class="rating">
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star"></i>
+                                        </li>
+                                    </ul>
+                                    <span class="ms-2">8 Reviews</span>
+                                    <span class="ms-2 text-danger">6 sold in last 16 hours</span>
+                                </div>
+
+                                <div class="product-detail">
+                                    <h4>Product Details :</h4>
+                                    <p>Candy canes sugar plum tart cotton candy chupa chups sugar plum chocolate I love.
+                                        Caramels marshmallow icing dessert candy canes I love soufflé I love toffee.
+                                        Marshmallow pie sweet sweet roll sesame snaps tiramisu jelly bear claw. Bonbon
+                                        muffin I love carrot cake sugar plum dessert bonbon.</p>
+                                </div>
+
+                                <ul class="brand-list">
+                                    <li>
+                                        <div class="brand-box">
+                                            <h5>Brand Name:</h5>
+                                            <h6>Black Forest</h6>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="brand-box">
+                                            <h5>Product Code:</h5>
+                                            <h6>W0690034</h6>
+                                        </div>
+                                    </li>
+
+                                    <li>
+                                        <div class="brand-box">
+                                            <h5>Product Type:</h5>
+                                            <h6>White Cream Cake</h6>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="select-size">
+                                    <h4>Cake Size :</h4>
+                                    <select class="form-select select-form-size">
+                                        <option selected>Select Size</option>
+                                        <option value="1.2">1/2 KG</option>
+                                        <option value="0">1 KG</option>
+                                        <option value="1.5">1/5 KG</option>
+                                        <option value="red">Red Roses</option>
+                                        <option value="pink">With Pink Roses</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal-button">
+                                    <button onclick="location.href = 'cart.html';"
+                                        class="btn btn-md add-cart-button icon">Add
+                                        To Cart</button>
+                                    <button onclick="location.href = 'product-left.html';"
+                                        class="btn theme-bg-color view-button icon text-white fw-bold btn-md">
+                                        View More Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Quick View Modal Box End -->
+
+    <!-- Location Modal Start -->
+    <div class="modal location-modal fade theme-modal" id="locationModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Choose your Delivery Location</h5>
+                    <p class="mt-1 text-content">Enter your address and we will specify the offer for your area.</p>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="location-list">
+                        <div class="search-input">
+                            <input type="search" class="form-control" placeholder="Search Your Area">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
+
+                        <div class="disabled-box">
+                            <h6>Select a Location</h6>
+                        </div>
+
+                        <ul class="location-select custom-height">
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Alabama</h6>
+                                    <span>Min: $130</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Arizona</h6>
+                                    <span>Min: $150</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>California</h6>
+                                    <span>Min: $110</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Colorado</h6>
+                                    <span>Min: $140</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Florida</h6>
+                                    <span>Min: $160</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Georgia</h6>
+                                    <span>Min: $120</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Kansas</h6>
+                                    <span>Min: $170</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Minnesota</h6>
+                                    <span>Min: $120</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>New York</h6>
+                                    <span>Min: $110</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <h6>Washington</h6>
+                                    <span>Min: $130</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Location Modal End -->
+
+    <!-- Deal Box Modal Start -->
+    <div class="modal fade theme-modal deal-modal" id="deal-box" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h5 class="modal-title w-100" id="deal_today">Deal Today</h5>
+                        <p class="mt-1 text-content">Recommended deals for you.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="deal-offer-box">
+                        <ul class="deal-offer-list">
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-2">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-3">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="list-1">
+                                <div class="deal-offer-contain">
+                                    <a href="shop-left-sidebar.html" class="deal-image">
+                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload"
+                                            alt="">
+                                    </a>
+
+                                    <a href="shop-left-sidebar.html" class="deal-contain">
+                                        <h5>Blended Instant Coffee 50 g Buy 1 Get 1 Free</h5>
+                                        <h6>$52.57 <del>57.62</del> <span>500 G</span></h6>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Deal Box Modal End -->
+
+    <!-- Add to cart Modal Start -->
+    <div class="add-cart-box">
+        <div class="add-image">
+            <img src="../assets/images/cake/pro/1.jpg" class="img-fluid" alt="">
+        </div>
+
+        <div class="add-contain">
+            <h6>Added to Cart</h6>
+        </div>
+    </div>
+    <!-- Add to cart Modal End -->
+
+    <!-- Tap to top and theme setting button start -->
+    <div class="theme-option theme-option-2">
+        <div class="setting-box">
+            <button class="btn setting-button">
+                <i class="fa-solid fa-gear"></i>
+            </button>
+
+            <div class="theme-setting-2">
+                <div class="theme-box">
+                    <ul>
+                        <li>
+                            <div class="setting-name">
+                                <h4>Color</h4>
+                            </div>
+                            <div class="theme-setting-button color-picker">
+                                <form class="form-control">
+                                    <label for="colorPick" class="form-label mb-0">Theme Color</label>
+                                    <input type="color" class="form-control form-control-color" id="colorPick"
+                                        value="#0da487" title="Choose your color">
+                                </form>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>Dark</h4>
+                            </div>
+                            <div class="theme-setting-button">
+                                <button class="btn btn-2 outline" id="darkButton">Dark</button>
+                                <button class="btn btn-2 unline" id="lightButton">Light</button>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="setting-name">
+                                <h4>RTL</h4>
+                            </div>
+                            <div class="theme-setting-button rtl">
+                                <button class="btn btn-2 rtl-unline">LTR</button>
+                                <button class="btn btn-2 rtl-outline">RTL</button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="back-to-top">
+            <a id="back-to-top" href="#">
+                <i class="fas fa-chevron-up"></i>
+            </a>
+        </div>
+    </div>
+    <!-- Tap to top and theme setting button end -->
+
+    <!-- Sticky Cart Box Start -->
+    <div class="sticky-bottom-cart">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="cart-content">
+                        <div class="product-image">
+                            <!-- Hình ảnh sản phẩm -->
+                            <img th:src="${product.imageUrl}" th:alt="${product.productName}"
+                                class="img-fluid blur-up lazyload">
+                            <div class="content">
+                                <!-- Tên sản phẩm -->
+                                <h5 th:text="${product.productName}">Creamy Chocolate Cake</h5>
+                                <!-- Giá sản phẩm -->
+                                <h6 th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VND'">
+                                    $32.96</h6>
+                                <!-- Ghi chú: Phần giá gốc và giảm giá sẽ cần thêm trường dữ liệu trong DB, ví dụ: 'original_price' -->
+                                <!-- <del class="text-danger">$96.00</del><span>55% off</span> -->
+                            </div>
+                        </div>
+                        <div class="selection-section">
+                            <div class="cart_qty qty-box product-qty m-0">
+                                <div class="input-group h-100">
+                                    <button type="button" class="qty-left-minus" data-type="minus" data-field="">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <!-- Thêm ID duy nhất cho ô input này -->
+                                    <input id="stickyQuantityInput" class="form-control input-number qty-input"
+                                        type="text" name="quantity" value="1">
+                                    <button type="button" class="qty-right-plus" data-type="plus" data-field="">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-btn">
+                            <a class="btn theme-bg-color text-white wishlist-btn" href="wishlist.html"><i
+                                    class="fa fa-bookmark"></i> Wishlist</a>
+                            <!-- Sửa nút 'Add To Cart' để gọi hàm JavaScript -->
+                            <button type="button"
+                                th:onclick="|addToCartItem([[${product.productId}]], document.getElementById('stickyQuantityInput').value)|"
+                                class="btn theme-bg-color text-white">
+                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sticky Cart Box End -->
+
+    <!-- Review Modal Start -->
+    <div class="modal fade theme-modal question-modal" id="writereview" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Write a review</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="product-review-form">
+                        <div class="product-wrapper">
+                            <div class="product-image">
+                                <img class="img-fluid" alt="Solid Collared Tshirts"
+                                    src="../assets/images/fashion/product/26.jpg">
+                            </div>
+                            <div class="product-content">
+                                <h5 class="name">Solid Collared Tshirts</h5>
+                                <div class="product-review-rating">
+                                    <div class="product-rating">
+                                        <h6 class="price-number">$16.00</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-box">
+                            <div class="product-review-rating">
+                                <label>Rating</label>
+                                <div class="product-rating">
+                                    <ul class="rating">
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star" class="fill"></i>
+                                        </li>
+                                        <li>
+                                            <i data-feather="star"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-box">
+                            <label for="content" class="form-label">Your Question *</label>
+                            <textarea id="content" rows="3" class="form-control" placeholder="Your Question"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-md btn-theme-outline fw-bold"
+                        data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-md fw-bold text-light theme-bg-color">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Review Modal End -->
+
+    <!-- Bg overlay Start -->
+    <div class="bg-overlay"></div>
+    <!-- Bg overlay End -->
+
+    <!-- latest jquery-->
+    <script src="../assets/js/jquery-3.6.0.min.js"></script>
+
+    <!-- jquery ui-->
+    <script src="../assets/js/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js-->
+    <script src="../assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/bootstrap/bootstrap-notify.min.js"></script>
+    <script src="../assets/js/bootstrap/popper.min.js"></script>
+
+    <!-- feather icon js-->
+    <script src="../assets/js/feather/feather.min.js"></script>
+    <script src="../assets/js/feather/feather-icon.js"></script>
+
+    <!-- Lazyload Js -->
+    <script src="../assets/js/lazysizes.min.js"></script>
+
+    <!-- Slick js-->
+    <script src="../assets/js/slick/slick.js"></script>
+    <script src="../assets/js/slick/slick-animation.min.js"></script>
+    <script src="../assets/js/custom-slick-animated.js"></script>
+    <script src="../assets/js/slick/custom_slick.js"></script>
+
+    <!-- Price Range Js -->
+    <script src="../assets/js/ion.rangeSlider.min.js"></script>
+
+    <!-- sidebar open js -->
+    <script src="../assets/js/filter-sidebar.js"></script>
+
+    <!-- Quantity js -->
+    <script src="../assets/js/quantity-2.js"></script>
+
+    <!-- Zoom Js -->
+    <script src="../assets/js/jquery.elevatezoom.js"></script>
+    <script src="../assets/js/zoom-filter.js"></script>
+
+    <!-- Timer Js -->
+    <script src="../assets/js/timer1.js"></script>
+
+    <!-- Sticky-bar js -->
+    <script src="../assets/js/sticky-cart-bottom.js"></script>
+
+    <!-- WOW js -->
+    <script src="../assets/js/wow.min.js"></script>
+    <script src="../assets/js/custom-wow.js"></script>
+
+    <!-- script js -->
+    <script src="../assets/js/script.js"></script>
+
+    <!-- theme setting js -->
+    <script src="../assets/js/theme-setting.js"></script>
+    <!-- BẮT ĐẦU MÃ SỬA LỖI NÚT SỐ LƯỢNG -->
+    <script>
+        jQuery(document).ready(function ($) {
+            // Xử lý sự kiện click cho nút cộng (+)
+            $('.qty-right-plus').on('click', function () {
+                // Tìm ô input tương ứng gần nhất
+                var $input = $(this).closest('.input-group').find('.input-number');
+                var currentValue = parseInt($input.val());
+
+                // Kiểm tra nếu giá trị là một số hợp lệ
+                if (!isNaN(currentValue)) {
+                    // Tăng giá trị lên 1
+                    $input.val(currentValue + 1);
+                } else {
+                    // Nếu không hợp lệ, đặt giá trị là 1
+                    $input.val(1);
                 }
-            })
+            });
 
-            input.addEventListener("change", function () {
-                this.value = this.value.replace(/[^0-9]/g, "");
-            })
+            // Xử lý sự kiện click cho nút trừ (-)
+            $('.qty-left-minus').on('click', function () {
+                // Tìm ô input tương ứng gần nhất
+                var $input = $(this).closest('.input-group').find('.input-number');
+                var currentValue = parseInt($input.val());
 
-        }
-    );
-})
- async function addToCart(productId, quantity) {
-    console.log("productId"+ productId + " quantity " + quantity);
-    if (quantity < 1) {
-        alert("Quantity must be greater than 0");
-        return;
-    }
-    try {
-       const response = await fetch(`/cart/addToCart?productId=${productId}&quantity=${quantity}`)
-            if(response.ok){
-                await LoadLsCartHeader();
-            }
-    } catch (error) {
-        console.log(error);
-    }
+                // Kiểm tra nếu giá trị là một số hợp lệ và lớn hơn 1
+                if (!isNaN(currentValue) && currentValue > 1) {
+                    // Giảm giá trị đi 1
+                    $input.val(currentValue - 1);
+                } else {
+                    // Nếu giá trị nhỏ hơn hoặc bằng 1, giữ nguyên là 1
+                    $input.val(1);
+                }
+            });
+        });
+    </script>
+    <!-- KẾT THÚC MÃ SỬA LỖI -->
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
 
-}
+        // Chờ cho trang tải xong
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy nút "Thêm vào giỏ hàng"
+            const addToCartButton = document.getElementById('addToCartBtn');
 
-</script>
+            // Gắn sự kiện click cho nút
+            addToCartButton.addEventListener('click', function () {
+                // Lấy product id từ thuộc tính data-*
+                const productId = this.getAttribute('data-product-id');
+
+                // Lấy số lượng từ ô input
+                const quantity = document.getElementById('quantityInput').value;
+
+                // Gọi hàm của bạn
+                // Giả sử bạn đã có hàm addToCartItem(productId, quantity) ở đâu đó
+                if (typeof addToCartItem === "function") {
+                    addToCartItem(productId, quantity);
+                } else {
+                    console.error("Hàm addToCartItem chưa được định nghĩa!");
+                }
+            });
+        });
+
+        /*]]>*/
+    </script>
 
 </body>
 
 
-<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/product-bottom-thumbnail.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:13 GMT -->
+<!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/productdetail.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:13 GMT -->
+
 </html>

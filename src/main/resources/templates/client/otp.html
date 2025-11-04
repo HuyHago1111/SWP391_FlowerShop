@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/otp.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:49 GMT -->
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -125,15 +126,23 @@
                         <div class="log-in-box">
                             <div class="log-in-title">
                                 <h3 class="text-title">Please enter the one time password to verify your account</h3>
-                                <h5 class="text-content">A code has been sent to <span th:text="${userSignUpDTO.email}">*******9897</span></h5>
+                                <h5 class="text-content">A code has been sent to <span
+                                        th:text="${userSignUpDTO.email}">*******9897</span></h5>
                             </div>
 
-                            <form th:action="@{/sign-up/verify-otp}" th:object="${userSignUpDTO}" method="post" id="otpForm">
-                               <input type="hidden"  th:field="*{otp}">
-                                <input type="hidden"  th:field="*{email}">
-                                <input type="hidden"  th:field="*{fullName}">
-                                <input type="hidden"  th:field="*{otpExprirationTime}">
-                                <input type="hidden"  th:field="*{password}">
+                            <form th:action="@{/sign-up/verify-otp}" th:object="${userSignUpDTO}" method="post"
+                                id="otpForm">
+                                <input type="hidden" th:field="*{otp}">
+                                <input type="hidden" th:field="*{email}">
+                                <input type="hidden" th:field="*{fullName}">
+
+                                <!-- ✅ SỬA DÒNG NÀY: Thay thế th:field bằng th:value và định dạng ngày giờ -->
+                                <input type="hidden" id="otpExpirationTime"
+                                    th:value="${#temporals.format(userSignUpDTO.otpExprirationTime, 'yyyy-MM-dd''T''HH:mm:ss')}">
+
+
+                                <input type="hidden" th:field="*{otpExprirationTime}">
+                                <input type="hidden" th:field="*{password}">
                                 <input type="hidden" name="otpInput" id="otpInput">
                                 <!-- Thêm dòng này -->
                                 <input type="hidden" name="flag" th:value="${flag}">
@@ -144,28 +153,36 @@
 
 
 
-                            <div id="otp" class="inputs d-flex flex-row justify-content-center">
-                                <input class="text-center form-control rounded" type="text" id="first" maxlength="1"
-                                    placeholder="0">
-                                <input class="text-center form-control rounded" type="text" id="second" maxlength="1"
-                                    placeholder="0">
-                                <input class="text-center form-control rounded" type="text" id="third" maxlength="1"
-                                    placeholder="0">
-                                <input class="text-center form-control rounded" type="text" id="fourth" maxlength="1"
-                                    placeholder="0">
-                                <input class="text-center form-control rounded" type="text" id="fifth" maxlength="1"
-                                    placeholder="0">
-                                <input class="text-center form-control rounded" type="text" id="sixth" maxlength="1"
-                                    placeholder="0">
-                            </div>
+                                <div id="otp" class="inputs d-flex flex-row justify-content-center">
+                                    <input class="text-center form-control rounded" type="text" id="first" maxlength="1"
+                                        placeholder="0">
+                                    <input class="text-center form-control rounded" type="text" id="second"
+                                        maxlength="1" placeholder="0">
+                                    <input class="text-center form-control rounded" type="text" id="third" maxlength="1"
+                                        placeholder="0">
+                                    <input class="text-center form-control rounded" type="text" id="fourth"
+                                        maxlength="1" placeholder="0">
+                                    <input class="text-center form-control rounded" type="text" id="fifth" maxlength="1"
+                                        placeholder="0">
+                                    <input class="text-center form-control rounded" type="text" id="sixth" maxlength="1"
+                                        placeholder="0">
+                                </div>
 
-                            <div class="send-box pt-4">
-                                <h5>Didn't get the code? <a href="javascript:void(0)" class="theme-color fw-bold">Resend
-                                        It</a></h5>
-                            </div>
+                                <!-- ✅ KHU VỰC GỬI LẠI OTP VÀ ĐẾM NGƯỢC -->
+                                <div class="send-box pt-4 text-center">
+                                    <div id="resend-container">
+                                        <span>Didn't get the code? </span>
+                                        <a href="javascript:void(0)" class="theme-color fw-bold" id="resend-link">Resend
+                                            It</a>
+                                    </div>
+                                    <div id="timer-container" style="display: none;">
+                                        <span>Resend code in: </span>
+                                        <span id="timer" class="theme-color fw-bold"></span>
+                                    </div>
+                                </div>
 
-                            <button onclick="location.href = 'index.html';" class="btn btn-animation w-100 mt-3"
-                                type="submit">Validate</button>
+                                <button onclick="location.href = 'index.html';" class="btn btn-animation w-100 mt-3"
+                                    type="submit">Validate</button>
                             </form>
                         </div>
                     </div>
@@ -510,30 +527,146 @@
 
     <!-- script js -->
     <script src="../assets/js/script.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-    const otpInput = document.getElementById("otpForm");
-    if(otpInput) {
-        otpInput.addEventListener("submit", function(event) {
-            const first=document.getElementById("first");
-            const second=document.getElementById("second");
-            const third=document.getElementById("third");
-            const fourth=document.getElementById("fourth");
-            const fifth=document.getElementById("fifth");
-            const sixth=document.getElementById("sixth");
-            const combinedValues = first.value + second.value + third.value + fourth.value + fifth.value + sixth.value;
-            document.getElementById("otpInput").value = combinedValues;
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            const otpInput = document.getElementById("otpForm");
+            if (otpInput) {
+                otpInput.addEventListener("submit", function (event) {
+                    const first = document.getElementById("first");
+                    const second = document.getElementById("second");
+                    const third = document.getElementById("third");
+                    const fourth = document.getElementById("fourth");
+                    const fifth = document.getElementById("fifth");
+                    const sixth = document.getElementById("sixth");
+                    const combinedValues = first.value + second.value + third.value + fourth.value + fifth.value + sixth.value;
+                    document.getElementById("otpInput").value = combinedValues;
 
+
+                })
+
+            }
 
         })
+    </script>
 
-        }
+    <!-- ✅ SCRIPT XỬ LÝ OTP, ĐẾM NGƯỢC VÀ GỬI LẠI -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
 
-    })
-</script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // --- Logic xử lý submit form OTP ---
+            const otpForm = document.getElementById("otpForm");
+            if (otpForm) {
+                otpForm.addEventListener("submit", function (event) {
+                    const first = document.getElementById("first").value;
+                    const second = document.getElementById("second").value;
+                    const third = document.getElementById("third").value;
+                    const fourth = document.getElementById("fourth").value;
+                    const fifth = document.getElementById("fifth").value;
+                    const sixth = document.getElementById("sixth").value;
+                    const combinedValues = first + second + third + fourth + fifth + sixth;
+                    document.getElementById("otpInput").value = combinedValues;
+                });
+            }
+
+            // --- Logic đếm ngược và gửi lại OTP ---
+            const resendLink = document.getElementById('resend-link');
+            const resendContainer = document.getElementById('resend-container');
+            const timerContainer = document.getElementById('timer-container');
+            const timerSpan = document.getElementById('timer');
+            let countdownInterval;
+
+            function startCountdown() {
+                // Lấy thời gian hết hạn từ hidden input
+                const expirationTimeStr = document.getElementById('otpExpirationTime').value;
+                if (!expirationTimeStr) return;
+
+                const expirationTime = new Date(expirationTimeStr).getTime();
+
+                // Hiển thị bộ đếm, ẩn link resend
+                resendContainer.style.display = 'none';
+                timerContainer.style.display = 'block';
+
+                // Xóa interval cũ nếu có
+                clearInterval(countdownInterval);
+
+                countdownInterval = setInterval(function () {
+                    const now = new Date().getTime();
+                    const distance = expirationTime - now;
+
+                    if (distance < 0) {
+                        clearInterval(countdownInterval);
+                        timerContainer.style.display = 'none';
+                        resendContainer.style.display = 'block';
+                        resendLink.innerText = 'Resend It'; // Reset text
+                        resendLink.style.pointerEvents = 'auto'; // Cho phép click lại
+                        return;
+                    }
+
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timerSpan.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }, 1000);
+            }
+
+            resendLink.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                // Vô hiệu hóa link để tránh click nhiều lần
+                resendLink.innerText = 'Sending...';
+                resendLink.style.pointerEvents = 'none';
+
+                // Lấy dữ liệu từ form để gửi lên server
+                const userDTO = {
+                    fullName: document.querySelector('input[name="fullName"]').value,
+                    email: document.querySelector('input[name="email"]').value,
+                    password: document.querySelector('input[name="password"]').value,
+                };
+
+                try {
+                    const response = await fetch('/sign-up/resend-otp', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(userDTO)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to resend OTP');
+                    }
+
+                    const updatedDto = await response.json();
+
+                    // Cập nhật lại các giá trị ẩn trong form với dữ liệu mới từ server
+                    document.querySelector('input[name="otp"]').value = updatedDto.otp;
+                    document.getElementById('otpExpirationTime').value = updatedDto.otpExprirationTime;
+
+                    // Bắt đầu lại đồng hồ đếm ngược
+                    startCountdown();
+                    alert('A new OTP has been sent to your email.');
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Could not resend OTP. Please try again.');
+                    // Nếu lỗi, kích hoạt lại link
+                    resendLink.innerText = 'Resend It';
+                    resendLink.style.pointerEvents = 'auto';
+                }
+            });
+
+            // Bắt đầu đếm ngược ngay khi trang được tải
+            startCountdown();
+        });
+
+        /*]]>*/
+    </script>
+
 
 </body>
 
 
 <!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/otp.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:50 GMT -->
+
 </html>

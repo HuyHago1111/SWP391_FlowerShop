@@ -10,8 +10,6 @@ import java.math.BigDecimal;
 
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
@@ -35,4 +33,7 @@ public interface ProductService {
     void deleteById(Integer id);
 
     void updateStatusBasedOnStock(Product product);
+    List<Product> findRelatedProducts(int categoryId, int productId, int limit);
+
+    List<Product> findTrendingProducts(int limit);
 }

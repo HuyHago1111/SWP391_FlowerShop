@@ -35,4 +35,6 @@ public interface UserService {
     void updateUserRole(Integer userId, Integer newRoleId);
     void updateUserStatus(Integer userId, String newStatus);
     void deleteUserById(Integer userId);
+     // ✅ THÊM PHƯƠNG THỨC MỚI
+    void resendOtp(UserSignUpDTO userSignUpDTO);
 }

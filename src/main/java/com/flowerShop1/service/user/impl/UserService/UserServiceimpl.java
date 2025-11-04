@@ -171,4 +171,19 @@ public class UserServiceimpl implements UserService {
     public String generateOTP() {
         return String.valueOf((int) (Math.random() * 900000) + 100000);
     }
+
+     // ✅ TÁI CẤU TRÚC LOGIC GỬI OTP VÀO MỘT HÀM RIÊNG
+    private void generateAndSendOtp(UserSignUpDTO user) {
+        String otp = generateOTP();
+        user.setOtp(otp);
+        user.setOtpExprirationTime(java.time.LocalDateTime.now().plusMinutes(3)); // OTP hiệu lực trong 3 phút
+        mailService.sendOTP(user.getEmail(), otp);
+    }
+
+   // ✅ TRIỂN KHAI PHƯƠNG THỨC MỚI
+    @Override
+    public void resendOtp(UserSignUpDTO userSignUpDTO) {
+        // Đơn giản là gọi lại hàm helper để tạo và gửi OTP mới
+        generateAndSendOtp(userSignUpDTO);
+    }
 }

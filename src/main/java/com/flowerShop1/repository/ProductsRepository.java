@@ -9,33 +9,30 @@ import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import java.util.List;
 
-
-public interface ProductsRepository  extends JpaRepository <Product, Integer>, JpaSpecificationExecutor<Product> {
+public interface ProductsRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product> {
     Product findByProductId(int productId);
-    @Query(value = """
-select p.product_id,p.product_name,p.image_url,od.quantity, od.price,o.order_date,os.status_name
-from Orders o
-join OrderDetails od on od.order_id = o.order_id
-join Products p on p.product_id = od.product_id
-join Orders_Status_enum os on os.status_id = o.order_status
-where o.user_id = :userId 
 
-""",countQuery = """
-select count (*)
-from Orders o
-join OrderDetails od on od.order_id = o.order_id
-join Products p on p.product_id = od.product_id
-join Orders_Status_enum os on os.status_id = o.order_status
-where o.user_id = :userId 
-""", nativeQuery = true)
+    @Query(value = """
+            select p.product_id,p.product_name,p.image_url,od.quantity, od.price,o.order_date,os.status_name
+            from Orders o
+            join OrderDetails od on od.order_id = o.order_id
+            join Products p on p.product_id = od.product_id
+            join Orders_Status_enum os on os.status_id = o.order_status
+            where o.user_id = :userId
+
+            """, countQuery = """
+            select count (*)
+            from Orders o
+            join OrderDetails od on od.order_id = o.order_id
+            join Products p on p.product_id = od.product_id
+            join Orders_Status_enum os on os.status_id = o.order_status
+            where o.user_id = :userId
+            """, nativeQuery = true)
     Page<Object[]> findProductsOfOrderByUserId(@Param("userId") int userId, Pageable pageable);
 
-
-
-
-    @Query(
-            value = """
+    @Query(value = """
             -- Bỏ qua tất cả các lệnh DECLARE
             -- Sử dụng trực tiếp các tham số :paramName từ method
 
@@ -81,8 +78,7 @@ where o.user_id = :userId
                 CASE WHEN :sortBy = 'name_asc'   THEN p.product_name END ASC,
                 CASE WHEN :sortBy = 'name_desc'  THEN p.product_name END DESC,
                 p.product_id ASC
-            """,
-            countQuery = """
+            """, countQuery = """
             SELECT COUNT(p.product_id)
             FROM [dbo].[Products] p
             WHERE
@@ -92,16 +88,21 @@ where o.user_id = :userId
                 AND (:maxPrice IS NULL OR p.price <= :maxPrice)
                 AND p.status = 'Active'
                 AND p.stock_quantity > 0
-            """,
-            nativeQuery = true
-    )
+            """, nativeQuery = true)
     Page<Object[]> findProductsByManyFields(
             @Param("searchName") String searchName,
             @Param("categoryIDs") String categoryIDs,
             @Param("minPrice") BigDecimal minPrice,
             @Param("maxPrice") BigDecimal maxPrice,
             @Param("sortBy") String sortBy,
-            Pageable pageable
-    );
+            Pageable pageable);
+
     boolean existsByProductName(String productName);
+
+    @Query("SELECT p FROM Product p WHERE p.category.categoryId = :categoryId AND p.productId != :productId")
+    List<Product> findRelatedProducts(@Param("categoryId") int categoryId, @Param("productId") int productId,
+            Pageable pageable);
+
+    List<Product> findTop4ByStatusOrderByUpdatedAtDesc(String status);
+
 }

@@ -8,6 +8,7 @@ import com.flowerShop1.mapper.user.UserSignUpMapper;
 import com.flowerShop1.service.user.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,5 +72,21 @@ public class SignUpController {
         model.addAttribute("userSignUpDTO", userSignUpDTO);
         model.addAttribute("flag", flag);
         return "client/otp";
+    }
+
+
+     // ✅ THÊM ENDPOINT MỚI CHO VIỆC GỬI LẠI OTP
+    @PostMapping("/resend-otp")
+    @ResponseBody // Rất quan trọng: Trả về dữ liệu JSON thay vì một trang HTML
+    public ResponseEntity<UserSignUpDTO> resendOtp(@RequestBody UserSignUpDTO userSignUpDTO) {
+        try {
+            // Gọi service để tạo và gửi lại OTP, DTO sẽ được cập nhật với OTP mới và thời gian hết hạn mới
+            userService.resendOtp(userSignUpDTO);
+            // Trả về DTO đã được cập nhật với mã trạng thái 200 OK
+            return ResponseEntity.ok(userSignUpDTO);
+        } catch (Exception e) {
+            // Nếu có lỗi, trả về lỗi server
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }
