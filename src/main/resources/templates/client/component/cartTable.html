@@ -9,14 +9,14 @@
                             <tr class="product-box-contain" th:each="item : ${lsCart}">
                                 <td class="product-detail">
                                     <div class="product border-0">
-                                        <a href="product-left-thumbnail.html" class="product-image">
+                                        <a th:href="@{/product-detail/{id}(id=${item.productId})}" class="product-image">
                                             <img th:src="@{${item.productImage}}"
                                                  class="img-fluid blur-up lazyload" alt="" style="border-radius: 10px;">
                                         </a>
                                         <div class="product-detail">
                                             <ul>
                                                 <li class="name">
-                                                    <a href="product-left-thumbnail.html" th:text="${item.productName}">Bell
+                                                    <a th:href="@{/product-detail/{id}(id=${item.productId})}" th:text="${item.productName}">Bell
                                                         pepper</a>
                                                 </li>
 

@@ -12,6 +12,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,30 +33,34 @@ public class CartController {
     private CartService cartService;
     private final ObjectMapper objectMapper = new ObjectMapper();
 
+   // ✅ SỬA ĐỔI PHƯƠNG THỨC NÀY
     @GetMapping("/addToCart")
     @ResponseBody
-    public Map<String, Object> addToCart(@RequestParam("productId") int productId, @RequestParam("quantity") int quantity, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity<Map<String, Object>> addToCart(@RequestParam("productId") int productId, @RequestParam("quantity") int quantity, HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> responseData = new HashMap<>();
-
 
         try {
             Product product = productService.getProductById(productId);
             if (product.getStockQuantity() < quantity) {
                 responseData.put("message", "Số lượng trong kho không đủ");
                 responseData.put("status", "error");
-                return responseData;
-
-
+                // Trả về mã lỗi 400 Bad Request
+                return ResponseEntity.badRequest().body(responseData);
             }
+            
             cartService.addToCart(CartDTOMapper.entityToDTO(product, quantity), request, response);
+            
+            responseData.put("message", "Thêm vào giỏ hàng thành công");
+            responseData.put("status", "success");
+            // Trả về mã thành công 200 OK
+            return ResponseEntity.ok(responseData);
+
         } catch (RuntimeException e) {
-            responseData.put("message", "Lỗi khi thêm vào giỏ hàng");
+            responseData.put("message", "Lỗi khi thêm vào giỏ hàng: " + e.getMessage());
             responseData.put("status", "error");
-            return responseData;
+            // Trả về mã lỗi 500 Internal Server Error
+            return ResponseEntity.internalServerError().body(responseData);
         }
-        responseData.put("message", "Thêm vào giỏ hàng thành công");
-        responseData.put("status", "success");
-        return responseData;
     }
 
 

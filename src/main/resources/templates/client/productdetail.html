@@ -118,6 +118,9 @@
     </section>
     <!-- Breadcrumb Section End -->
 
+    <!-- ✅ THÊM DÒNG NÀY: Vùng chứa cho thông báo (giống index.html) -->
+    <div id="alerts-top-right" class="slide-alerts top-right" aria-live="polite" aria-atomic="true"></div>
+
     <!-- Product Left Sidebar Start -->
     <section class="product-section">
         <div class="container-fluid-lg">
@@ -157,7 +160,8 @@
                                         ABC</a>
                                     <span class="mx-2">|</span>
                                     <span>Danh mục: </span>
-                                    <a th:href="@{/flower(categoryIDs=${product.category.categoryId})}" class="theme-color" th:text="${product.category.categoryName}">Bánh Kem
+                                    <a th:href="@{/flower(categoryIDs=${product.category.categoryId})}"
+                                        class="theme-color" th:text="${product.category.categoryName}">Bánh Kem
                                         & Bánh Ngọt</a>
                                 </div>
 
@@ -1148,35 +1152,41 @@
         });
     </script>
     <!-- KẾT THÚC MÃ SỬA LỖI -->
-
     <script th:inline="javascript">
         /*<![CDATA[*/
 
-        // Chờ cho trang tải xong
         document.addEventListener("DOMContentLoaded", function () {
-            // Lấy nút "Thêm vào giỏ hàng"
             const addToCartButton = document.getElementById('addToCartBtn');
+            if (addToCartButton) {
+                addToCartButton.addEventListener('click', function () {
+                    const productId = this.getAttribute('data-product-id');
+                    const quantity = document.getElementById('quantityInput').value;
 
-            // Gắn sự kiện click cho nút
-            addToCartButton.addEventListener('click', function () {
-                // Lấy product id từ thuộc tính data-*
-                const productId = this.getAttribute('data-product-id');
+                    // Gọi hàm addToCartItem toàn cục (đã có trong header)
+                    if (typeof addToCartItem === "function") {
+                        addToCartItem(productId, quantity);
+                    } else {
+                        console.error("Hàm addToCartItem chưa được định nghĩa!");
+                    }
+                });
+            }
 
-                // Lấy số lượng từ ô input
-                const quantity = document.getElementById('quantityInput').value;
+            const stickyAddToCartButton = document.querySelector('.sticky-bottom-cart button.btn-primary');
+            if (stickyAddToCartButton) {
+                stickyAddToCartButton.addEventListener('click', function () {
+                    const productId = /*[[${product.productId}]]*/ null;
+                    const quantity = document.getElementById('stickyQuantityInput').value;
 
-                // Gọi hàm của bạn
-                // Giả sử bạn đã có hàm addToCartItem(productId, quantity) ở đâu đó
-                if (typeof addToCartItem === "function") {
-                    addToCartItem(productId, quantity);
-                } else {
-                    console.error("Hàm addToCartItem chưa được định nghĩa!");
-                }
-            });
+                    if (productId && typeof addToCartItem === "function") {
+                        addToCartItem(productId, quantity);
+                    }
+                });
+            }
         });
 
         /*]]>*/
     </script>
+    <!-- ✅ KẾT THÚC SCRIPT -->
 
 </body>
 
