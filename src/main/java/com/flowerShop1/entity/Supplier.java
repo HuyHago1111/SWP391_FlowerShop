@@ -14,6 +14,8 @@ package com.flowerShop1.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "Suppliers")
 @Getter
@@ -25,7 +27,7 @@ public class Supplier {
     @Id
     @Column (name = "supplier_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int supplierId;
+    private  Integer supplierId;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -40,5 +42,5 @@ public class Supplier {
     @Column(name = "status", nullable = false, length = 20, columnDefinition = "nvarchar(20)" )
     private String status;
     @Column(name = "created_at", nullable = false)
-    private String createdAt;
+    private LocalDateTime createdAt;
 }
