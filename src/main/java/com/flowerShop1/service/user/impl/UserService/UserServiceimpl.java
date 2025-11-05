@@ -124,6 +124,13 @@ public class UserServiceimpl implements UserService {
         }
     }
 
+        @Override
+        public Page<User> searchByKeywordAndRole(String keyword, String role, Pageable pageable) {
+            if (keyword == null) keyword = "";
+            if (role == null) role = "all";
+            return userRepository.searchByKeywordAndRole(keyword, role, pageable);
+        }
+
 
     @Override
     public Optional<User> findUserById(Integer id) {

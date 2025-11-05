@@ -1,10 +1,6 @@
 package com.flowerShop1.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /*
 create table Payments
@@ -23,11 +19,13 @@ create table Payments
 )
 go
 */
+@Entity
+@Table(name = "payments")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Builder
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,5 +44,4 @@ public class Payment {
     private double amount;
     @Column(name = "payment_date", nullable = false)
     private String payment_date;
-
 }

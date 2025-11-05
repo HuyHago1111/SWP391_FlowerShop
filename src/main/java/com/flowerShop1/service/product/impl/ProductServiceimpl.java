@@ -8,8 +8,11 @@ import com.flowerShop1.entity.Product;
 import com.flowerShop1.repository.ProductsRepository;
 import com.flowerShop1.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +25,8 @@ import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -30,8 +35,6 @@ public class ProductServiceimpl implements ProductService {
     @Value("${upload.path:src/main/resources/static/admin-assets/images/products/}")
     private String imageFolder;
 
-    // private final String imageFolder =
-    // "src/main/resources/static/admin-assets/images/products/";
     @Autowired
     private ProductsRepository productsRepository;
 
@@ -43,7 +46,7 @@ public class ProductServiceimpl implements ProductService {
     @Override
     public Product getProductById(int productId) {
         Product product = productsRepository.findByProductId(productId);
-        if (product == null) {
+        if(product == null) {
             throw new RuntimeException("Product not found");
         }
         return product;
@@ -52,16 +55,18 @@ public class ProductServiceimpl implements ProductService {
     @Override
     public Page<ProductOrderDTO> getProductsOfOrderByUserId(int userId, Pageable pageable) {
         Page<Object[]> results = productsRepository.findProductsOfOrderByUserId(userId, pageable);
-        return results.map(item -> new ProductOrderDTO(
+        return  results.map(item -> new ProductOrderDTO(
                 (int) item[0],
                 (String) item[1],
                 (String) item[2],
                 (int) item[3],
                 (BigDecimal) item[4],
-                (java.sql.Timestamp) item[5],
+                (java.sql.Timestamp)item[5],
                 (String) item[6]
 
         ));
+
+
 
     }
 
@@ -72,26 +77,27 @@ public class ProductServiceimpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDTO> getProductsByManyFields(String searchName, String categoryIDs, BigDecimal minPrice,
-            BigDecimal maxPrice, String sortBy, Pageable pageable) {
-        Page<Object[]> results = productsRepository.findProductsByManyFields(searchName, categoryIDs, minPrice,
-                maxPrice, sortBy, pageable);
+    public Page<ProductDTO> getProductsByManyFields(String searchName, String categoryIDs, BigDecimal minPrice, BigDecimal maxPrice, String sortBy, Pageable pageable) {
+        Page<Object[]> results = productsRepository.findProductsByManyFields(searchName, categoryIDs, minPrice, maxPrice, sortBy, pageable);
         return results.map(item -> new ProductDTO(
                 (int) item[0],
                 (String) item[1],
                 ((BigDecimal) item[2]).doubleValue(),
                 (int) item[3],
                 (String) item[4],
-                (String) item[5]));
+                (String) item[5]
+        ));
     }
 
     @Override
     public Page<Product> searchProducts(String keyword, Integer categoryId, Integer supplierId,
-            String sortBy, String sortDir, Pageable pageable) {
+                                        String sortBy, String sortDir, Pageable pageable) {
         Specification<Product> spec = Specification.allOf(
                 ProductSpecifications.hasNameLike(keyword),
                 ProductSpecifications.hasCategory(categoryId),
-                ProductSpecifications.hasSupplier(supplierId));
+                ProductSpecifications.hasSupplier(supplierId)
+        );
+
 
         Sort sort = Sort.by(sortBy == null ? "createdAt" : sortBy);
         sort = "asc".equalsIgnoreCase(sortDir) ? sort.ascending() : sort.descending();
