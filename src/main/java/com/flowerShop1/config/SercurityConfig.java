@@ -60,8 +60,9 @@ public class SercurityConfig {
                         .requestMatchers("/admin/**", "/users/**").hasAnyAuthority("Admin")
 
                         // Các URL yêu cầu người dùng phải đăng nhập (bất kể vai trò gì)
+                        // Các URL yêu cầu người dùng phải đăng nhập (bất kể vai trò gì)
                         .requestMatchers("/user/**", "/address/**", "/cart/checkout", "/api/payment/create", "/vnpay/returnurl").authenticated()
-
+                        .requestMatchers("/manager/**").hasAnyAuthority("Manager","Staff","Admin")
                         // Tất cả các yêu cầu còn lại phải được xác thực (đã đăng nhập)
                         .anyRequest().authenticated()
                 )

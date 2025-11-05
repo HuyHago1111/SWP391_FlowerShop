@@ -67,7 +67,13 @@
         <!-- Page Sidebar Ends-->
 
         <div class="page-body">
-        <h3 class="text-success mb-4 fw-bold">Add New Category</h3>
+            <div class="container mt-5 mb-5">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="title-header option-title">
+                        <div class="title-header option-title"><i class="ri-pencil-line me-1"></i> <h5>Add New Category</h5></div>
+                        <a th:href="@{/manager/categories}" class="btn btn-success px-4 me-2">← Back to Category List</a>
+                    </div>
+                    <div class="card-body px-4 py-4">
 
         <form th:action="@{/manager/categories/new}" th:object="${category}" method="post"
               class="p-4 bg-white shadow-sm rounded-3 border">
@@ -86,6 +92,9 @@
                 <button type="submit" class="btn btn-success px-4">Save</button>
             </div>
         </form>
+        </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

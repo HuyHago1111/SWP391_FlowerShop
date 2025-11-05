@@ -1,5 +1,6 @@
 package com.flowerShop1.controller.client;
 
+import com.flowerShop1.entity.Product;
 import com.flowerShop1.service.category.CategoryService;
 import com.flowerShop1.service.orderdetail.OrderDetailService;
 import com.flowerShop1.service.product.ProductService;

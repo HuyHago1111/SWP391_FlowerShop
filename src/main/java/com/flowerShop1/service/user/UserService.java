@@ -24,6 +24,7 @@ public interface UserService {
     List<Order> findOrdersByUserId(Integer userId);
     User getUserById(int userId);
 
+    Page<User> searchByKeywordAndRole(String keyword, String role, Pageable pageable);
     void updateStatus(Integer userId, String newStatus);
 
     User getUserByEmail(String email);

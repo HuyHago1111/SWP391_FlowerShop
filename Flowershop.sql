@@ -1,4 +1,4 @@
-﻿USE [FlowerShopDB]
+USE [FlowerShopDB]
 GO
 /****** Object:  Table [dbo].[Addresses]    Script Date: 11/5/2025 1:36:00 AM ******/
 SET ANSI_NULLS ON
