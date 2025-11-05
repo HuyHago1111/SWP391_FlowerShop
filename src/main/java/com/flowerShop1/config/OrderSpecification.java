@@ -1,8 +1,10 @@
 package com.flowerShop1.config;
 
 import com.flowerShop1.entity.Order;
-import org.springframework.data.jpa.domain.Specification;
 import com.flowerShop1.entity.Payment;
+import jakarta.persistence.criteria.JoinType;
+import org.springframework.data.jpa.domain.Specification;
+
 import java.time.LocalDateTime;
 
 public class OrderSpecification {
@@ -10,22 +12,23 @@ public class OrderSpecification {
     public static Specification<Order> hasKeyword(String keyword) {
         return (root, query, cb) -> {
             if (keyword == null || keyword.trim().isEmpty()) return null;
-            return cb.like(cb.lower(root.get("user").get("fullName")), "%" + keyword.toLowerCase() + "%");
+            // Join với User để tìm kiếm theo tên
+            return cb.like(cb.lower(root.join("user", JoinType.LEFT).get("fullName")), "%" + keyword.toLowerCase() + "%");
         };
     }
 
     public static Specification<Order> hasPayment(String paymentMethod) {
         return (root, query, cb) -> {
-            if (paymentMethod == null || paymentMethod.equalsIgnoreCase("all")) return null;
-
-            // Tạo subquery để lấy order_id từ bảng payments có payment_method trùng khớp
+            if (paymentMethod == null || paymentMethod.equalsIgnoreCase("all") || paymentMethod.trim().isEmpty()) {
+                return null;
+            }
+            // Tạo subquery để tìm các order_id có phương thức thanh toán tương ứng
             var subquery = query.subquery(Integer.class);
-            var paymentRoot = subquery.from(com.flowerShop1.entity.Payment.class);
-            subquery.select(paymentRoot.get("orderId"))
+            var paymentRoot = subquery.from(Payment.class);
+            subquery.select(paymentRoot.get("order").get("orderId")) // ✅ SỬA LỖI TẠI ĐÂY
                     .where(cb.equal(cb.lower(paymentRoot.get("payment_method")), paymentMethod.toLowerCase()));
 
-            // Điều kiện: orderId của Order nằm trong danh sách order_id vừa tìm được
-            return cb.in(root.get("orderId")).value(subquery);
+            return root.get("orderId").in(subquery);
         };
     }
 

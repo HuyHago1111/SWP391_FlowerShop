@@ -304,8 +304,13 @@
                         <td th:text="${iter.index + 1 + (currentPage -1)*10}"></td>
                         <td th:text="${o.user.fullName}"></td>
                         <td th:text="${#temporals.format(o.orderDate,'dd/MM/yyyy HH:mm')}"></td>
-                        <td th:text="${orderDTOs[iter.index].paymentMethod}"></td>
+
+                        <!-- ✅ SỬA LẠI CÁCH LẤY PAYMENT METHOD -->
                         <td>
+                            <span th:if="${#lists.isEmpty(o.payments)}">COD</span>
+                            <span th:unless="${#lists.isEmpty(o.payments)}" th:text="${o.payments.iterator().next().payment_method}"></span>
+                        </td>
+
                         <span th:classappend="${o.orderStatus.statusName=='Đã xác nhận'} ? 'status-badge status-active' :
                                            (${o.orderStatus.statusName=='Chờ xử lý'} ? 'status-badge status-inactive' :
                                              (${o.orderStatus.statusName=='Đang giao'} ? 'status-badge status-inactive' :
@@ -318,7 +323,6 @@
                                 th:text="${o.orderStatus.statusName}">
                         </span>
                             </td>
-
                         <td th:text="${#numbers.formatDecimal(o.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
                         <td  class="action-icons text-center">
                             <a  th:href="@{/manager/orders/{id}(id=${o.orderId})}"  title="View">
@@ -336,15 +340,15 @@
                 </table>
                 </div>
 
-                <nav th:if="${totalPages > 1}">
-                    <ul class="pagination justify-content-center">
-                        <li th:each="p : ${#numbers.sequence(1, totalPages)}"
-                            th:classappend="${p==currentPage}? 'active' : ''">
-                            <a class="page-link" th:href="@{|/manager/orders?page=${p}&keyword=${keyword}&paymentMethod=${paymentMethod}&statusId=${statusId}&fromDate=${fromDate}&toDate=${toDate}&minTotal=${minTotal}&maxTotal=${maxTotal}&sortDir=${sortDir}|}"
-                               th:text="${p}"></a>
-                        </li>
-                    </ul>
-                </nav>
+            <nav th:if="${totalPages > 1}">
+                <ul class="pagination justify-content-center">
+                    <li th:each="p : ${#numbers.sequence(1, totalPages)}"
+                        th:classappend="${p==currentPage}? 'active' : ''">
+                        <a class="page-link" th:href="@{/manager/orders(page=${p}, keyword=${keyword}, paymentMethod=${paymentMethod}, statusId=${statusId}, fromDate=${fromDate}, toDate=${toDate}, minTotal=${minTotal}, maxTotal=${maxTotal}, sortBy=${sortBy}, sortDir=${sortDir})}"
+                           th:text="${p}"></a>
+                    </li>
+                </ul>
+            </nav>
 
             </div>
         </div>

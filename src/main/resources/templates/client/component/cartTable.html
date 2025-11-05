@@ -9,6 +9,7 @@
                             <tr class="product-box-contain" th:each="item : ${lsCart}">
                                 <td class="product-detail">
                                     <div class="product border-0">
+                                        <!-- ✅ SỬA Ở ĐÂY -->
                                         <a th:href="@{/product-detail/{id}(id=${item.productId})}" class="product-image">
                                             <img th:src="@{${item.productImage}}"
                                                  class="img-fluid blur-up lazyload" alt="" style="border-radius: 10px;">
@@ -16,17 +17,14 @@
                                         <div class="product-detail">
                                             <ul>
                                                 <li class="name">
+                                                    <!-- ✅ SỬA Ở ĐÂY -->
                                                     <a th:href="@{/product-detail/{id}(id=${item.productId})}" th:text="${item.productName}">Bell
                                                         pepper</a>
                                                 </li>
-
-
                                                 <li class="text-content"><span
                                                         class="text-title">Quantity</span><span
                                                         th:text="${item.stockQuantity}"
-                                                        ></span></li>
-
-
+                                                ></span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -65,7 +63,6 @@
                                                         data-type="plus">
                                                     <i class="fa fa-plus ms-0"></i>
                                                 </button>
-
                                             </div>
                                         </div>
                                     </div>
@@ -79,8 +76,6 @@
 
                                 <td class="save-remove">
                                     <h4 class="table-title text-content">Action</h4>
-
-
                                     <button
                                             class="remove close_button"  th:onclick="'removeCartItem(' + ${item.productId} + ' )'">Remove</button>
                                 </td>
@@ -97,8 +92,6 @@
                         <h3>Cart Total</h3>
                     </div>
 
-
-
                     <ul class="summery-total">
                         <li class="list-total border-top-0">
                             <h4>Total (VND)</h4>
@@ -109,13 +102,10 @@
                     <div class="button-group cart-button">
                         <ul>
                             <li>
-
-                                    <input type="hidden" name="amount" id="amount" th:value="${sumTotalCart}"/>
-                                    <a  id="payBtn" th:href="@{/cart/checkout}"
-                                             class="btn btn-animation proceed-btn fw-bold">Process To Checkout
-                                    </a>
-
-
+                                <input type="hidden" name="amount" id="amount" th:value="${sumTotalCart}"/>
+                                <a  id="payBtn" th:href="@{/cart/checkout}"
+                                    class="btn btn-animation proceed-btn fw-bold">Process To Checkout
+                                </a>
                             </li>
 
                             <li>
@@ -130,5 +120,4 @@
             </div>
         </div>
     </div>
-
 </section>

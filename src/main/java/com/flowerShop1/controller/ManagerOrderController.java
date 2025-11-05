@@ -1,6 +1,5 @@
 package com.flowerShop1.controller;
 
-import com.flowerShop1.dto.Order.OrderDTO;
 import com.flowerShop1.entity.Order;
 import com.flowerShop1.entity.OrderStatus;
 import com.flowerShop1.entity.Payment;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,13 +28,14 @@ public class ManagerOrderController {
     @Autowired private OrderService orderService;
     @Autowired private ShipperRepository shipperRepository;
     @Autowired private PaymentRepository paymentRepository;
+
     @GetMapping("")
     public String listOrders(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "all") String paymentMethod,
             @RequestParam(required = false) Integer statusId,
-            @RequestParam(defaultValue = "totalAmount") String sortBy,
+            @RequestParam(defaultValue = "orderDate") String sortBy, // ✅ Sửa: Mặc định sắp xếp theo ngày
             @RequestParam(defaultValue = "desc") String sortDir,
             @RequestParam(required = false) String fromDate,
             @RequestParam(required = false) String toDate,
@@ -52,16 +51,10 @@ public class ManagerOrderController {
                 keyword, paymentMethod, statusId, sortBy, sortDir,
                 PageRequest.of(page - 1, pageSize), from, to, minTotal, maxTotal
         );
-        List<OrderDTO> orderDTOs = new ArrayList<>();
-        for (Order order : pageOrders.getContent()) {
-            OrderDTO dto = new OrderDTO();
-            Payment payment = paymentRepository.findByOrderId(order.getOrderId());
-            dto.setPaymentMethod(payment != null ? payment.getPayment_method() : "N/A");
-            orderDTOs.add(dto);
-        }
+
+        // ✅ Bỏ đi OrderDTO không cần thiết
 
         model.addAttribute("orders", pageOrders.getContent());
-        model.addAttribute("orderDTOs", orderDTOs);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", pageOrders.getTotalPages());
         model.addAttribute("statuses", orderStatusRepository.findAll());
@@ -82,8 +75,13 @@ public class ManagerOrderController {
     public String viewOrder(@PathVariable Integer orderId, Model model) {
         Order order = orderService.getById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        // ✅ Lấy thông tin thanh toán và đưa vào model
+        List<Payment> payments = paymentRepository.findByOrder_OrderId(orderId);
         model.addAttribute("order", order);
-        return "manager/orders/view";
+        model.addAttribute("payments", payments);
+
+        return "manager/orders/view"; // Giả sử bạn có view này
     }
 
     @GetMapping("/{orderId}/tracking")
@@ -94,7 +92,7 @@ public class ManagerOrderController {
         model.addAttribute("order", order);
         model.addAttribute("statuses", statuses);
         model.addAttribute("shippers", shipperRepository.findAll());
-        return "manager/orders/tracking";
+        return "manager/orders/tracking"; // Giả sử bạn có view này
     }
 
     @PostMapping("/{orderId}/update-status")

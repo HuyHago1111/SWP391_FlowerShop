@@ -1,6 +1,4 @@
-<section>
-<!-- ✅ Smart Pagination for Product List (Manager module) -->
-<div class="pagination-container d-flex justify-content-center mt-4" th:fragment="pagination"  xmlns:th="http://www.thymeleaf.org">
+<div class="pagination-container d-flex justify-content-center mt-4" th:fragment="pagination" xmlns:th="http://www.thymeleaf.org">
     <ul class="pagination">
 
         <!-- Nút Previous -->
@@ -10,7 +8,7 @@
                                             keyword=${keyword},
                                             categoryId=${categoryId},
                                             supplierId=${supplierId},
-                                            sortField=${sortField},
+                                            sortBy=${sortBy},
                                             sortDir=${sortDir})}">
                 &lt;
             </a>
@@ -23,7 +21,7 @@
                                             keyword=${keyword},
                                             categoryId=${categoryId},
                                             supplierId=${supplierId},
-                                            sortField=${sortField},
+                                            sortBy=${sortBy},
                                             sortDir=${sortDir})}">
                 1
             </a>
@@ -36,8 +34,7 @@
 
         <!-- Các trang giữa -->
         <li class="page-item"
-            th:each="i : ${#numbers.sequence((currentPage > 2 ? currentPage - 1 : 1),
-                                             (currentPage < totalPages - 1 ? currentPage + 1 : totalPages))}"
+            th:each="i : ${#numbers.sequence((currentPage > 2 ? currentPage - 2 : 1), (currentPage < totalPages - 1 ? currentPage + 1 : totalPages))}"
             th:classappend="${i == currentPage} ? 'active'">
             <a class="page-link"
                th:classappend="${i == currentPage} ? 'bg-success border-success text-white' : 'text-success'"
@@ -45,7 +42,7 @@
                                             keyword=${keyword},
                                             categoryId=${categoryId},
                                             supplierId=${supplierId},
-                                            sortField=${sortField},
+                                            sortBy=${sortBy},
                                             sortDir=${sortDir})}"
                th:text="${i}">
             </a>
@@ -63,7 +60,7 @@
                                             keyword=${keyword},
                                             categoryId=${categoryId},
                                             supplierId=${supplierId},
-                                            sortField=${sortField},
+                                            sortBy=${sortBy},
                                             sortDir=${sortDir})}"
                th:text="${totalPages}">
             </a>
@@ -76,7 +73,7 @@
                                             keyword=${keyword},
                                             categoryId=${categoryId},
                                             supplierId=${supplierId},
-                                            sortField=${sortField},
+                                            sortBy=${sortBy},
                                             sortDir=${sortDir})}">
                 &gt;
             </a>
@@ -84,5 +81,3 @@
 
     </ul>
 </div>
-
-</section>
