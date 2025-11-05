@@ -29,6 +29,7 @@ public interface UserService {
     User getUserByEmail(String email);
     void save (User user);
     void forgotPassword(UserSignUpDTO userSignUpDTO);
+//    User findByEmail(String email);
 
 
     Page<User> searchUsers(String keyword, String status, Pageable pageable);
