@@ -2,7 +2,7 @@ package com.flowerShop1.config;
 
 import com.flowerShop1.entity.Order;
 import org.springframework.data.jpa.domain.Specification;
-
+import com.flowerShop1.entity.Payment;
 import java.time.LocalDateTime;
 
 public class OrderSpecification {
@@ -17,9 +17,18 @@ public class OrderSpecification {
     public static Specification<Order> hasPayment(String paymentMethod) {
         return (root, query, cb) -> {
             if (paymentMethod == null || paymentMethod.equalsIgnoreCase("all")) return null;
-            return cb.equal(cb.lower(root.get("paymentMethod")), paymentMethod.toLowerCase());
+
+            // Tạo subquery để lấy order_id từ bảng payments có payment_method trùng khớp
+            var subquery = query.subquery(Integer.class);
+            var paymentRoot = subquery.from(com.flowerShop1.entity.Payment.class);
+            subquery.select(paymentRoot.get("orderId"))
+                    .where(cb.equal(cb.lower(paymentRoot.get("payment_method")), paymentMethod.toLowerCase()));
+
+            // Điều kiện: orderId của Order nằm trong danh sách order_id vừa tìm được
+            return cb.in(root.get("orderId")).value(subquery);
         };
     }
+
 
     public static Specification<Order> hasStatus(Integer statusId) {
         return (root, query, cb) -> {
