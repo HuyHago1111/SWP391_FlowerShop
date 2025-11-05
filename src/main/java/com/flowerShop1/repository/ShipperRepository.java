@@ -22,4 +22,5 @@ public interface ShipperRepository extends JpaRepository<Shipper, Integer> {
 
     // ✅ Lấy tất cả shipper theo user (phòng khi 1 user có thể có nhiều record shipper)
     List<Shipper> findAllByUser(User user);
+
 }
