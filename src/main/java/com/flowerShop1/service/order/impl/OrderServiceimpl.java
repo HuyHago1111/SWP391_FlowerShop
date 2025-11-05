@@ -38,6 +38,7 @@ public class OrderServiceimpl implements OrderService {
         return orderRepository.save(order);
     }
 
+    // Bổ sung các phương thức mới
     @Override
     public Page<Order> searchOrders(String keyword, String paymentMethod, Integer statusId,
                                     String sortBy, String sortDir,
