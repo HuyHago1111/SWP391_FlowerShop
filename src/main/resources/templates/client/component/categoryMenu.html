@@ -13,12 +13,12 @@
             <div class="col-12">
                 <div class="slider-9">
                     <div  th:each="category: ${categories}">
-                        <div href="shop-left-sidebar.html" class="category-box wow fadeInUp">
-                            <div>
+                        <a th:href="@{/flower(categoryIDs=${category.categoryId})}" class="category-box wow fadeInUp">
+
                                 <img src="../assets/images/Flower/logo.jpg" class="blur-up lazyload" alt="">
                                 <h5 th:text ="${category.categoryName}">Vegetables & Fruit</h5>
-                            </div>
-                        </div>
+
+                        </a>
                     </div>
 
 
