@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 
 <!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/user-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:50 GMT -->
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -116,7 +117,7 @@
     <!-- User Dashboard Section Start -->
     <section class="user-dashboard-section section-b-space">
         <div class="container-fluid-lg">
-            <div class="row" style= "padding-top: 120px;">
+            <div class="row" style="padding-top: 120px;">
                 <div class="col-xxl-3 col-lg-4">
                     <div class="dashboard-left-sidebar">
                         <div class="close-button d-flex d-lg-none">
@@ -182,7 +183,7 @@
                     <button class="btn left-dashboard-show btn-animation btn-md fw-bold d-block mb-4 d-lg-none">Show
                         Menu</button>
                     <div class="dashboard-right-sidebar">
-                        <div class="tab-content" >
+                        <div class="tab-content">
                             <div class="tab-pane fade show active" id="pills-dashboard" role="tabpanel">
                                 <div class="dashboard-home">
                                     <div class="title">
@@ -198,7 +199,8 @@
                                         <h6 class="text-content">Hello,</h6>
                                         <p class="text-content">Welcome,
 
-                                            From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information.
+                                            From your My Account Dashboard you have the ability to view a snapshot of
+                                            your recent account activity and update your account information.
                                             Select a link below to view or edit information.</p>
                                     </div>
 
@@ -246,7 +248,8 @@
                                             </div>
                                             <div class="dashboard-detail">
                                                 <h6 class="text-content" th:text="${user.fullName}">MARK JECNO</h6>
-                                                <h6 class="text-content" th:text="${user.email}">vicki.pope@gmail.com</h6>
+                                                <h6 class="text-content" th:text="${user.email}">vicki.pope@gmail.com
+                                                </h6>
                                                 <a href="javascript:void(0)">Change Password</a>
                                             </div>
                                         </div>
@@ -272,8 +275,14 @@
                                     <div class="order-contain" id="orderTable">
                                     </div>
 
+                                    <nav class="mt-4">
+                                        <ul class="pagination justify-content-center" id="pagination-container">
+                                            <!-- Các nút phân trang sẽ được chèn vào đây -->
+                                        </ul>
+                                    </nav>
 
-                            </div>
+
+                                </div>
                             </div>
 
                             <div class="tab-pane fade" id="pills-address" role="tabpanel">
@@ -439,7 +448,7 @@
                                             </select>
 
 
-                                            <ul class="nav nav-pills filter-box"  role="tablist">
+                                            <ul class="nav nav-pills filter-box" role="tablist">
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link active" id="pills-data-tab"
                                                         data-bs-toggle="pill" data-bs-target="#pills-data"
@@ -1480,8 +1489,8 @@
 
 
                         <div class="form-floating mb-4 theme-form-floating">
-                        <textarea class="form-control" placeholder="Leave a comment here" id="addressDetail"
-                                  style="height: 100px"></textarea>
+                            <textarea class="form-control" placeholder="Leave a comment here" id="addressDetail"
+                                style="height: 100px"></textarea>
                             <label for="addressDetail">Enter Address</label>
                             <span class="text-danger" id=" errAddress-addressDetail">
 
@@ -1493,7 +1502,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn theme-bg-color btn-md text-white" >Save
+                        <button type="submit" class="btn theme-bg-color btn-md text-white">Save
                             changes</button>
                     </div>
                 </form>
@@ -1618,12 +1627,12 @@
                         <div class="row g-4">
                             <div class="col-xxl-12">
 
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="text" class="form-control" id="pname" th:field="*{fullName}" >
+                                <div class="form-floating theme-form-floating">
+                                    <input type="text" class="form-control" id="pname" th:field="*{fullName}">
 
-                                        <label for="pname">Full Name</label>
-                                        <span style="color: red" id="error-pname"></span>
-                                    </div>
+                                    <label for="pname">Full Name</label>
+                                    <span style="color: red" id="error-pname"></span>
+                                </div>
 
                             </div>
                             <input type="hidden" th:field="*{userId}" id="userId">
@@ -1631,27 +1640,27 @@
 
                             <div class="col-xxl-6">
 
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="email" class="form-control" id="email1"  th:field="*{email}" readonly>
-                                        <label for="email1">Email address</label>
-                                        <span style="color: red" id="error-email"></span>
-                                    </div>
+                                <div class="form-floating theme-form-floating">
+                                    <input type="email" class="form-control" id="email1" th:field="*{email}" readonly>
+                                    <label for="email1">Email address</label>
+                                    <span style="color: red" id="error-email"></span>
+                                </div>
 
                             </div>
 
                             <div class="col-xxl-6">
 
 
-                                    <div class="form-floating theme-form-floating">
+                                <div class="form-floating theme-form-floating">
 
-                                        <input class="form-control" type="tel" th:field="*{phone}" name="mobile" id="mobile"
+                                    <input class="form-control" type="tel" th:field="*{phone}" name="mobile" id="mobile"
+                                        maxlength="10"
+                                        oninput="javascript: if (this.value.length > this.maxLength) this.value =this.value.slice(0, this.maxLength);">
 
-                                               maxlength="10" oninput="javascript: if (this.value.length > this.maxLength) this.value =this.value.slice(0, this.maxLength);">
+                                    <label for="mobile">Phone</label>
+                                    <span style="color: red" id="error-phone"></span>
 
-                                        <label for="mobile" >Phone</label>
-                                        <span style="color: red" id="error-phone"></span>
-
-                                    </div>
+                                </div>
 
 
 
@@ -1659,12 +1668,11 @@
 
                             <div class="col-12">
 
-                                    <div class="form-floating theme-form-floating">
-                                        <input type="text" class="form-control" id="address1"
-                                               th:field="*{address}" >
-                                        <label for="address1" >AddressDetail</label>
-                                        <span style="color: red" id="error-address"></span>
-                                    </div>
+                                <div class="form-floating theme-form-floating">
+                                    <input type="text" class="form-control" id="address1" th:field="*{address}">
+                                    <label for="address1">AddressDetail</label>
+                                    <span style="color: red" id="error-address"></span>
+                                </div>
 
                             </div>
 
@@ -1674,9 +1682,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-animation btn-md fw-bold"
-                                data-bs-dismiss="modal">Close</button>
-                        <button type="submit"
-                                class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
+                            data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn theme-bg-color btn-md fw-bold text-light">Save changes</button>
                     </div>
                 </div>
             </form>
@@ -1824,7 +1831,7 @@
     <script src="../assets/js/theme-setting.js"></script>
 
     <script>
-        document.getElementById("editProfileForm").addEventListener("submit", function (e){
+        document.getElementById("editProfileForm").addEventListener("submit", function (e) {
             e.preventDefault()
 
             const formData = {
@@ -1836,48 +1843,49 @@
 
             }
             const errorPname = document.getElementById("error-pname")
-            errorPname.innerText=""
+            errorPname.innerText = ""
             const errorEmail = document.getElementById("error-email")
-            errorEmail.innerText=""
+            errorEmail.innerText = ""
             const errorPhone = document.getElementById("error-phone")
-            errorPhone.innerText=""
+            errorPhone.innerText = ""
             const errorAddress = document.getElementById("error-address")
-            errorAddress.innerText=""
+            errorAddress.innerText = ""
             try {
-                fetch("/user/edit-profile",{
-                method: "POST",
-                headers : {
-                    "Content-Type" : "application/json"},
-                        body: JSON.stringify(formData)
-                    })
-                .then(res => res.json())
+                fetch("/user/edit-profile", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                })
+                    .then(res => res.json())
                     .then(data => {
-                        if(data.status === "success"){
+                        if (data.status === "success") {
                             const modal = document.getElementById("exampleModalLabel2").closest(".modal");
                             const modalInstance = bootstrap.Modal.getInstance(modal);
                             alert(data.message)
                         }
                         else {
-                           if(data.errors.fullName){
-                               errorPname.innerText = data.errors.fullName
+                            if (data.errors.fullName) {
+                                errorPname.innerText = data.errors.fullName
 
-                           }
-                           if (data.errors.email){
-                               errorEmail.innerText = data.errors.email
+                            }
+                            if (data.errors.email) {
+                                errorEmail.innerText = data.errors.email
 
-                           }
-                           if (data.errors.phone){
-                               errorPhone.innerText = data.errors.phone
+                            }
+                            if (data.errors.phone) {
+                                errorPhone.innerText = data.errors.phone
+                            }
+                            if (data.errors.address) {
+                                errorAddress.innerText = data.errors.address
+                            }
                         }
-                            if (data.errors.address){
-                                 errorAddress.innerText = data.errors.address
-                            }
-                            }
 
                     })
 
 
-            }catch (e){
+            } catch (e) {
 
 
             }
@@ -1886,177 +1894,214 @@
         })
     </script>
 
-<script>
-   function getProductsOrder(){
-       try{
-           fetch("/user/products-of-order",{
-               method: "GET",
-               headers: {
-                   "Content-Type" : "application/json"
-               }
-
-           }).then(res => res.json())
-               .then(data => {
-                   console.log(data)
-                   const content = document.getElementById("orderTable");
-
-
-                       const rows = data.data.content.map(item => {
-                           const statusClass =
-                               item.orderStatus === "Pending" ? "pending-bg" :
-                                   item.orderStatus === "Completed" ? "success-bg" :
-                                       item.orderStatus === "Cancelled" ? "cancel-bg" : "default-bg";
-
-
-                           return `
-                                        <div class="order-box dashboard-bg-box">
-                                            <div class="order-container">
-                                                <div class="order-icon">
-                                                    <i data-feather="box"></i>
-                                                </div>
-
-                                                <div class="order-detail" id="orderTable">
-                                                    <h4>Delivers <span  class="${statusClass}">${ item.orderStatus }</span></h4>
-                                                    <h6 class="text-content">Gouda parmesan caerphilly mozzarella
-                                                        cottage cheese cauliflower cheese taleggio gouda.</h6>
-                                                </div>
-                                            </div>
-
-                                            <div class="product-order-detail">
-                                                <a href="product-left-thumbnail.html" class="order-image">
-                                                    <img src="${item.imageUrl}" style="object-fit: cover; width: 150px; height:" 150px;"
-                                                        class="blur-up lazyload" alt="">
-                                                </a>
-
-                                                <div class="order-wrap">
-                                                    <a href="product-left-thumbnail.html">
-                                                        <h3>${item.productName}</h3>
-                                                    </a>
-                                                    <p class="text-content" ${item.orderStatus}>Cheddar dolcelatte gouda. Macaroni cheese
-                                                        cheese strings feta halloumi cottage cheese jarlsberg cheese
-                                                        triangles say cheese.</p>
-                                                    <ul class="product-size">
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Price : </h6>
-                                                                <h5>${item.price}</h5>
-                                                            </div>
-                                                        </li>
-
-
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">OrderDate </h6>
-                                                                <h5 >${new Date(item.orderDate).toLocaleString()}</h5>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <div class="size-box">
-                                                                <h6 class="text-content">Quantity : </h6>
-                                                                <h5 >${item.quantity}</h5>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-                                    </div>
-                                </div>
-
-        `
-                       }).join("");
-                       content.innerHTML = rows;
-
-                   })
-
-       }catch (e){
-
-
-       }
-   }
-   getProductsOrder();
-</script>
-<script>
-    document.getElementById("addAddress").addEventListener("submit",function (e){
-        e.preventDefault()
-    const formData={
-        fullName : document.getElementById("fname").value,
-        phone : document.getElementById("phone").value,
-        district : document.getElementById("district").value,
-        addressDetail : document.getElementById("addressDetail").value
-
-
-    }
-    const  errFullName = document.getElementById("errAddress-fullName")
-        errFullName.innerText =""
-    const  errPhone = document.getElementById(" errAddress-phone")
-        errPhone.innerText =""
-    const  errDistrict = document.getElementById(" errAddress-district")
-        errDistrict.innerText =""
-    const  errAddressDetail = document.getElementById(" errAddress-addressDetail")
-        errAddressDetail.innerText =""
-    try{
-          fetch("/address",{
-              method : "POST",
-                headers : {
-                    "Content-Type" : "application/json"
-                },
-              body : JSON.stringify(formData)
-          }).then(res => res.json())
-            .then(data => {
-                if(data.status === "error"){
-                    if(data.errors.fullName){
-                        errFullName.innerText = data.errors.fullName
-
-                    }
-                    if(data.errors.phone){
-                        errPhone.innerText = data.errors.phone
-
-                    }
-                    if(data.errors.district){
-                        errDistrict.innerText = data.errors.district
-
-                    }
-                    if(data.errors.addressDetail){
-                        errAddressDetail.innerText = data.errors.addressDetail
-
-                    }
-                }else {
-                    alert(data.message)
-                    getAddress();
+    <script>
+        /**
+         * Hàm này gọi API để lấy danh sách đơn hàng cho một trang cụ thể.
+         * @param {number} page - Số trang cần lấy (bắt đầu từ 0).
+         */
+        function getProductsOrder(page = 0) {
+            // Thêm tham số page vào URL
+            fetch(`/user/orders?page=${page}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
                 }
-          })
-
-    }catch (e) {
-            console.log(error)
-
-    }
-    console.log(formData)
-    });
-
-
-</script>
-<script>
-    function getAddress(){
-        try{
-            fetch("/addresses",{
-                method : "GET",
-                headers : {
-                    "Content-Type" : "application/json"
-                }
-            }).then(res => res.json())
+            })
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return res.json();
+                })
                 .then(data => {
-                    console.log(data)
+                    console.log(data);
+                    const contentContainer = document.getElementById("orderTable");
 
-                    const content = document.getElementById("addressTable");
-                    const rows = data.data.map(item => {
-                        const defaultAddress = item.default ? "checked" : ""
-                        return `
+                    // --- Phần render danh sách đơn hàng (giữ nguyên như cũ) ---
+                    if (data.data && data.data.content.length > 0) {
+                        const rows = data.data.content.map(item => {
+                            const noteHtml = (item.note && item.note.trim() !== '')
+                                ? `<p class="text-content"><strong>Ghi chú:</strong> ${item.note}</p>`
+                                : '';
+                            const shippingAddress = item.shippingAddress ? item.shippingAddress : 'Chưa có thông tin';
+                            const orderDate = item.orderDate
+                                ? new Date(item.orderDate).toLocaleDateString('vi-VN')
+                                : 'Chưa có thông tin';
+
+                            return `
+                        <div class="order-box dashboard-bg-box">
+                            <div class="order-container">
+                                <div class="order-icon"><i data-feather="box"></i></div>
+                                <div class="order-detail">
+                                    <h4>Mã đơn hàng: #${item.orderId}</h4>
+                                    <h6 class="text-content">Ngày đặt: ${orderDate}</h6>
+                                </div>
+                            </div>
+                            <div class="product-order-detail">
+                                <div class="order-wrap">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Trạng thái đơn hàng: <span class="badge bg-primary">${item.orderStatus}</span></h5>
+                                            <h5>Trạng thái thanh toán: <span class="badge bg-success">${item.paymentStatus}</span></h5>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Tổng tiền: <span class="text-danger fw-bold">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.totalAmount)}</span></h5>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <p class="text-content"><strong>Địa chỉ giao hàng:</strong> ${shippingAddress}</p>
+                                    ${noteHtml}
+                                </div>
+                            </div>
+                        </div>`;
+                        }).join("");
+                        contentContainer.innerHTML = rows;
+                    } else {
+                        contentContainer.innerHTML = '<p class="text-center">Bạn chưa có đơn hàng nào.</p>';
+                    }
+
+                    // --- Phần render phân trang (MỚI) ---
+                    // Giả định API trả về `totalPages` và `number` (trang hiện tại)
+                    const totalPages = data.data.totalPages;
+                    const currentPage = data.data.number;
+                    renderPagination(currentPage, totalPages);
+
+                    // Kích hoạt lại icon sau khi render HTML mới
+                    if (typeof feather !== 'undefined') {
+                        feather.replace();
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi lấy danh sách đơn hàng:', error);
+                    const contentContainer = document.getElementById("orderTable");
+                    contentContainer.innerHTML = '<p class="text-center text-danger">Đã có lỗi xảy ra khi tải đơn hàng.</p>';
+                });
+        }
+
+        /**
+         * Hàm này tạo ra các nút HTML cho thanh phân trang.
+         * @param {number} currentPage - Số của trang hiện tại (bắt đầu từ 0).
+         * @param {number} totalPages - Tổng số trang.
+         */
+        function renderPagination(currentPage, totalPages) {
+            const paginationContainer = document.getElementById('pagination-container');
+            paginationContainer.innerHTML = ''; // Xóa các nút cũ trước khi tạo nút mới
+
+            if (totalPages <= 1) {
+                return; // Không hiển thị phân trang nếu chỉ có 1 trang
+            }
+
+            let paginationHtml = '';
+
+            // Nút "Trang trước"
+            paginationHtml += `
+            <li class="page-item ${currentPage === 0 ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0);" onclick="getProductsOrder(${currentPage - 1})">Trước</a>
+            </li>
+        `;
+
+            // Các nút số trang
+            for (let i = 0; i < totalPages; i++) {
+                paginationHtml += `
+                <li class="page-item ${i === currentPage ? 'active' : ''}">
+                    <a class="page-link" href="javascript:void(0);" onclick="getProductsOrder(${i})">${i + 1}</a>
+                </li>
+            `;
+            }
+
+            // Nút "Trang sau"
+            paginationHtml += `
+            <li class="page-item ${currentPage >= totalPages - 1 ? 'disabled' : ''}">
+                <a class="page-link" href="javascript:void(0);" onclick="getProductsOrder(${currentPage + 1})">Sau</a>
+            </li>
+        `;
+
+            paginationContainer.innerHTML = paginationHtml;
+        }
+
+        // Tự động gọi hàm để lấy dữ liệu cho trang đầu tiên khi trang được tải
+        document.addEventListener('DOMContentLoaded', function () {
+            getProductsOrder();
+        });
+
+    </script>
+
+    <script>
+        document.getElementById("addAddress").addEventListener("submit", function (e) {
+            e.preventDefault()
+            const formData = {
+                fullName: document.getElementById("fname").value,
+                phone: document.getElementById("phone").value,
+                district: document.getElementById("district").value,
+                addressDetail: document.getElementById("addressDetail").value
+
+
+            }
+            const errFullName = document.getElementById("errAddress-fullName")
+            errFullName.innerText = ""
+            const errPhone = document.getElementById(" errAddress-phone")
+            errPhone.innerText = ""
+            const errDistrict = document.getElementById(" errAddress-district")
+            errDistrict.innerText = ""
+            const errAddressDetail = document.getElementById(" errAddress-addressDetail")
+            errAddressDetail.innerText = ""
+            try {
+                fetch("/address", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData)
+                }).then(res => res.json())
+                    .then(data => {
+                        if (data.status === "error") {
+                            if (data.errors.fullName) {
+                                errFullName.innerText = data.errors.fullName
+
+                            }
+                            if (data.errors.phone) {
+                                errPhone.innerText = data.errors.phone
+
+                            }
+                            if (data.errors.district) {
+                                errDistrict.innerText = data.errors.district
+
+                            }
+                            if (data.errors.addressDetail) {
+                                errAddressDetail.innerText = data.errors.addressDetail
+
+                            }
+                        } else {
+                            alert(data.message)
+                            getAddress();
+                        }
+                    })
+
+            } catch (e) {
+                console.log(error)
+
+            }
+            console.log(formData)
+        });
+
+
+    </script>
+    <script>
+        function getAddress() {
+            try {
+                fetch("/addresses", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                }).then(res => res.json())
+                    .then(data => {
+                        console.log(data)
+
+                        const content = document.getElementById("addressTable");
+                        const rows = data.data.map(item => {
+                            const defaultAddress = item.default ? "checked" : ""
+                            return `
                          <div class="col-xxl-4 col-xl-6 col-lg-12 col-md-6" >
                                             <div class="address-box">
                                                 <div>
@@ -2108,55 +2153,56 @@
                                         </div>
                         `
 
-                    }).join("");
-                    content.innerHTML = rows;
-                })
-        }catch (e) {
+                        }).join("");
+                        content.innerHTML = rows;
+                    })
+            } catch (e) {
+
+            }
 
         }
 
-    }
+        function setDefaultAddress(addressId) {
+            console.log("hẹ hẹ hẹ")
+            try {
+                fetch(`/address/set-default?id=${addressId}`, {
+                    method: 'POST'
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+            } catch (error) {
+                console.log(error);
+            }
 
-    function setDefaultAddress(addressId) {
-        console.log("hẹ hẹ hẹ")
-        try {
-            fetch(`/address/set-default?id=${addressId}`, {
-                method: 'POST'
-            }).then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        alert(data.message);
-                    } else {
-                        alert(data.message);
+
+        }
+        function deleteAddressById(id) {
+            try {
+                fetch("/address/delete?id=" + id, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json"
                     }
-                })
-        } catch (error) {
-            console.log(error);
+                }).then(res => res.json())
+                    .then(data => {
+                        alert(data.message)
+                        getAddress();
+                    })
+            } catch (e) {
+                console.log(e)
+            }
         }
+        getAddress();
 
-
-    }
-    function deleteAddressById(id){
-        try{
-            fetch("/address/delete?id=" + id,{
-                method : "DELETE",
-                headers : {
-                    "Content-Type" : "application/json"
-                }
-            }).then(res => res.json())
-                .then(data => {
-                    alert(data.message)
-                    getAddress();
-                })
-        }catch (e) {
-console.log(e)
-        }
-    }
-    getAddress();
-
-</script>
+    </script>
 </body>
 
 
 <!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/user-dashboard.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:52 GMT -->
+
 </html>

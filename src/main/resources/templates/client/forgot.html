@@ -132,6 +132,7 @@
                             </div>
 
                             <div class="input-box">
+                                <span th:text="${error}" style="color: red; font-size: 20px; margin-bottom: 10px;"></span>
                                 <form class="row g-4" th:action="@{/forgot}" method="POST">
                                     <div class="col-12">
                                         <div class="form-floating theme-form-floating log-in-form">

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Truy cập bị cấm</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Thiết lập cơ bản */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa; /* Màu nền xám rất nhạt */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        /* Khung chính */
+        .container {
+            display: flex;
+            flex-wrap: wrap; /* Cho phép xuống hàng trên di động */
+            max-width: 960px;
+            width: 90%;
+            margin: 2rem;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            overflow: hidden; /* Để giữ bo tròn góc */
+        }
+
+        /* 1. Cột hình ảnh minh họa */
+        .illustration-container {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .illustration-img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 2. Cột nội dung */
+        .content-container {
+            flex: 1;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 2.5rem; /* 40px */
+            font-weight: 700;
+            color: #222;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .message {
+            font-size: 1rem; /* 16px */
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        /* Nút bấm */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem; /* 12px 24px */
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        /* Nút chính (Màu đỏ/san hô) */
+        .btn-primary {
+            background: linear-gradient(to right, #FF7B6D, #EF6B6B);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 15px rgba(239, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 107, 107, 0.4);
+        }
+
+        /* Đường kẻ "OR" */
+        .separator {
+            text-align: center;
+            color: #ccc;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        /* Nút/Link phụ */
+        .btn-secondary {
+            color: #555;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .btn-secondary:hover {
+            color: #000;
+        }
+
+        /* Link hỗ trợ (Màu xanh) */
+        .support-link {
+            color: #00A99D; /* Màu xanh teal/mint */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            text-align: center;
+            display: block;
+        }
+
+        .support-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Cho thiết bị di động */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .content-container {
+                padding: 2rem;
+                text-align: center; /* Căn giữa nội dung trên di động */
+            }
+
+            .illustration-container {
+                padding: 2rem 2rem 1rem 2rem; /* Giảm padding */
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="illustration-container">
+        <img src="https://i.imgur.com/example.svg" alt="Access Denied Illustration" class="illustration-img">
+    </div>
+
+    <div class="content-container">
+        <h1>403 Forbidden</h1>
+        <p class="message">
+            Access Denied.
+            <br>
+            You do not have permission to view this page.
+        </p>
+
+        <a href="/" class="btn btn-primary">Go Back Home</a>
+
+        <div class="separator">OR</div>
+
+        <a href="/" class="btn-secondary">Go Back Home</a>
+
+        <a href="/contact" class="support-link">Contact Support</a>
+    </div>
+</div>
+</body>
+</html>

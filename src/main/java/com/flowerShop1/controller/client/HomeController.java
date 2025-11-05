@@ -35,5 +35,11 @@ public class HomeController {
         return "client/index";
     }
 
+
+    @GetMapping("/403")
+    public String forbibdden (){
+        return "403";
+    }
+
 }
 
