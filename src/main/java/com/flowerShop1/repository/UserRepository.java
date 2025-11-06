@@ -1,5 +1,4 @@
 package com.flowerShop1.repository;
-
 import com.flowerShop1.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Query;

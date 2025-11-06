@@ -21,10 +21,13 @@ import java.time.LocalDateTime;
 @RequestMapping("/manager/suppliers")
 @PreAuthorize("hasAnyRole('MANAGER','ADMIN')")
 public class ManagerSupplierController {
+
     @Autowired
     private UserService userService;
-    @Autowired private SupplierService supplierService;
+    @Autowired
+    private SupplierService supplierService;
 
+    // ---------------- LIST SUPPLIERS ----------------
     @GetMapping("")
     public String listSuppliers(
             @RequestParam(defaultValue = "1") int page,
@@ -38,7 +41,11 @@ public class ManagerSupplierController {
         Sort sort = Sort.by(sortBy);
         sort = "asc".equalsIgnoreCase(sortDir) ? sort.ascending() : sort.descending();
 
-        Page<Supplier> pageSuppliers = supplierService.listSuppliers(keyword, status.equals("all") ? null : status, PageRequest.of(page - 1, pageSize, sort));
+        Page<Supplier> pageSuppliers = supplierService.listSuppliers(
+                keyword,
+                status.equals("all") ? null : status,
+                PageRequest.of(page - 1, pageSize, sort)
+        );
 
         model.addAttribute("suppliers", pageSuppliers.getContent());
         model.addAttribute("currentPage", page);
@@ -47,24 +54,24 @@ public class ManagerSupplierController {
         model.addAttribute("status", status);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("sortDir", sortDir);
+
         return "manager/suppliers/list";
     }
 
-    // show add form
+    // ---------------- ADD SUPPLIER ----------------
     @GetMapping("/add")
-    public String addSupplierForm(Model model) {
+    public String addSupplierForm(Model model ,@ModelAttribute("success") String success,
+                                  @ModelAttribute("error") String error) {
         model.addAttribute("supplier", new Supplier());
         return "manager/suppliers/add";
     }
 
-    // handle add
-    // 👉 Lưu supplier mới (với user hiện tại)
     @PostMapping("/save")
     public String addSupplier(@ModelAttribute Supplier supplier,
                               RedirectAttributes ra,
                               Principal principal) {
         try {
-            // ✅ Lấy user hiện tại đang đăng nhập
+            // ✅ Lấy user hiện tại đăng nhập
             User currentUser = userService.getUserByEmail(principal.getName());
             supplier.setUser(currentUser);
 
@@ -80,17 +87,19 @@ public class ManagerSupplierController {
         return "redirect:/manager/suppliers";
     }
 
-    // edit form
+    // ---------------- EDIT SUPPLIER ----------------
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Integer id, Model model) {
-        Supplier s = supplierService.getById(id).orElseThrow(() -> new RuntimeException("Supplier not found"));
-        model.addAttribute("supplier", s);
-        // possible status options
-        model.addAttribute("statusOptions", new String[]{"pending","approved","rejected"});
+    public String editForm(@PathVariable Integer id, Model model, @ModelAttribute("success") String success,
+                           @ModelAttribute("error") String error) {
+        Supplier supplier = supplierService.getById(id)
+                .orElseThrow(() -> new RuntimeException("Supplier not found"));
+
+        model.addAttribute("supplier", supplier);
+        model.addAttribute("statusOptions", new String[]{"Pending", "Approved", "Rejected"});
         return "manager/suppliers/edit";
     }
 
-    // cập nhật (chỉ trạng thái hoặc thông tin liên hệ tùy chọn)
+    // ---------------- UPDATE SUPPLIER ----------------
     @PostMapping("/{id}/update")
     public String updateSupplier(@PathVariable Integer id,
                                  @ModelAttribute Supplier supplier,
@@ -99,27 +108,39 @@ public class ManagerSupplierController {
             Supplier existing = supplierService.getById(id)
                     .orElseThrow(() -> new RuntimeException("Supplier not found"));
 
-            // cập nhật các thông tin khác nếu có
+            // Cập nhật các thông tin cơ bản
             existing.setContactName(supplier.getContactName());
             existing.setPhone(supplier.getPhone());
             existing.setAddress(supplier.getAddress());
 
-            // kiểm tra và cập nhật trạng thái nếu thay đổi
-            if (supplier.getStatus() != null &&
-                    !supplier.getStatus().equalsIgnoreCase(existing.getStatus())) {
-                supplierService.updateStatus(id, supplier.getStatus());
-            } else {
-                supplierService.save(existing);
+            String currentStatus = existing.getStatus();
+            String newStatus = supplier.getStatus();
+
+            // ✅ Validate chuyển trạng thái
+            if (newStatus != null && !newStatus.equalsIgnoreCase(currentStatus)) {
+                boolean validTransition = switch (currentStatus.toLowerCase()) {
+                    case "pending" -> newStatus.equalsIgnoreCase("approved") || newStatus.equalsIgnoreCase("rejected");
+                    case "approved" -> newStatus.equalsIgnoreCase("rejected");
+                    case "rejected" -> newStatus.equalsIgnoreCase("approved");
+                    default -> false;
+                };
+
+                if (!validTransition) {
+                    ra.addFlashAttribute("error",
+                            "❌ Chuyển đổi trạng thái không hợp lệ: không thể thay đổi từ " + currentStatus + " → " + newStatus);
+                    return "redirect:/manager/suppliers/" + id + "/edit";
+
+                }
+
+                existing.setStatus(newStatus);
             }
 
-            ra.addFlashAttribute("success", "✅ Supplier updated successfully.");
-        } catch (IllegalArgumentException e) {
-            ra.addFlashAttribute("error", e.getMessage());
+            supplierService.save(existing);
+            ra.addFlashAttribute("success", "✅ Supplier updated successfully!");
         } catch (Exception e) {
             ra.addFlashAttribute("error", "❌ Update failed: " + e.getMessage());
         }
 
-        return "redirect:/manager/suppliers/" + id + "/edit";
+        return "redirect:/manager/suppliers";
     }
-
 }
