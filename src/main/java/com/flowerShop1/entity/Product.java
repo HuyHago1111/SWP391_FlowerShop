@@ -37,7 +37,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
     @ManyToOne
-    @JoinColumn (name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id", nullable = false)
     private Category category;
     @ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
@@ -56,11 +56,11 @@ public class Product {
     private Integer stockQuantity;
     @Column(name = "image_url", length = 255, columnDefinition = "nvarchar(255)")
     private String imageUrl;
-    @Column(name = "status", nullable = false, length = 20, columnDefinition = "nvarchar(20)" )
+    @Column(name = "status", nullable = false, length = 20, columnDefinition = "nvarchar(20)")
     private String status;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-    @Column(name="updated_at" ,nullable =   false )
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
 }

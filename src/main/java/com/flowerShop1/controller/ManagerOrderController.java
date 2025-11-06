@@ -42,11 +42,32 @@ public class ManagerOrderController {
             @RequestParam(required = false) String toDate,
             @RequestParam(required = false) Double minTotal,
             @RequestParam(required = false) Double maxTotal,
-            Model model) {
+            @ModelAttribute("success") String success,
+            @ModelAttribute("error") String error,
+            Model model,
+            RedirectAttributes ra) {
 
         int pageSize = 10;
         LocalDateTime from = (fromDate != null && !fromDate.isEmpty()) ? LocalDate.parse(fromDate).atStartOfDay() : null;
         LocalDateTime to = (toDate != null && !toDate.isEmpty()) ? LocalDate.parse(toDate).atTime(23, 59, 59) : null;
+
+        // ✅ Validate khoảng ngày
+        if (from != null && to != null && !to.isAfter(from)) {
+            ra.addFlashAttribute("error", "❌ Lỗi date range: 'To date' phải sau 'From date'.");
+            return "redirect:/manager/orders";
+        }
+
+        // ✅ Validate khoảng ngày không vượt quá hiện tại
+        if (to != null && to.isAfter(LocalDateTime.now())) {
+            ra.addFlashAttribute("error", "❌ Lỗi date range: 'To date' không thể chọn ngày tương lai.");
+            return "redirect:/manager/orders";
+        }
+
+        // ✅ Validate tổng tiền
+        if (minTotal != null && maxTotal != null && (minTotal <= 0 || minTotal > maxTotal)) {
+            ra.addFlashAttribute("error", "❌ Lỗi total amount range:  0 < min ≤ max.");
+            return "redirect:/manager/orders";
+        }
 
         Page<Order> pageOrders = orderService.searchOrders(
                 keyword, paymentMethod, statusId, sortBy, sortDir,
