@@ -1,6 +1,8 @@
 package com.flowerShop1.repository;
 
 import com.flowerShop1.entity.OrderDetail;
+import com.flowerShop1.entity.OrderStatus;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -34,6 +36,10 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
             
             """, nativeQuery = true)
     List<Object[]> findTrendingProductsNative();
+    // ✅ Lấy danh sách OrderDetail theo Order ID, fetch luôn product để tránh N+1
+    @EntityGraph(attributePaths = {"product"})
+    List<OrderDetail> findByOrder_OrderId(int orderId);
+
 
 
 

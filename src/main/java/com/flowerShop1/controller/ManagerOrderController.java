@@ -2,6 +2,7 @@ package com.flowerShop1.controller;
 
 import com.flowerShop1.dto.Order.OrderDTO;
 import com.flowerShop1.entity.Order;
+import com.flowerShop1.entity.OrderDetail;
 import com.flowerShop1.entity.OrderStatus;
 import com.flowerShop1.entity.Payment;
 import com.flowerShop1.repository.OrderStatusRepository;
@@ -17,10 +18,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @Controller
 @RequestMapping("/manager/orders")
@@ -101,34 +104,37 @@ public class ManagerOrderController {
 
     @GetMapping("/{orderId}")
     public String viewOrder(@PathVariable Integer orderId, Model model) {
+
         Order order = orderService.getById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        List<OrderDetail> items = orderService.getOrderDetails(orderId);
+        Payment payment = orderService.getPaymentByOrderId(orderId);
+
+        // Locale Việt Nam (chuẩn Java 21+)
+        Locale localeVN = Locale.forLanguageTag("vi-VN");
+
+        // ✅ Format ngày
+        DateTimeFormatter dateFormatter =
+                DateTimeFormatter.ofPattern("dd MMMM yyyy 'lúc' hh:mm a", localeVN);
+        String orderDateFormatted = order.getOrderDate().format(dateFormatter);
+
+         // ✅ Format tiền
+        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
+        String orderTotalFormatted = currencyFormatter.format(order.getTotalAmount());
+
+        // ✅ Tính tổng số lượng item
+        int totalQuantity = items.stream().mapToInt(OrderDetail::getQuantity).sum();
+
+
         model.addAttribute("order", order);
+        model.addAttribute("items", items);
+        model.addAttribute("payment", payment);
+        model.addAttribute("orderDateFormatted", orderDateFormatted);
+        model.addAttribute("orderTotalFormatted", orderTotalFormatted);
+        model.addAttribute("totalQuantity", totalQuantity);
+
         return "manager/orders/view";
     }
 
-    @GetMapping("/{orderId}/tracking")
-    public String trackingOrder(@PathVariable Integer orderId, Model model) {
-        Order order = orderService.getById(orderId)
-                .orElseThrow(() -> new RuntimeException("Order not found"));
-        List<OrderStatus> statuses = orderService.getAllStatuses();
-        model.addAttribute("order", order);
-        model.addAttribute("statuses", statuses);
-        model.addAttribute("shippers", shipperRepository.findAll());
-        return "manager/orders/tracking";
-    }
-
-    @PostMapping("/{orderId}/update-status")
-    public String updateStatus(@PathVariable Integer orderId, @RequestParam Integer statusId, RedirectAttributes ra) {
-        orderService.updateOrderStatus(orderId, statusId);
-        ra.addFlashAttribute("success", "✅ Order status updated successfully!");
-        return "redirect:/manager/orders/" + orderId + "/tracking";
-    }
-
-    @PostMapping("/{orderId}/assign-shipper")
-    public String assignShipper(@PathVariable Integer orderId, @RequestParam Integer shipperId, RedirectAttributes ra) {
-        orderService.assignShipper(orderId, shipperId);
-        ra.addFlashAttribute("success", "🚚 Shipper assigned successfully!");
-        return "redirect:/manager/orders/" + orderId + "/tracking";
-    }
 }

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <title>Fastkart - Add New User</title>
+
+    <!-- Google font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            rel="stylesheet">
+
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/font-awesome.css}">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" th:href="@{/admin-assets/css/linearicon.css}">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/remixicon.css}">
+
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/themify.css}">
+
+    <!--Dropzon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/dropzone.css}">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/feather-icon.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/scrollbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/chartist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/date-picker.css}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/bootstrap.css}">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .total-line { font-weight:700; font-size:1.1rem; color:#0f9d58; text-align:right; }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .order-info p {
+            margin: 6px 0;
+        }
+
+        /* === Thanh tiến trình === */
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 30px 0 50px;
+        }
+
+        .progress-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 5px;
+            width: 100%;
+            background-color: #e0e0e0;
+            z-index: 0;
+            transform: translateY(-50%);
+        }
+
+        .progress-step {
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            z-index: 1;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .progress-step.active {
+            background-color: #28a745;
+            color: white;
+            box-shadow: 0 0 10px rgba(40,167,69,0.5);
+        }
+
+        .progress-label {
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.85rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-top: 15px;
+        }
+
+        select, button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .alert {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        /* STATUS BADGE */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .status-pending {
+            background-color: #0dcaf0;
+            color: #0a58ca;
+        }
+        .status-active {
+            background-color: #e6f7ed;
+            color: #28a745;
+        }
+        .status-inactive {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .status-outofstock {
+            background-color: #f8d7da;
+            color: #a94442;
+        }
+    </style>
+</head>
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
+<!-- Page Header End -->
+<!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div th:replace="~{Admin/ComponentAdmin/PageSidebar::PageSidebar}"></div>
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+            <div class="title-header option-title">
+                <div class="container mt-5 mb-5 tracking-container">
+                    <h2 class="text-center text-primary fw-bold mb-4">Tracking Order #<span th:text="${order.orderId}"></span></h2>
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <a th:href="@{/manager/orders}" class="btn btn-success px-4 me-2">← Back to Order List</a>
+                        </div>
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <p><strong>Khách hàng:</strong> <span th:text="${order.user.fullName}"></span></p>
+                                    <p><strong>Phương thức thanh toán:</strong> <span
+                                th:classappend="${order.paymentStatus.payStatusName=='Đã thanh toán'} ? 'status-badge status-active' :
+                                           (${order.paymentStatus.payStatusName=='Chờ thanh toán'} ? 'status-badge status-inactive' :
+                                           (${order.paymentStatus.payStatusName=='Thanh toán thất bại'} ?'status-badge status-outofstock'))"
+                                th:text="${order.paymentStatus.payStatusName} "></span></p>
+                                    <p><strong> Tổng tiền:</strong> <span class="total-line" th:text="${totalFormatted}"></span></p>
+                                </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Ngày đặt hàng:</strong> <span th:text="${orderDateFormatted}"></span></p>
+                                        <p><strong>Địa chỉ giao hàng:</strong> <span th:text="${order.shippingAddress}"></span></p>
+                                        <p><strong>Ghi chú:</strong> <span th:text="${order.note ?: 'Không có'}"></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- === Thanh tiến trình === -->
+                    <div class="progress-container">
+                        <div th:each="status : ${availableStatuses}"
+                             class="progress-step"
+                             th:classappend="${status.statusId <= order.orderStatus.statusId} ? ' active' : ''">
+                            <span th:text="${status.statusId}"></span>
+                            <div class="progress-label" th:text="${status.statusName}"></div>
+                        </div>
+                    </div>
+
+                    <!-- === Form cập nhật tracking === -->
+                    <div class="card shadow-lg border-0 rounded-3">
+                        <div class="card shadow-sm p-4">
+                            <form th:action="@{'/manager/orders/' + ${order.orderId} + '/tracking/update'}" method="post" class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Trạng thái mới</label>
+                                    <select name="newStatusId" class="form-select">
+                                        <option value="">-- Chọn trạng thái mới --</option>
+                                        <option th:each="st : ${availableStatuses}"
+                                                th:value="${st.statusId}"
+                                                th:text="${st.statusName}"
+                                             th:selected="${st.statusId == order.orderStatus.statusId}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">Giao cho Shipper</label>
+                                    <select name="shipperId" class="form-select">
+                                        <option value="">-- Chưa phân công --</option>
+                                        <option th:each="ship : ${shippers}"
+                                                th:value="${ship.shipperId}"
+                                                th:text="${ship.user.fullName}"
+                                                th:selected="${order.shipper != null and ship.shipperId == order.shipper.shipperId}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 text-center mt-3">
+                                    <button type="submit" class="btn btn-primary px-4 py-2">Cập nhật trạng thái</button>
+                                    <a th:href="@{/manager/orders}" class="btn btn-secondary ms-2">⬅ Quay lại</a>
+                                </div>
+                            </form>
+                        </div>
+                        <div role="alert" th:if="${order.orderStatus.statusId >= 3}">
+                            ⚠️ Trạng thái đơn hàng đã đến <b th:text="${order.orderStatus.statusName}"></b> — bạn không thể cập nhật trạng thái nữa!
+                        </div>
+                        <div role="alert" th:if="${success}" th:text="${success}"></div>
+                        <div role="alert" th:if="${error}" th:text="${error}">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<footer class="footer text-center mt-4">
+    <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
+</footer>
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal End -->
+
+<!-- latest js -->
+<script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin-assets/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin-assets/js/scrollbar/custom.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin-assets/js/customizer.js}"></script>
+
+<!-- Sidebar js-->
+<script th:src="@{/admin-assets/js/config.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/admin-assets/js/sidebar-menu.js}"></script>
+<script th:src="@{/admin-assets/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin-assets/js/notify/index.js}"></script>
+
+<!--Dropzone js -->
+<script th:src="@{/admin-assets/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin-assets/js/dropzone/dropzone-script.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin-assets/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin-assets/js/script.js}"></script>
+</body>
+</html>
