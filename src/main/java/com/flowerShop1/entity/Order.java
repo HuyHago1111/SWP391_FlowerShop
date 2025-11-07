@@ -59,7 +59,7 @@ go
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
     @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
+    private LocalDateTime updatedAt;
     @Column(name = "note", length = 255, columnDefinition = "nvarchar(255)")
     private String note;
 }

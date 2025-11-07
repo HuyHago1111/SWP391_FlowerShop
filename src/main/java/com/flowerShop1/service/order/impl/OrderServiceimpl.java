@@ -1,16 +1,12 @@
 package com.flowerShop1.service.order.impl;
 
-import com.flowerShop1.entity.Order;
-import com.flowerShop1.repository.OrderRepository;
-import com.flowerShop1.repository.OrderStatusRepository;
-import com.flowerShop1.repository.ShipperRepository;
+import com.flowerShop1.entity.*;
+import com.flowerShop1.repository.*;
 import com.flowerShop1.service.order.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import com.flowerShop1.entity.OrderStatus;
-import com.flowerShop1.entity.Shipper;
 import com.flowerShop1.config.OrderSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.domain.*;
@@ -28,6 +24,11 @@ public class OrderServiceimpl implements OrderService {
     private OrderStatusRepository statusRepository;
     @Autowired
     private ShipperRepository shipperRepository;
+
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
+    @Autowired
+    private PaymentRepository paymentRepository;
     @Override
     public Page<Order> getOrdersByUserId(int userId, org.springframework.data.domain.Pageable pageable) {
         return orderRepository.findByUserUserId(userId , pageable);
@@ -61,7 +62,16 @@ public class OrderServiceimpl implements OrderService {
 
     @Override
     public Optional<Order> getById(Integer orderId) {
-        return orderRepository.findById(orderId);
+        return orderRepository.findByIdWithRelations(orderId);
+    }
+    @Override
+    public List<OrderDetail> getOrderDetails(int orderId) {
+        return orderDetailRepository.findByOrder_OrderId(orderId);
+    }
+
+    @Override
+    public Payment getPaymentByOrderId(int orderId) {
+        return paymentRepository.findByOrderId(orderId);
     }
 
     @Override
@@ -94,5 +104,11 @@ public class OrderServiceimpl implements OrderService {
 
         order.setShipper(shipper);
         orderRepository.save(order);
+    }
+
+    @Override
+    public Order getOrderWithRelations(int id) {
+        return orderRepository.findByOrderId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found: " + id));
     }
 }

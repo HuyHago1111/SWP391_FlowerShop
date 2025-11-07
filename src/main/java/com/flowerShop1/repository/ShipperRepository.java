@@ -3,6 +3,7 @@ package com.flowerShop1.repository;
 import com.flowerShop1.entity.Shipper;
 import com.flowerShop1.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,5 +23,7 @@ public interface ShipperRepository extends JpaRepository<Shipper, Integer> {
 
     // ✅ Lấy tất cả shipper theo user (phòng khi 1 user có thể có nhiều record shipper)
     List<Shipper> findAllByUser(User user);
+    @Query("SELECT s FROM Shipper s WHERE s.user.role.roleName = 'Shipper'")
+    List<Shipper> findAllActiveShippers();
 
 }
