@@ -25,5 +25,7 @@ public interface ShipperRepository extends JpaRepository<Shipper, Integer> {
     List<Shipper> findAllByUser(User user);
     @Query("SELECT s FROM Shipper s WHERE s.user.role.roleName = 'Shipper'")
     List<Shipper> findAllActiveShippers();
+    Optional<Shipper> findByUser_email(String email);
+
 
 }

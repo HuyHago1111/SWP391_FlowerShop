@@ -217,7 +217,7 @@
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <p><strong>Khách hàng:</strong> <span th:text="${order.user.fullName}"></span></p>
-                                    <p><strong>Phương thức thanh toán:</strong> <span
+                                    <p><strong>Trạng thái thanh toán:</strong> <span
                                 th:classappend="${order.paymentStatus.payStatusName=='Đã thanh toán'} ? 'status-badge status-active' :
                                            (${order.paymentStatus.payStatusName=='Chờ thanh toán'} ? 'status-badge status-inactive' :
                                            (${order.paymentStatus.payStatusName=='Thanh toán thất bại'} ?'status-badge status-outofstock'))"

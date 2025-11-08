@@ -61,6 +61,7 @@ public class SercurityConfig {
 
                         // Các URL yêu cầu vai trò MANAGER
                         .requestMatchers("/manager/**").hasAnyAuthority("Manager","Staff","Admin")
+                                .requestMatchers("/shipper/**").hasAnyAuthority("Shipper")
 //                        // Các URL yêu cầu vai trò STAFF
 //                        .requestMatchers("/manager/**", "/manager/products/{productId}" ,"manager/products/new").hasAnyAuthority("Staff")
                         // Các URL yêu cầu người dùng phải đăng nhập (bất kể vai trò gì)

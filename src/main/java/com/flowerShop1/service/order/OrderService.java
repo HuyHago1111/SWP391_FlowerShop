@@ -6,6 +6,7 @@ import com.flowerShop1.entity.OrderStatus;
 import com.flowerShop1.entity.Payment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,5 +30,13 @@ public interface OrderService {
     List<OrderDetail> getOrderDetails(int orderId);
     Payment getPaymentByOrderId(int orderId);
     Order getOrderWithRelations(int id);
-
+    Optional<Order> findByIdWithAllRelations(Integer id);
+//    void updateStatusByShipper(Integer orderId, Integer newStatusId, Integer shipperId, String note) throws IllegalArgumentException;
+    List<Order> findOrdersForShipperWithFilter(int shipperId,
+                                               String searchName,
+                                               String paymentMethod,
+                                               Integer statusId,
+                                               String sortField,
+                                               String sortDir,
+                                               int page, int size);
 }
