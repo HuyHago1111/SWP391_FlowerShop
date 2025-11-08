@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" >
+    <title>Fastkart - Add New User</title>
+
+    <!-- Google font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            rel="stylesheet">
+
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/font-awesome.css}">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" th:href="@{/admin-assets/css/linearicon.css}">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/remixicon.css}">
+
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/themify.css}">
+
+    <!--Dropzon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/dropzone.css}">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/feather-icon.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/scrollbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/chartist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/date-picker.css}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/bootstrap.css}">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background: #fffaf5;
+        color: #333;
+        line-height: 1.6;
+        padding: 30px;
+    }
+
+    /* 🧭 ========== CONTAINER ========== */
+    .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 30px 40px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .container:hover {
+        transform: translateY(-2px);
+    }
+
+    /* 🔖 ========== HEADINGS ========== */
+    h1, h2, h3 {
+        color: #ff6f00;
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        text-align: center;
+        border-bottom: 3px solid #ff6f00;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    /* ⚠️ ========== ALERT MESSAGES ========== */
+    .alert {
+        padding: 10px 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .alert.success {
+        background-color: #e6ffed;
+        color: #2e7d32;
+        border: 1px solid #a5d6a7;
+    }
+
+    .alert.error {
+        background-color: #fff3f3;
+        color: #d32f2f;
+        border: 1px solid #ef9a9a;
+    }
+
+    /* 🔍 ========== FILTER BAR ========== */
+    .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+    .filter-bar input, .filter-bar select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 0.95rem;
+    }
+
+    .filter-bar input:focus, .filter-bar select:focus {
+        border-color: #ff6f00;
+    }
+
+    .filter-bar .btn {
+        background-color: #ff6f00;
+        color: #fff;
+        border: none;
+        padding: 8px 14px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .filter-bar .btn:hover {
+        background-color: #e65100;
+    }
+
+    /* 📋 ========== TABLE ========== */
+    .order-table, .order-detail-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .order-table th, .order-table td,
+    .order-detail-table th, .order-detail-table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .order-table th {
+        background-color: #fff3e0;
+        color: #ff6f00;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .order-table tr:hover {
+        background-color: #fff8e1;
+        transition: 0.2s ease;
+    }
+
+    /* 🏷️ ========== STATUS BADGES ========== */
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+    }
+
+    .status.chờ-xử-lý { background-color: #9e9e9e; }
+    .status.đã-xác-nhận { background-color: #42a5f5; }
+    .status.đang-chuẩn-bị { background-color: #ffb300; }
+    .status.đang-giao { background-color: #fb8c00; }
+    .status.đã-hoàn-thành { background-color: #43a047; }
+    .status.thất-bại { background-color: #e53935; }
+    .status.đã-hủy { background-color: #757575; }
+
+    /* 📦 ========== ORDER DETAIL ========== */
+    .product-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 1px solid #ddd;
+    }
+
+    /* 🧭 ========== BUTTONS ========== */
+    .btn {
+        display: inline-block;
+        text-decoration: none;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: #ff6f00;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #e65100;
+    }
+
+    .btn-back {
+        background-color: #f5f5f5;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+
+    .btn-back:hover {
+        background-color: #f0f0f0;
+    }
+
+    /* 🚦 ========== TRACKING TIMELINE ========== */
+    .timeline {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        margin: 30px 0;
+        padding: 0 10px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        right: 5%;
+        height: 4px;
+        background: #ffe0b2;
+        z-index: 1;
+    }
+
+    .timeline .step {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        flex: 1;
+    }
+
+    .timeline .step .icon {
+        width: 30px;
+        height: 30px;
+        margin: 0 auto;
+        background-color: #ffe0b2;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff6f00;
+        transition: all 0.3s ease;
+    }
+
+    .timeline .step.active .icon {
+        background-color: #ff6f00;
+        color: #fff;
+        transform: scale(1.1);
+        box-shadow: 0 0 10px rgba(255, 111, 0, 0.6);
+    }
+
+    .timeline .step p {
+        margin-top: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+    /* 🧾 ========== FORM TRACKING ========== */
+    .tracking-form {
+        background: #fffaf5;
+        border: 1px solid #ffe0b2;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 25px;
+    }
+
+    .tracking-form label {
+        font-weight: 600;
+        color: #333;
+    }
+
+    .tracking-form select, .tracking-form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 0.95rem;
+    }
+
+    .tracking-form select:focus, .tracking-form textarea:focus {
+        border-color: #ff6f00;
+    }
+
+    /* ⚙️ ========== RESPONSIVE DESIGN ========== */
+    @media (max-width: 768px) {
+        .container {
+            padding: 20px;
+        }
+
+        .filter-bar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .order-table th, .order-table td {
+            padding: 8px;
+            font-size: 0.85rem;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+        }
+    }
+
+</style>
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
+    <!-- Page Header End -->
+    <!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+<!--        <div th:replace="~{Admin/ComponentAdmin/PageSidebar::PageSidebar}"></div>-->
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+            <div class="title-header option-title">
+                <div class="container mt-4 mb-5">
+                    <div class="card shadow-sm">
+                        <div class="title-header option-title">
+                            <h4 class="fw-bold bg-success text-white px-3 py-1 rounded"><i class="fas fa-receipt me-2"></i>Chi tiết đơn hàng</h4>
+                            <a th:href="@{/shipper/orders}" class="btn btn-success px-4 me-2"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="text-secondary mb-3"><i class="fas fa-user"></i>Thông tin người mua</h5>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><strong>Tên khách hàng:</strong> <span th:text="${order.user.fullName}"></span></li>
+                                <li class="list-group-item"><strong>Địa chỉ giao hàng:</strong> <span th:text="${order.shippingAddress}"></span></li>
+                                <li class="list-group-item"><strong>Ngày đặt hàng:</strong> <span th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></span></li>
+                                <li class="list-group-item"><strong>Tình trạng thanh toán:</strong> <span th:text="${order.paymentStatus.payStatusName}"></span></li>
+                                <li class="list-group-item"><strong>Tình trạng đơn hàng:</strong> <span class="text-center" th:text="${order.orderStatus.statusName}"
+                                                                                                        th:class="'status ' + ${order.orderStatus.statusName.toLowerCase().replace(' ', '-')}"></span></li>
+                                <li class="list-group-item"><strong>Ghi chú:</strong> <span th:text="${order.note != null ? order.note : 'Không có'}"></span></li>
+                            </ul>
+
+                            <h5 class="text-secondary mb-3"><i class="fas fa-box"></i> Danh sách sản phẩm</h5>
+                            <table class="table table-hover align-middle">
+                                <thead class="table-warning">
+                                <tr class="text-center">
+                                    <th>STT</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá</th>
+                                    <th>Thành tiền</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="detail, stat : ${details}">
+                                    <td class="text-center" th:text="${stat.index + 1}"></td>
+                                    <td class="text-center"><img th:src="${detail.product.imageUrl != null ? detail.product.imageUrl : '/images/no-image.png'}"
+                                             class="img-thumbnail" style="width:60px; height:60px;"/></td>
+                                    <td class="text-center" th:text="${detail.product.productName}"></td>
+                                    <td class="text-center" th:text="${detail.quantity}"></td>
+                                    <td class="text-center" th:text="${#numbers.formatDecimal(detail.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></td>
+                                    <td class="text-center" th:text="${#numbers.formatDecimal(detail.quantity * detail.price, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="text-end fw-bold">Tổng cộng:</td>
+                                    <td class="fw-bold text-danger" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+<footer class="footer text-center mt-4">
+    <p class="mb-0">© 2025 - Fastkart Shipper Panel</p>
+</footer>
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!-- latest js -->
+<script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin-assets/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin-assets/js/scrollbar/custom.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin-assets/js/customizer.js}"></script>
+
+<!-- Sidebar js-->
+<script th:src="@{/admin-assets/js/config.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/admin-assets/js/sidebar-menu.js}"></script>
+<script th:src="@{/admin-assets/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin-assets/js/notify/index.js}"></script>
+
+<!--Dropzone js -->
+<script th:src="@{/admin-assets/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin-assets/js/dropzone/dropzone-script.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin-assets/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin-assets/js/script.js}"></script>
+</body>
+</html>

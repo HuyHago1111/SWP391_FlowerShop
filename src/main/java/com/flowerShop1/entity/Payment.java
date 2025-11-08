@@ -47,6 +47,6 @@ public class Payment {
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
     @Column(name = "payment_date", nullable = false)
-    private LocalDateTime payment_date;
+    private LocalDateTime paymentDate;
 
 }
