@@ -580,8 +580,8 @@
                         <!-- Timeline for progressive statuses (Pending -> Completed) -->
                         <div class="timeline"
                             th:if="${order.orderStatus.statusId >= 1 and order.orderStatus.statusId <= 5 or order.orderStatus.statusId == 10}">
-                            <div class="timeline-item"
-                                th:classappend="${order.orderStatus.statusId >= 2} ? 'active' : ''">
+                            <div class="timeline-item "
+                                th:classappend="${order.orderStatus.statusId >= 1} ? 'active' : ''">
                                 <div class="timeline-content">
                                     <h6>Đơn hàng đã được xác nhận</h6>
                                     <small th:text="${#temporals.format(order.orderDate,'dd/MM/yyyy HH:mm')}"></small>
@@ -590,7 +590,7 @@
                             <div class="timeline-item"
                                 th:classappend="${order.orderStatus.statusId >= 3} ? 'active' : ''">
                                 <div class="timeline-content">
-                                    <h6>Đang chuẩn bị hàng</h6>
+                                    <h6>Đang chuẩn bị hàng</h6> 
                                     <small th:if="${order.orderStatus.statusId >= 3}"
                                         th:text="${#temporals.format(order.updatedAt,'dd/MM/yyyy HH:mm')}"></small>
                                     <small th:unless="${order.orderStatus.statusId >= 3}">Chờ xử lý</small>
