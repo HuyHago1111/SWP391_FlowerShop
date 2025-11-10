@@ -1,3 +1,4 @@
+// File: src/main/java/com/flowerShop1/entity/Order.java
 package com.flowerShop1.entity;
 
 import jakarta.persistence.*;
@@ -5,7 +6,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set; // Thêm import này
+import java.util.Set;
 
 @Entity
 @Table(name = "Orders")
@@ -46,14 +47,16 @@ public class Order {
     @Column(name = "order_date", nullable = false)
     private LocalDateTime orderDate;
 
-    // Sửa kiểu dữ liệu từ String sang LocalDateTime
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Column(name = "note", length = 255, columnDefinition = "nvarchar(255)")
     private String note;
 
-    // Thêm mối quan hệ ngược lại với Payment
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Payment> payments;
+
+    // ✅ THÊM MỐI QUAN HỆ NÀY
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<OrderDetail> orderDetails;
 }

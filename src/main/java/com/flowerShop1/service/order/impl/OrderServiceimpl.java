@@ -1,3 +1,4 @@
+// src/main/java/com/flowerShop1/service/order/impl/OrderServiceimpl.java
 package com.flowerShop1.service.order.impl;
 
 import com.flowerShop1.entity.*;
@@ -14,10 +15,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.domain.*;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
-
 import java.util.stream.Collectors;
 
 @Service
@@ -28,22 +27,14 @@ public class OrderServiceimpl implements OrderService {
     private OrderStatusRepository statusRepository;
     @Autowired
     private ShipperRepository shipperRepository;
-
-
     @Autowired
     private OrderDetailRepository orderDetailRepository;
     @Autowired
     private ProductService productService;
-
-
-
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
     @Autowired
     private PaymentRepository paymentRepository;
     @Autowired
     private PaymentStatusRepository paymentStatusRepository;
-
 
     @Override
     public Page<Order> getOrdersByUserId(int userId, org.springframework.data.domain.Pageable pageable) {
@@ -54,8 +45,6 @@ public class OrderServiceimpl implements OrderService {
     public Order save(Order order) {
         return orderRepository.save(order);
     }
-
-    // Bổ sung các phương thức mới
 
     @Override
     public Page<Order> searchOrders(String keyword, String paymentMethod, Integer statusId,
@@ -90,7 +79,8 @@ public class OrderServiceimpl implements OrderService {
 
     @Override
     public Payment getPaymentByOrderId(int orderId) {
-        return paymentRepository.findByOrderId(orderId);
+        // ✅ ĐÃ SỬA LỖI TẠI ĐÂY
+        return paymentRepository.findTopByOrder_OrderIdOrderByPaymentDateDesc(orderId);
     }
 
     @Override
@@ -132,6 +122,7 @@ public class OrderServiceimpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void cancelOrder(Integer orderId, int userId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
@@ -140,7 +131,7 @@ public class OrderServiceimpl implements OrderService {
         }
         int currentStatusId = order.getOrderStatus().getStatusId();
         if (currentStatusId != 1 && currentStatusId != 2) {
-            throw new RuntimeException("You are not allowed to cancel this order" + order.getOrderStatus().getStatusName());
+            throw new RuntimeException("You are not allowed to cancel this order with status: " + order.getOrderStatus().getStatusName());
         }
 
         List<OrderDetail> orderDetails = orderDetailRepository.findByOrderOrderId(orderId);
@@ -151,8 +142,8 @@ public class OrderServiceimpl implements OrderService {
             productService.save(product);
         }
 
-        OrderStatus orderStatus = statusRepository.findById(7)
-                .orElseThrow(() -> new RuntimeException("Status not found"));
+        OrderStatus orderStatus = statusRepository.findById(7) // Giả sử 7 là 'Cancelled'
+                .orElseThrow(() -> new RuntimeException("Status 'Cancelled' not found"));
         order.setOrderStatus(orderStatus);
         order.setUpdatedAt(LocalDateTime.now());
         orderRepository.save(order);
@@ -163,6 +154,7 @@ public class OrderServiceimpl implements OrderService {
         return orderRepository.findByOrderId(id)
                 .orElseThrow(() -> new IllegalArgumentException("Order not found: " + id));
     }
+
     @Override
     public Optional<Order> findByIdWithAllRelations(Integer id) {
         return orderRepository.findByIdWithAllRelations(id);
@@ -179,56 +171,49 @@ public class OrderServiceimpl implements OrderService {
 
         List<Order> base = orderRepository.findByShipper_ShipperId(shipperId);
 
-        // Filter by customer fullName if provided (user must have a name field; đổi cho phù hợp)
         if (searchName != null && !searchName.isBlank()) {
             String lower = searchName.toLowerCase(Locale.ROOT);
             base = base.stream()
-                    .filter(o -> {
-                        if (o.getUser() == null) return false;
-                        String name = o.getUser().getFullName(); // adjust field if your user entity has different name field
-                        return name != null && name.toLowerCase(Locale.ROOT).contains(lower);
-                    })
+                    .filter(o -> o.getUser() != null && o.getUser().getFullName() != null && o.getUser().getFullName().toLowerCase(Locale.ROOT).contains(lower))
                     .collect(Collectors.toList());
         }
 
-        // Filter by payment method if provided: use PaymentRepository to get latest payment
         if (paymentMethod != null && !paymentMethod.isBlank()) {
             String pm = paymentMethod.trim();
             base = base.stream()
                     .filter(o -> {
-                        Payment p = paymentRepository.findTopByOrderIdOrderByPaymentDateDesc(o.getOrderId());
-                        if (p == null) return false;
+                        // ✅ ĐÃ SỬA LỖI TẠI ĐÂY
+                        Payment p = paymentRepository.findTopByOrder_OrderIdOrderByPaymentDateDesc(o.getOrderId());
+                        if (p == null) return "COD".equalsIgnoreCase(pm);
                         return pm.equalsIgnoreCase(p.getPayment_method());
                     })
                     .collect(Collectors.toList());
         }
 
-        // Filter by order status id if provided
         if (statusId != null) {
             base = base.stream()
                     .filter(o -> o.getOrderStatus() != null && o.getOrderStatus().getStatusId() == statusId)
                     .collect(Collectors.toList());
         }
 
-        // Sorting
         Comparator<Order> comparator;
-        if ("total".equalsIgnoreCase(sortField)) {
+        if ("totalAmount".equalsIgnoreCase(sortField)) {
             comparator = Comparator.comparing(Order::getTotalAmount);
-        } else if ("orderDate".equalsIgnoreCase(sortField)) {
-            comparator = Comparator.comparing(Order::getOrderDate);
         } else {
-            // default sort by order date desc
             comparator = Comparator.comparing(Order::getOrderDate);
         }
 
-        if ("desc".equalsIgnoreCase(sortDir)) comparator = comparator.reversed();
+        if ("desc".equalsIgnoreCase(sortDir)) {
+            comparator = comparator.reversed();
+        }
 
-        base = base.stream().sorted(comparator).collect(Collectors.toList());
+        base.sort(comparator);
 
-        // Paging: page is 0-based
         int from = page * size;
         int to = Math.min(from + size, base.size());
-        if (from > base.size()) return Collections.emptyList();
+        if (from >= base.size()) {
+            return Collections.emptyList();
+        }
         return base.subList(from, to);
     }
 }

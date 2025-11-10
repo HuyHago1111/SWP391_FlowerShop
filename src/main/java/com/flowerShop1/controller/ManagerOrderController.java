@@ -39,14 +39,12 @@ public class ManagerOrderController {
             @RequestParam(required = false) String keyword,
             @RequestParam(required = false, defaultValue = "all") String paymentMethod,
             @RequestParam(required = false) Integer statusId,
-            @RequestParam(defaultValue = "totalAmount") String sortBy,
+            @RequestParam(defaultValue = "orderDate") String sortBy, // Thay đổi sortBy mặc định
             @RequestParam(defaultValue = "desc") String sortDir,
             @RequestParam(required = false) String fromDate,
             @RequestParam(required = false) String toDate,
             @RequestParam(required = false) Double minTotal,
             @RequestParam(required = false) Double maxTotal,
-            @ModelAttribute("success") String success,
-            @ModelAttribute("error") String error,
             Model model,
             RedirectAttributes ra) {
 
@@ -54,19 +52,15 @@ public class ManagerOrderController {
         LocalDateTime from = (fromDate != null && !fromDate.isEmpty()) ? LocalDate.parse(fromDate).atStartOfDay() : null;
         LocalDateTime to = (toDate != null && !toDate.isEmpty()) ? LocalDate.parse(toDate).atTime(23, 59, 59) : null;
 
-        // ✅ Validate khoảng ngày
+        // ✅ Các đoạn validate giữ nguyên...
         if (from != null && to != null && !to.isAfter(from)) {
             ra.addFlashAttribute("error", "❌ Lỗi date range: 'To date' phải sau 'From date'.");
             return "redirect:/manager/orders";
         }
-
-        // ✅ Validate khoảng ngày không vượt quá hiện tại
         if (to != null && to.isAfter(LocalDateTime.now())) {
             ra.addFlashAttribute("error", "❌ Lỗi date range: 'To date' không thể chọn ngày tương lai.");
             return "redirect:/manager/orders";
         }
-
-        // ✅ Validate tổng tiền
         if (minTotal != null && maxTotal != null && (minTotal <= 0 || minTotal > maxTotal)) {
             ra.addFlashAttribute("error", "❌ Lỗi total amount range:  0 < min ≤ max.");
             return "redirect:/manager/orders";
@@ -76,16 +70,27 @@ public class ManagerOrderController {
                 keyword, paymentMethod, statusId, sortBy, sortDir,
                 PageRequest.of(page - 1, pageSize), from, to, minTotal, maxTotal
         );
-        List<OrderDTO> orderDTOs = new ArrayList<>();
-        for (Order order : pageOrders.getContent()) {
-            OrderDTO dto = new OrderDTO();
-            Payment payment = paymentRepository.findByOrderId(order.getOrderId());
-            dto.setPaymentMethod(payment != null ? payment.getPayment_method() : "N/A");
-            orderDTOs.add(dto);
+
+        // ✅ TỐI ƯU HÓA: Lấy danh sách ID đơn hàng và truy vấn Payment một lần duy nhất
+        List<Integer> orderIds = pageOrders.getContent().stream().map(Order::getOrderId).toList();
+        List<Payment> payments = paymentRepository.findByOrder_OrderIdIn(orderIds);
+        Map<Integer, String> paymentMethodMap = new HashMap<>();
+        for (Payment p : payments) {
+            // Chỉ lưu phương thức thanh toán đầu tiên tìm thấy cho mỗi orderId
+            paymentMethodMap.putIfAbsent(p.getOrder().getOrderId(), p.getPayment_method());
         }
 
-        model.addAttribute("orders", pageOrders.getContent());
-        model.addAttribute("orderDTOs", orderDTOs);
+        // ✅ SỬ DỤNG PAGE.MAP() ĐỂ CHUYỂN ĐỔI SANG DTO HIỆU QUẢ HƠN
+        Page<OrderDTO> orderDtoPage = pageOrders.map(order -> {
+            OrderDTO dto = new OrderDTO(order); // Sử dụng constructor mới
+            // Lấy payment method từ Map đã tạo, nếu không có thì mặc định là "COD"
+            dto.setPaymentMethod(paymentMethodMap.getOrDefault(order.getOrderId(), "COD"));
+            return dto;
+        });
+
+        // Thay vì truyền 'orders' và 'orderDTOs' riêng, chỉ cần truyền 'orderDtoPage'
+        model.addAttribute("orderPage", orderDtoPage);
+
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", pageOrders.getTotalPages());
         model.addAttribute("statuses", orderStatusRepository.findAll());
@@ -98,6 +103,14 @@ public class ManagerOrderController {
         model.addAttribute("toDate", toDate);
         model.addAttribute("minTotal", minTotal);
         model.addAttribute("maxTotal", maxTotal);
+
+        // Thêm các thông báo lỗi và thành công (nếu có)
+        if (model.containsAttribute("success")) {
+            model.addAttribute("success", model.getAttribute("success"));
+        }
+        if (model.containsAttribute("error")) {
+            model.addAttribute("error", model.getAttribute("error"));
+        }
 
         return "manager/orders/list";
     }
