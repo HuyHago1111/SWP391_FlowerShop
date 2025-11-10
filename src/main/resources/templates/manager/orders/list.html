@@ -305,44 +305,36 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="o,iter : ${orders}">
-                        <td class="text-center" th:text="${iter.index + 1 + (currentPage -1)*10}"></td>
-                        <td th:text="${o.user.fullName}"></td>
-                        <td th:text="${#temporals.format(o.orderDate,'dd/MM/yyyy HH:mm')}"></td>
+                    <!-- ✅ SỬA LẠI VÒNG LẶP ĐỂ DÙNG DTO PAGE -->
+                    <tr th:each="dto,iter : ${orderPage.content}">
+                        <td class="text-center" th:text="${iter.index + 1 + (currentPage - 1) * 10}"></td>
+                        <td th:text="${dto.customerName}"></td>
+                        <td th:text="${#temporals.format(dto.orderDate,'dd/MM/yyyy HH:mm')}"></td>
 
-                        <!-- ✅ SỬA LẠI CÁCH LẤY PAYMENT METHOD -->
+                        <!-- ✅ SỬ DỤNG TRỰC TIẾP TỪ DTO -->
+                        <td th:text="${dto.paymentMethod}"></td>
+
                         <td>
-                            <span th:if="${#lists.isEmpty(o.payments)}">COD</span>
-                            <span th:unless="${#lists.isEmpty(o.payments)}" th:text="${o.payments.iterator().next().payment_method}"></span>
+                            <!-- ✅ SỬ DỤNG CSS CLASS TỪ DTO -->
+                            <span class="status-badge" th:classappend="${dto.statusCssClass}" th:text="${dto.orderStatus}"></span>
                         </td>
 
-                        <span th:classappend="${o.orderStatus.statusName=='Đã xác nhận'} ? 'status-badge status-active' :
-                                           (${o.orderStatus.statusName=='Chờ xử lý'} ? 'status-badge status-inactive' :
-                                             (${o.orderStatus.statusName=='Đang giao'} ? 'status-badge status-inactive' :
-                                             (${o.orderStatus.statusName=='Đã hoàn thành'} ? 'status-badge status-active' :
-                                             (${o.orderStatus.statusName=='Thất bại'} ? 'status-badge status-outofstock':
-                                             ( ${o.orderStatus.statusName=='Đã hủy'} ? 'status-badge status-cancelled' :
-                                             ( ${o.orderStatus.statusName=='Đang chuẩn bị'} ?  'status-badge  status-pending'))))))"
+                        <td th:text="${#numbers.formatDecimal(dto.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
 
-
-                                th:text="${o.orderStatus.statusName}">
-                        </span>
-                            </td>
-                        <td th:text="${#numbers.formatDecimal(o.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
-                        <td  class="action-icons text-center">
-                            <a  th:href="@{/manager/orders/{id}(id=${o.orderId})}"  title="View">
+                        <td class="action-icons text-center">
+                            <a th:href="@{/manager/orders/{id}(id=${dto.orderId})}" title="View">
                                 <i class="ri-eye-line"></i>
                             </a>
-                            <a class="btn btn-sm btn-solid text-white" th:href="@{/manager/orders/{id}/tracking(id=${o.orderId})}" title="Button">
+                            <a class="btn btn-sm btn-solid text-white" th:href="@{/manager/orders/{id}/tracking(id=${dto.orderId})}" title="Button">
                                 🔁Tracking
                             </a>
                         </td>
                     </tr>
-                    <tr th:if="${#lists.isEmpty(orders)}">
-                        <td colspan="6" class="text-center text-muted">No orders found.</td>
+                    <tr th:if="${orderPage.empty}">
+                        <td colspan="7" class="text-center text-muted">No orders found.</td>
                     </tr>
                     </tbody>
-                </table>
+                  </table>
                 </div>
 
             <nav th:if="${totalPages > 1}">

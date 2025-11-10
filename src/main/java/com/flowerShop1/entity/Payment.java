@@ -1,3 +1,4 @@
+// File: src/main/java/com/flowerShop1/entity/Payment.java
 package com.flowerShop1.entity;
 
 import jakarta.persistence.*;
@@ -38,6 +39,7 @@ public class Payment {
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
+    // ✅ SỬA LẠI TÊN THUỘC TÍNH TẠI ĐÂY
     @Column(name = "payment_date")
-    private LocalDateTime payment_date;
+    private LocalDateTime paymentDate; // Đổi từ payment_date thành paymentDate
 }

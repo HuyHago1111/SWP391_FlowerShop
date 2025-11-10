@@ -1,3 +1,4 @@
+// src/main/java/com/flowerShop1/controller/ShipperController.java
 package com.flowerShop1.controller;
 
 import com.flowerShop1.entity.*;
@@ -22,7 +23,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/shipper/orders")
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('Shipper')") // ✅ Đồng bộ với SecurityConfig
+@PreAuthorize("hasAuthority('Shipper')")
 public class ShipperController {
 
     @Autowired private final OrderStatusRepository orderStatusRepository;
@@ -31,7 +32,6 @@ public class ShipperController {
     @Autowired private final PaymentRepository paymentRepository;
     @Autowired private final ShipperRepository shipperRepository;
 
-    // ✅ Trang 1: Danh sách đơn hàng được giao
     @GetMapping("")
     public String viewOrdersAssignedToShipper(
             @RequestParam(value = "search", required = false) String search,
@@ -65,14 +65,13 @@ public class ShipperController {
         return "shipper/list";
     }
 
-    // ✅ Trang 2: Xem chi tiết đơn hàng (Order Detail)
     @GetMapping("/{id}")
     public String viewOrderDetail(@PathVariable Integer id, Model model, Authentication auth) {
         Integer shipperId = getCurrentShipperId(auth);
         Order order = orderService.findByIdWithAllRelations(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (order.getShipper() == null || order.getShipper().getShipperId() != shipperId) {
+        if (order.getShipper() == null || !Objects.equals(order.getShipper().getShipperId(), shipperId)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Bạn không có quyền xem đơn hàng này!");
         }
 
@@ -84,7 +83,6 @@ public class ShipperController {
         return "shipper/view";
     }
 
-    // ✅ Trang 3: View Tracking Order (progress timeline)
     @GetMapping("/{id}/tracking")
     public String viewTracking(@PathVariable int id, Model model,
                                @ModelAttribute("success") String success,
@@ -98,8 +96,8 @@ public class ShipperController {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Không có quyền theo dõi đơn này!");
         }
 
-        // ✅ Lấy PaymentMethod thật từ bảng Payments
-        Payment payment = paymentRepository.findTopByOrderIdOrderByPaymentDateDesc(id);
+        // ✅ ĐÃ SỬA LỖI TẠI ĐÂY
+        Payment payment = paymentRepository.findTopByOrder_OrderIdOrderByPaymentDateDesc(id);
         String paymentMethod = (payment != null) ? payment.getPayment_method() : "COD";
 
         List<OrderStatus> availableStatuses = orderStatusRepository.findBystatusIdBetween(3, 6);
@@ -117,7 +115,6 @@ public class ShipperController {
         return "shipper/tracking";
     }
 
-    // ✅ Cập nhật trạng thái (Tracking Update)
     @PostMapping("/{id}/tracking/update")
     public String updateTracking(
             @PathVariable int id,
@@ -136,7 +133,6 @@ public class ShipperController {
 
         int currentStatus = order.getOrderStatus().getStatusId();
 
-        // ⚠️ Validate: Shipper chỉ update từ 3 → 6
         if (newStatusId < 3 || newStatusId > 6) {
             ra.addFlashAttribute("error", "⚠️ Bạn chỉ được cập nhật trạng thái từ 3 → 6!");
             return "redirect:/shipper/orders/" + id + "/tracking";
@@ -152,8 +148,7 @@ public class ShipperController {
             return "redirect:/shipper/orders/" + id + "/tracking";
         }
 
-        // 🧠 Nếu chọn "Thất bại" → note bắt buộc
-        final int FAILURE_ID = 6; // ⚙️ chỉnh ID nếu cần
+        final int FAILURE_ID = 6;
         OrderStatus newStatus = new OrderStatus();
         newStatus.setStatusId(newStatusId);
         order.setOrderStatus(newStatus);
@@ -165,11 +160,13 @@ public class ShipperController {
             }
             order.setNote(note.trim());
 
-            // Nếu PaymentMethod = COD => cập nhật PaymentStatus = "Thanh toán thất bại"
-            Payment payment = paymentRepository.findTopByOrderIdOrderByPaymentDateDesc(id);
+            // ✅ ĐÃ SỬA LỖI TẠI ĐÂY
+            Payment payment = paymentRepository.findTopByOrder_OrderIdOrderByPaymentDateDesc(id);
             if (payment != null && "COD".equalsIgnoreCase(payment.getPayment_method())) {
                 PaymentStatus failed = paymentStatusRepository.findByPayStatusName("Thanh toán thất bại");
-                if (failed != null) order.setPaymentStatus(failed);
+                if (failed != null) {
+                    order.setPaymentStatus(failed);
+                }
             }
         }
 
@@ -179,7 +176,6 @@ public class ShipperController {
         return "redirect:/shipper/orders/" + id + "/tracking";
     }
 
-    // 🔐 Helper: Lấy shipperId từ Authentication
     private Integer getCurrentShipperId(Authentication auth) {
         if (auth == null || auth.getName() == null) return null;
         String email = auth.getName();
