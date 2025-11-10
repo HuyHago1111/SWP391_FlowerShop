@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <title>Fastkart - Add New User</title>
+
+    <!-- Google font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/font-awesome.css}">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" th:href="@{/admin-assets/css/linearicon.css}">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/remixicon.css}">
+
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/themify.css}">
+
+    <!--Dropzon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/dropzone.css}">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/feather-icon.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/scrollbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/chartist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/date-picker.css}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/bootstrap.css}">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
+
+</head>
+<style>
+    body {
+        background: #fffaf5;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .timeline {
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+        margin: 30px 0;
+        padding: 0 10px;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        right: 10%;
+        height: 4px;
+        background: #ffe0b2;
+        z-index: 1;
+    }
+
+    .timeline .step {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        flex: 1;
+    }
+
+    .timeline .icon {
+        width: 40px;
+        height: 40px;
+        margin: 0 auto;
+        background-color: #ffe0b2;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff6f00;
+        transition: all 0.3s ease;
+    }
+
+    .timeline .step.active .icon {
+        background-color: #ff6f00;
+        color: white;
+        box-shadow: 0 0 10px rgba(255, 111, 0, 0.5);
+    }
+
+    .timeline .step p {
+        margin-top: 10px;
+        font-weight: 500;
+    }
+
+    .tracking-form {
+        background: #fff8e1;
+        border: 1px solid #ffcc80;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .tracking-form label {
+        font-weight: 600;
+    }
+
+    .tracking-form button {
+        background-color: #ff6f00;
+        color: white;
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .tracking-form button:hover {
+        background-color: #e65100;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .timeline {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timeline::before {
+            width: 4px;
+            height: 80%;
+            left: 50%;
+            top: 10%;
+        }
+
+        .timeline .step {
+            margin-bottom: 20px;
+        }
+    }
+
+</style>
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
+    <!-- Page Header End -->
+    <!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <!--        <div th:replace="~{Admin/ComponentAdmin/PageSidebar::PageSidebar}"></div>-->
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+            <div class="title-header option-title">
+                <div class="container mt-4 mb-5">
+                    <div class="card shadow-sm">
+                        <div class="title-header option-title">
+                            <h4 class="fw-bold bg-success text-white px-3 py-1 rounded"><i class="fas fa-route me-2"></i>Theo dõi đơn hàng</h4>
+                            <a th:href="@{/shipper/orders}" class="btn btn-success px-4 me-2"><i class="fas fa-arrow-left"></i> Quay lại</a>
+                        </div>
+
+                        <div class="card-body">
+                            <div role="alert" th:if="${success}" th:text="${success}"></div>
+                            <div role="alert" th:if="${error}"  th:text="${error}"></div>
+
+                            <h5 class="text-secondary mb-3"><i class="fas fa-info-circle"></i> Thông tin đơn hàng</h5>
+                            <ul class="list-group mb-4">
+                                <li class="list-group-item"><strong>Khách hàng:</strong> <span th:text="${order.user.fullName}"></span></li>
+                                <li class="list-group-item"><strong>Phương thức thanh toán:</strong> <span th:text="${paymentMethod}"></span></li>
+                                <li class="list-group-item"><strong>Tổng tiền:</strong> <span class="text-danger fw-bold" th:text="${totalFormatted}"></span></li>
+                                <li class="list-group-item"><strong>Địa chỉ giao hàng:</strong> <span th:text="${order.shippingAddress}"></span></li>
+                                <li class="list-group-item"><strong>Cập nhật lần cuối:</strong> <span th:text="${#temporals.format(order.updatedAt, 'dd/MM/yyyy HH:mm')}"></span></li>
+                                <li class="list-group-item"><strong>Ghi chú:</strong> <span th:text="${order.note != null ? order.note : 'Không có'}"></span></li>
+                            </ul>
+
+                            <!-- Progress Timeline -->
+                            <div class="timeline">
+                                <div th:each="status : ${availableStatuses}" class="step"
+                                     th:classappend="${status.statusId <= order.orderStatus.statusId} ? ' active'">
+                                    <div class="icon"><i class="fas fa-check"></i></div>
+                                    <p th:text="${status.statusName}"></p>
+                                </div>
+                            </div>
+
+                            <!-- Update Form -->
+                            <form method="post" th:action="@{'/shipper/orders/' + ${order.orderId} + '/tracking/update'}" class="tracking-form">
+                                <div class="mb-3">
+                                    <label for="newStatusId">Cập nhật trạng thái</label>
+                                    <select id="newStatusId" name="newStatusId" class="form-select" required>
+                                        <option value="">-- Chọn trạng thái mới --</option>
+                                        <option th:each="status : ${availableStatuses}"
+                                                th:value="${status.statusId}"
+                                                th:text="${status.statusName}"
+                                                th:disabled="${status.statusId <= order.orderStatus.statusId}">
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="note">Ghi chú (bắt buộc nếu thất bại)</label>
+                                    <textarea id="note" name="note" class="form-control" rows="3" placeholder="Nhập lý do nếu giao thất bại..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning w-100 fw-bold"><i class="fas fa-save me-2"></i>Cập nhật</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer text-center mt-4">
+    <p class="mb-0">© 2025 - Fastkart Shipper Panel</p>
+</footer>
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!-- latest js -->
+<script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin-assets/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin-assets/js/scrollbar/custom.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin-assets/js/customizer.js}"></script>
+
+<!-- Sidebar js-->
+<script th:src="@{/admin-assets/js/config.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/admin-assets/js/sidebar-menu.js}"></script>
+<script th:src="@{/admin-assets/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin-assets/js/notify/index.js}"></script>
+
+<!--Dropzone js -->
+<script th:src="@{/admin-assets/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin-assets/js/dropzone/dropzone-script.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin-assets/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin-assets/js/script.js}"></script>
+
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+</body>
+</html>

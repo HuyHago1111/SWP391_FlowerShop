@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Fastkart admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Fastkart admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="pixelstrap">
+    <link rel="icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/admin-assets/images/favicon.png}" type="image/x-icon">
+    <title>Fastkart - Add New User</title>
+
+    <!-- Google font -->
+    <link
+            href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap"
+            rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontawesome css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/font-awesome.css}">
+
+    <!-- Linear Icon css -->
+    <link rel="stylesheet" th:href="@{/admin-assets/css/linearicon.css}">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/remixicon.css}">
+
+    <!-- Themify icon-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/themify.css}">
+
+    <!--Dropzon css-->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/dropzone.css}">
+
+    <!-- Feather icon css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/feather-icon.css}">
+
+    <!-- Plugins css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/scrollbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/chartist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/date-picker.css}">
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/vendors/bootstrap.css}">
+
+    <!-- App css -->
+    <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
+
+</head>
+<style>
+    body {
+        background: #fffaf5;
+        font-family: 'Inter', sans-serif;
+        color: #333;
+        padding: 30px;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    h1 {
+        color: #ff6f00;
+        font-weight: 700;
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 25px;
+        border-bottom: 3px solid #ff6f00;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    /* 🔍 FILTER BAR */
+    .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 0.95rem;
+        outline: none;
+        min-width: 180px;
+    }
+
+    .filter-bar .btn {
+        background-color: #ff6f00;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .filter-bar .btn:hover {
+        background-color: #e65100;
+    }
+
+    /* 📋 TABLE */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th,
+    td {
+        padding: 12px 10px;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+    }
+
+    th {
+        background-color: #fff3e0;
+        color: #ff6f00;
+        font-weight: 700;
+        cursor: pointer;
+        position: relative;
+    }
+
+    th.sortable::after {
+        content: '⇅';
+        font-size: 0.8rem;
+        margin-left: 5px;
+        color: #999;
+    }
+
+    tr:hover {
+        background-color: #fff8e1;
+    }
+
+    .status {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .status.đang-giao { background: #fb8c00; }
+    .status.đã-hoàn-thành { background: #43a047; }
+    .status.thất-bại { background: #e53935; }
+    .status.chờ-xử-lý { background: #9e9e9e; }
+
+    .action-icons a {
+        color: #ff6f00;
+        margin: 0 5px;
+        font-size: 1.2rem;
+    }
+
+    .action-icons a:hover {
+        color: #e65100;
+    }
+
+    /* 🔢 Pagination */
+    .pagination {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .pagination a {
+        padding: 6px 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        color: #333;
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+    .pagination a.active {
+        background-color: #ff6f00;
+        color: white;
+        border-color: #ff6f00;
+    }
+
+    .pagination a:hover {
+        background-color: #ffe0b2;
+    }
+
+    @media (max-width: 768px) {
+        .filter-bar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        th, td {
+            font-size: 0.85rem;
+            padding: 8px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+        }
+    }
+</style>
+<body>
+<!-- tap on top start -->
+<div class="tap-top">
+    <span class="lnr lnr-chevron-up"></span>
+</div>
+<!-- tap on tap end -->
+
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <div th:replace="~{Admin/ComponentAdmin/PageHeader::PageHeader}"></div>
+    <!-- Page Header End -->
+    <!-- Page Body Start -->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+<!--        <div th:replace="~{Admin/ComponentAdmin/PageSidebar::PageSidebar}"></div>-->
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+            <div class="title-header option-title">
+                <div class="container">
+                    <h1>Đơn hàng được giao cho bạn</h1>
+
+                    <!-- 🔍 Bộ lọc -->
+                    <form method="get" th:action="@{/shipper/orders}" class="filter-bar">
+                        <input type="text" name="search" placeholder="Tìm theo tên khách hàng..." th:value="${search}">
+                        <select name="paymentMethod">
+                            <option value="">--Tất cả phương thức--</option>
+                            <option value="COD" th:selected="${paymentMethod == 'COD'}">COD</option>
+                            <option value="VNPay" th:selected="${paymentMethod == 'VNPay'}">VNPay</option>
+                        </select>
+                        <select name="statusId">
+                            <option value="">--Tất cả trạng thái--</option>
+                            <option th:each="st : ${@orderStatusRepository.findAll()}"
+                                    th:value="${st.statusId}"
+                                    th:text="${st.statusName}"
+                                    th:selected="${statusId == st.statusId}">
+                            </option>
+                        </select>
+                        <select name="sortField">
+                            <option value="orderDate" th:selected="${sortField == 'orderDate'}">Ngày đặt</option>
+                            <option value="totalAmount" th:selected="${sortField == 'totalAmount'}">Tổng tiền</option>
+                        </select>
+                        <select name="sortDir">
+                            <option value="desc" th:selected="${sortDir == 'desc'}">Giảm dần</option>
+                            <option value="asc" th:selected="${sortDir == 'asc'}">Tăng dần</option>
+                        </select>
+                        <button type="submit" class="btn"><i class="fa fa-search"></i>  Lọc</button>
+                    </form>
+
+                    <!-- 📋 Bảng danh sách -->
+                    <div class="table-responsive table-product">
+                        <table class="table all-package theme-table">
+                            <thead>
+                            <tr class="text-center">
+                            <th>STT</th>
+                            <th>Khách hàng</th>
+                            <th th:class="'sortable'">Ngày đặt</th>
+                            <th>Tình trạng</th>
+                            <th>Trạng thái</th>
+                            <th>Tổng tiền</th>
+                            <th>Hành động</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order, iterStat : ${orders}">
+                            <td class="text-center" th:text="${iterStat.index + 1}"></td>
+                            <td class="text-center" th:text="${order.user.fullName}"></td>
+                            <td class="text-center" th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm')}"></td>
+
+                            <td class="text-center" th:text="${order.paymentStatus.payStatusName}"></td>
+
+                            <td>
+                <span class="text-center" th:text="${order.orderStatus.statusName}"
+                      th:class="'status ' + ${order.orderStatus.statusName.toLowerCase().replace(' ', '-')}"></span>
+                            </td>
+                            <td class="text-center" th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')} + ' ₫'"></td>
+                            <td class="action-icons text-center">
+                                <a th:href="@{'/shipper/orders/' + ${order.orderId}}" title="Chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a  class="btn btn-sm btn-solid text-white" th:href="@{'/shipper/orders/' + ${order.orderId} + '/tracking'}" title="Tracking">
+                                    🔁Tracking
+                                </a>
+                            </td>
+                        </tr>
+                        <tr th:if="${#lists.isEmpty(orders)}">
+                            <td colspan="7" class="text-center text-muted">Không có đơn hàng nào phù hợp.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                    <!-- 🔢 Phân trang (nếu có pagination) -->
+                    <div class="pagination" th:if="${totalPages != null}">
+                        <a th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                           th:href="@{/shipper/orders(page=${pageNum}, search=${search}, paymentMethod=${paymentMethod}, statusId=${statusId}, sortField=${sortField}, sortDir=${sortDir})}"
+                           th:text="${pageNum + 1}"
+                           th:classappend="${pageNum == currentPage} ? 'active' : ''">
+                        </a>
+                    </div>
+                </div>
+
+                <script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+                <script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+                <script>
+                    // Cho phép click vào header để đổi hướng sort (client-side)
+                    document.querySelectorAll("th.sortable").forEach(th => {
+                        th.addEventListener("click", () => {
+                            const form = document.querySelector(".filter-bar");
+                            const currentDir = new URLSearchParams(new FormData(form)).get("sortDir") || "desc";
+                            form.querySelector("[name=sortDir]").value = currentDir === "desc" ? "asc" : "desc";
+                            form.submit();
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer text-center mt-4">
+    <p class="mb-0">© 2025 - Fastkart Shipper Panel</p>
+</footer>
+<!-- Modal Start -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="modal-title" id="staticBackdropLabel">Logging Out</h5>
+                <p>Are you sure you want to log out?</p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                <div class="button-box">
+                    <button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn  btn--yes btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal End -->
+
+<!-- latest js -->
+<script th:src="@{/admin-assets/js/jquery-3.6.0.min.js}"></script>
+
+<!-- Bootstrap js -->
+<script th:src="@{/admin-assets/js/bootstrap/bootstrap.bundle.min.js}"></script>
+
+<!-- feather icon js -->
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather.min.js}"></script>
+<script th:src="@{/admin-assets/js/icons/feather-icon/feather-icon.js}"></script>
+
+<!-- scrollbar simplebar js -->
+<script th:src="@{/admin-assets/js/scrollbar/simplebar.js}"></script>
+<script th:src="@{/admin-assets/js/scrollbar/custom.js}"></script>
+
+<!-- customizer js -->
+<script th:src="@{/admin-assets/js/customizer.js}"></script>
+
+<!-- Sidebar js-->
+<script th:src="@{/admin-assets/js/config.js}"></script>
+
+<!-- Plugins JS -->
+<script th:src="@{/admin-assets/js/sidebar-menu.js}"></script>
+<script th:src="@{/admin-assets/js/notify/bootstrap-notify.min.js}"></script>
+<script th:src="@{/admin-assets/js/notify/index.js}"></script>
+
+<!--Dropzone js -->
+<script th:src="@{/admin-assets/js/dropzone/dropzone.js}"></script>
+<script th:src="@{/admin-assets/js/dropzone/dropzone-script.js}"></script>
+
+<!-- sidebar effect -->
+<script th:src="@{/admin-assets/js/sidebareffect.js}"></script>
+
+<!-- Theme js -->
+<script th:src="@{/admin-assets/js/script.js}"></script>
+</body>
+</html>
