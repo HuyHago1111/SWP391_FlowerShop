@@ -20,7 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.data.domain.Pageable;
 import java.util.HashMap;
 import java.util.Map;
@@ -126,7 +126,7 @@ public class UserDashBoardController {
         if (customUserDetails == null) {
             return "redirect:/login";
         }
-       
+
         Order order = orderService.getOrderById(orderId);
         if (order.getUser().getUserId() != customUserDetails.getUserId()) {
             return "403";
@@ -139,5 +139,23 @@ public class UserDashBoardController {
         model.addAttribute("orderDetails", orderDetails);
 
         return "client/orderDetails";
+    }
+
+    @PostMapping("/user/order/{orderId}/cancel")
+    public String cancelOrder(@PathVariable("orderId") int orderId,
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            RedirectAttributes redirectAttributes) {
+        if (customUserDetails == null) {
+            return "redirect:/login";
+        }
+        try {
+            orderService.cancelOrder(orderId, customUserDetails.getUserId());
+            redirectAttributes.addFlashAttribute("successMessage", "Đơn hàng #" + orderId + " đã được hủy thành công.");
+        } catch (Exception e) {
+            // Bắt các lỗi từ service (không tìm thấy, không có quyền, không thể hủy)
+            redirectAttributes.addFlashAttribute("errorMessage", "Lỗi: " + e.getMessage());
+        }
+
+        return "redirect:/user/order-detail/" + orderId;
     }
 }
