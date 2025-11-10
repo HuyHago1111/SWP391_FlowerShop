@@ -82,12 +82,12 @@
         border-top: none !important;
     }
 
-    .product-img {
-        width: 75px;
-        height: 75px;
-        object-fit: cover;
-        border-radius: 10px;
-    }
+    /*.product-img {*/
+    /*    width: 75px;*/
+    /*    height: 75px;*/
+    /*    object-fit: cover;*/
+    /*    border-radius: 10px;*/
+    /*}*/
 
     /* STATUS BADGE */
     .status-badge {
@@ -233,88 +233,96 @@
 
         <div class="page-body">
             <div class="title-header option-title">
-                <h5>Staff & Shipper Management</h5>
+                <h5>Suppliers Management</h5>
+
+            <form class="d-inline-flex">
+                <a th:href="@{/manager/suppliers/add}" method="get" class="align-items-center btn btn-theme d-flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>Add New Supplier
+                </a>
+            </form>
             </div>
-            <!-- 🔍 Search + Filter -->
-            <form th:action="@{/manager/staff-shipper}" method="get" class="row g-2 mb-3">
-                <div class="col-md-3">
-                    <input type="text" name="keyword" class="form-control"
-                           placeholder="Search by name..." th:value="${keyword}">
+            <form class="row g-2 mb-3" th:action="@{/manager/suppliers}" method="get">
+                <div class="col-md-2">
+                    <input class="form-control" type="text" name="keyword" placeholder="Search companyname.." th:value="${keyword}">
                 </div>
-                <div class="col-md-3">
-                    <select name="role" class="form-select">
-                        <option th:value="'all'" th:selected="${role == 'all'}">Roles</option>
-                        <option th:value="'staff'" th:selected="${role == 'staff'}">Staff</option>
-                        <option th:value="'shipper'" th:selected="${role == 'shipper'}">Shipper</option>
+                <div class="col-md-2">
+                    <select class="form-select" name="status">
+                        <option value="all" th:selected="${status == 'All'}">All Status</option>
+                        <option value="pending" th:selected="${status == 'Pending'}">Pending</option>
+                        <option value="approved" th:selected="${status == 'Approved'}">Approved</option>
+                        <option value="rejected" th:selected="${status == 'Rejected'}">Rejected</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                    <select class="form-select" name="sortDir">
+                        <option value="asc" th:selected="${sortDir == 'asc'}">A → Z</option>
+                        <option value="desc" th:selected="${sortDir == 'desc'}">Z → A</option>
+                    </select>
                 </div>
-            </form>
-<!--            &lt;!&ndash; ✅ Success message &ndash;&gt;-->
-<!--            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>-->
+                <div class="col-md-2">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
 
-            <!-- 📋 Table -->
+            </form>
             <div class="table-responsive table-product">
+
             <table class="table all-package theme-table">
-                <thead >
-                <tr>
+                <thead>
+                <tr  class="text-center">
                     <th>STT</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
+                    <th>Company</th>
+                    <th>Contact</th>
+                    <th>Phone</th>
+                    <th>Address</th>
                     <th>Status</th>
+                    <th>Created At</th>
                     <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="user, iterStat : ${users}">
-                    <td class="text-center" th:text="${iterStat.index + 1}"></td>
-                    <td th:text="${user.fullName}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td th:text="${user.role.roleName}"></td>
+                <tr th:each="s,iter : ${suppliers}">
+                    <td class="text-center" th:text="${(currentPage -1)*10 + iter.index + 1}">1</td>
+                    <td th:text="${s.companyName}"></td>
+                    <td th:text="${s.contactName}"></td>
+                    <td th:text="${s.phone}"></td>
+                    <td th:text="${s.address}"></td>
                     <td>
-                <span th:classappend="${user.status == 'Active'} ?  'status-badge status-active' :
-                                      (${user.status == 'Pending'}?  'status-badge status-inactive' :
-                                      'status-badge')"
-                      th:text="${user.status}"></span>
-                    </td>
-                    <td class="action-icons text-center">
-                        <a th:href="@{'/manager/staff-shipper/' + ${user.userId}}"  title="View">
-                            <i class="ri-eye-line"></i>
-                        </a>
+                    <span th:classappend="${s.status=='Approved'} ? 'status-badge status-active' :
+                                          (${s.status=='Pending'} ? 'status-badge status-inactive' :
+                                          (${s.status=='Rejected'} ?
+                                             'status-badge status-outofstock'))"
 
-<!--                        <form th:action="@{'/manager/staff-shipper/' + ${user.userId} + '/delete'}" method="post"-->
-<!--                              style="display:inline;" onsubmit="return confirm('Are you sure to delete this user?');">-->
-<!--                            <input type="hidden" name="_method" value="delete">-->
-<!--                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete">-->
-<!--                                <i class="bi bi-trash"></i>-->
-<!--                            </button>-->
-<!--                        </form>-->
+                          th:text="${s.status}"></span>
                     </td>
+                    <td th:text="${#temporals.format(s.createdAt,'dd/MM/yyyy HH:mm')}">Date</td>
+
+
+                    <td class="action-icons text-center">
+                        <a th:href="@{/manager/suppliers/{id}/edit(id=${s.supplierId})}" title="Edit">
+                    <i class="ri-pencil-line"></i>
+                    </a>
+                    </td>
+
                 </tr>
-                <tr th:if="${#lists.isEmpty(users)}">
-                    <td colspan="6" class="text-center text-muted">No users found.</td>
+                <tr th:if="${#lists.isEmpty(suppliers)}">
+                    <td colspan="6" class="text-center text-muted">No suppliers found.</td>
                 </tr>
                 </tbody>
             </table>
-                <!-- 📄 Pagination -->
-                <nav th:if="${totalPages > 1}">
-                    <ul class="pagination justify-content-center">
-                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                            th:classappend="${i == currentPage} ? 'active'">
-                            <a class="page-link"
-                               th:href="@{/manager/staff-shipper(page=${i}, keyword=${keyword}, role=${role})}"
-                               th:text="${i}"></a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
+            <nav th:if="${totalPages > 1}">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" th:each="p: ${#numbers.sequence(1, totalPages)}"
+                        th:classappend="${p==currentPage} ? 'active'">
+                        <a class="page-link"
+                           th:href="@{|/manager/suppliers?page=${p}&keyword=${keyword}&status=${status}&sortDir=${sortDir}|}"
+                           th:text="${p}"></a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
-
 <footer class="footer text-center mt-4">
     <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
 </footer>

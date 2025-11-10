@@ -233,106 +233,106 @@
 
         <div class="page-body">
             <div class="title-header option-title">
-<!--                <div class="d-flex justify-content-between mb-3">-->
-                    <h5>Product Management</h5>
+                <!--                <div class="d-flex justify-content-between mb-3">-->
+                <h5>Product Management</h5>
                 <form class="d-inline-flex">
                     <a class="btn btn-success" th:href="@{/manager/products/new}">+ Add Product</a>
                 </form>
+            </div>
+
+            <!-- Search + Filter -->
+            <form class="row g-2 mb-3" th:action="@{/manager/products}" method="get">
+                <div class="col-md-3">
+                    <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by name..." class="form-control"/>
                 </div>
+                <div class="col-md-2">
+                    <select name="categoryId" class="form-select">
+                        <option value="">All Categories</option>
+                        <option th:each="c : ${categories}" th:value="${c.categoryId}" th:text="${c.categoryName}" th:selected="${c.categoryId == categoryId}"></option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="supplierId" class="form-select">
+                        <option value="">All Suppliers</option>
+                        <option th:each="s : ${suppliers}" th:value="${s.supplierId}" th:text="${s.companyName}" th:selected="${s.supplierId == supplierId}"></option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select name="sortBy" class="form-select">
+                        <option value="price" th:selected="${sortBy=='price'}">Sort by Price</option>
+                        <option value="stockQuantity" th:selected="${sortBy=='stockQuantity'}">Sort by Stock</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <select name="sortDir" class="form-select">
+                        <option value="asc" th:selected="${sortDir=='asc'}">Tăng Dần</option>
+                        <option value="desc" th:selected="${sortDir=='desc'}">Giảm dần</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-outline-success w-100">Apply</button>
+                </div>
+            </form>
 
-                <!-- Search + Filter -->
-                <form class="row g-2 mb-3" th:action="@{/manager/products}" method="get">
-                    <div class="col-md-3">
-                        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search by name..." class="form-control"/>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="categoryId" class="form-select">
-                            <option value="">All Categories</option>
-                            <option th:each="c : ${categories}" th:value="${c.categoryId}" th:text="${c.categoryName}" th:selected="${c.categoryId == categoryId}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="supplierId" class="form-select">
-                            <option value="">All Suppliers</option>
-                            <option th:each="s : ${suppliers}" th:value="${s.supplierId}" th:text="${s.companyName}" th:selected="${s.supplierId == supplierId}"></option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select name="sortBy" class="form-select">
-                            <option value="price" th:selected="${sortBy=='price'}">Sort by Price</option>
-                            <option value="stockQuantity" th:selected="${sortBy=='stockQuantity'}">Sort by Stock</option>
-                        </select>
-                    </div>
-                    <div class="col-md-1">
-                        <select name="sortDir" class="form-select">
-                            <option value="asc" th:selected="${sortDir=='asc'}">Tăng Dần</option>
-                            <option value="desc" th:selected="${sortDir=='desc'}">Giảm dần</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <button type="submit" class="btn btn-outline-success w-100">Apply</button>
-                    </div>
-                </form>
+            <!-- Modern Product Table -->
+            <div class="table-responsive table-product">
+                <!--                    <div class="card-body">-->
+                <table class="table all-package theme-table">
+                    <thead>
+                    <tr class="text-center">
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
 
-                <!-- Modern Product Table -->
-                <div class="table-responsive table-product">
-<!--                    <div class="card-body">-->
-                        <table class="table all-package theme-table">
-                            <thead>
-                            <tr class="text-center">
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr th:each="p : ${products}">
-                                <td class="text-center">
-                                    <img th:src="${p.imageUrl}" alt="Product Image" class="product-img">
-                                </td>
-                                <td th:text="${p.productName}"></td>
-                                <td th:text="${#strings.abbreviate(p.description,60)}"></td>
-                                <td th:text="${#numbers.formatDecimal(p.price, 1, 2)}"></td>
-                                <td th:text="${p.stockQuantity}"></td>
-                                <td>
+                    <tbody>
+                    <tr th:each="p : ${products}">
+                        <td class="text-center">
+                            <img th:src="${p.imageUrl}" alt="Product Image" class="product-img">
+                        </td>
+                        <td th:text="${p.productName}"></td>
+                        <td th:text="${#strings.abbreviate(p.description,60)}"></td>
+                        <td th:text="${#numbers.formatDecimal(p.price, 1, 2)}"></td>
+                        <td th:text="${p.stockQuantity}"></td>
+                        <td>
                     <span th:classappend="${p.status=='Active'} ? 'status-badge status-active' :
                                            (${p.status=='Inactive'} ? 'status-badge status-inactive' :
                                            'status-badge status-outofstock')"
                           th:text="${p.status}"></span>
-                                </td>
-                                <td class="action-icons text-center">
-                                    <a th:href="@{/manager/products/{id}(id=${p.productId})}" title="View">
-                                        <i class="ri-eye-line"></i>
-                                    </a>
-                                    <a th:href="@{/manager/products/{id}/edit(id=${p.productId})}" title="Edit">
-                                        <i class="ri-pencil-line"></i>
-                                    </a>
-                                    <a data-bs-toggle="modal"
-                                          th:data-bs-target="'#deleteModal' + ${p.productId}"  style="display:inline"
-                                                type="submit" title="Delete Product" class="btn-delete">
-                                            <i class="ri-delete-bin-line"></i>
-                                    </a>
+                        </td>
+                        <td class="action-icons text-center">
+                            <a th:href="@{/manager/products/{id}(id=${p.productId})}" title="View">
+                                <i class="ri-eye-line"></i>
+                            </a>
+                            <a th:href="@{/manager/products/{id}/edit(id=${p.productId})}" title="Edit">
+                                <i class="ri-pencil-line"></i>
+                            </a>
+                            <a data-bs-toggle="modal"
+                               th:data-bs-target="'#deleteModal' + ${p.productId}"  style="display:inline"
+                               type="submit" title="Delete Product" class="btn-delete">
+                                <i class="ri-delete-bin-line"></i>
+                            </a>
 
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <!-- Pagination -->
             <div th:replace="~{manager/products/pagination::pagination}"></div>
-                </div>
-
-            </div>
         </div>
 
-    <footer class="footer text-center mt-4">
-        <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
-    </footer>
+    </div>
+</div>
+
+<footer class="footer text-center mt-4">
+    <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
+</footer>
 
 <!-- Confirm Delete Modal -->
 <div th:each="p : ${products}" class="modal fade"
@@ -341,8 +341,8 @@
      aria-labelledby="deleteModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-<!--        <div class="modal-content shadow-lg border-0 rounded-3">-->
-            <div class="modal-content border-0 rounded-4 shadow-sm">
+        <!--        <div class="modal-content shadow-lg border-0 rounded-3">-->
+        <div class="modal-content border-0 rounded-4 shadow-sm">
             <div class="modal-header bg-success text-white rounded-top-4 position-relative">
                 <h5 class="modal-title fw-semibold" id="deleteConfirmModalLabel">
                     <i class="ri-alert-line me-2"></i> Confirm Deletion

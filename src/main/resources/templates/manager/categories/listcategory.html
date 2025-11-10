@@ -237,7 +237,7 @@ box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
                                         </thead>
                                         <tbody>
                                         <tr th:each="c : ${categories}" class="align-middle">
-                                            <td th:text="${c.categoryId}"></td>
+                                            <td class="text-center" th:text="${c.categoryId}"></td>
                                             <td th:text="${c.categoryName}" class="fw-semibold"></td>
                                             <td th:text="${#strings.abbreviate(c.description, 70)}"></td>
                                             <td  class="action-icons text-center">

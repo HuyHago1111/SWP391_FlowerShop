@@ -50,45 +50,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/admin-assets/css/style.css}">
 </head>
 <style>
-    .table-modern {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0 10px;
+    .card {
+        border-radius: 1rem;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     }
-
-    .table-modern thead th {
-        background-color: #f8f9fa;
-        color: #444;
-        font-weight: 600;
-        padding: 14px 18px;
-        border: none;
-    }
-
-    .table-modern tbody tr {
-        background-color: #fff;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        border-radius: 10px;
-        transition: transform 0.2s ease;
-    }
-
-    .table-modern tbody tr:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 3px 6px rgba(0,0,0,0.08);
-    }
-
-    .table-modern td {
-        vertical-align: middle;
-        padding: 14px 18px;
-        border-top: none !important;
-    }
-
     .product-img {
-        width: 75px;
-        height: 75px;
-        object-fit: cover;
+        max-width: 280px;
         border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
     }
-
+    .badge-status {
+        font-size: 0.9rem;
+    }
     /* STATUS BADGE */
     .status-badge {
         padding: 6px 12px;
@@ -108,51 +81,6 @@
     .status-outofstock {
         background-color: #f8d7da;
         color: #a94442;
-    }
-
-    /* ACTION ICONS */
-    .action-icons a {
-        margin: 0 6px;
-        font-size: 1.1rem;
-        color: #198754;
-        text-decoration: none;
-        transition: color 0.2s;
-    }
-
-    .action-icons a:hover {
-        color: #0a58ca;
-    }
-
-    .btn-delete {
-        background: none;
-        border: none;
-        color: #dc3545;
-        cursor: pointer;
-        padding: 0;
-        font-size: 1.1rem;
-        transition: color 0.2s;
-    }
-
-    .btn-delete:hover {
-        color: #b02a37;
-    }
-    .pagination .page-link {
-        border: 1px solid #28a745; /* xanh lá */
-        color: #28a745;
-        border-radius: 8px;
-        margin: 0 3px;
-        transition: all 0.2s ease-in-out;
-    }
-
-    .pagination .page-link:hover {
-        background-color: #28a745;
-        color: #fff;
-    }
-
-    .pagination .active .page-link {
-        background-color: #28a745 !important;
-        border-color: #28a745 !important;
-        color: #fff !important;
     }
 
     /* Hiệu ứng mở modal */
@@ -197,7 +125,7 @@
     }
 
     #confirmDeleteBtn:hover {
-        background-color: #747dc6;
+        background-color:  #ef3f3e;
         transform: translateY(-2px);
     }
 
@@ -210,8 +138,6 @@
     .modal-content {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }
-
-
 </style>
 <body>
 <!-- tap on top start -->
@@ -232,89 +158,86 @@
         <!-- Page Sidebar Ends-->
 
         <div class="page-body">
-            <div class="title-header option-title">
-                <h5>Staff & Shipper Management</h5>
+            <div class="container mt-5 mb-5">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <!-- Header -->
+                    <div class="title-header option-title">
+                        <div class="title-header option-title"></i> <h5>Edit Supplier</h5></div>
+                <a th:href="@{/manager/suppliers}" class="btn btn-success px-4 me-2">← Back to List</a>
             </div>
-            <!-- 🔍 Search + Filter -->
-            <form th:action="@{/manager/staff-shipper}" method="get" class="row g-2 mb-3">
-                <div class="col-md-3">
-                    <input type="text" name="keyword" class="form-control"
-                           placeholder="Search by name..." th:value="${keyword}">
-                </div>
-                <div class="col-md-3">
-                    <select name="role" class="form-select">
-                        <option th:value="'all'" th:selected="${role == 'all'}">Roles</option>
-                        <option th:value="'staff'" th:selected="${role == 'staff'}">Staff</option>
-                        <option th:value="'shipper'" th:selected="${role == 'shipper'}">Shipper</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Search</button>
-                </div>
-            </form>
-<!--            &lt;!&ndash; ✅ Success message &ndash;&gt;-->
-<!--            <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>-->
 
-            <!-- 📋 Table -->
-            <div class="table-responsive table-product">
-            <table class="table all-package theme-table">
-                <thead >
-                <tr>
-                    <th>STT</th>
-                    <th>Full Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user, iterStat : ${users}">
-                    <td class="text-center" th:text="${iterStat.index + 1}"></td>
-                    <td th:text="${user.fullName}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td th:text="${user.role.roleName}"></td>
-                    <td>
-                <span th:classappend="${user.status == 'Active'} ?  'status-badge status-active' :
-                                      (${user.status == 'Pending'}?  'status-badge status-inactive' :
-                                      'status-badge')"
-                      th:text="${user.status}"></span>
-                    </td>
-                    <td class="action-icons text-center">
-                        <a th:href="@{'/manager/staff-shipper/' + ${user.userId}}"  title="View">
-                            <i class="ri-eye-line"></i>
+            <div class="card-body px-4 py-4">
+
+                <form th:action="@{'/manager/suppliers/' + ${supplier.supplierId} + '/update'}" method="post"
+                      th:object="${supplier}"
+                      enctype="multipart/form-data">
+
+                    <input type="hidden" th:field="*{supplierId}"/>
+                    <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Company Name</label>
+                        <input type="text" th:field="*{companyName}" class="form-control" readonly>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Contact Name</label>
+                        <input type="text" th:field="*{contactName}" class="form-control" >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Phone</label>
+                        <input type="text" th:field="*{phone}" class="form-control" >
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Address</label>
+                        <textarea th:field="*{address}" class="form-control" rows="2" ></textarea>
+                    </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Status</label>
+                            <select th:field="*{status}" class="form-select status-select" id="statusSelect">
+                                <option value="Pending" th:selected="${supplier.status == 'Pending'}">Pending</option>
+                                <option value="Approved" th:selected="${supplier.status == 'Approved'}">Approved</option>
+                                <option value="Rejected" th:selected="${supplier.status == 'Rejected'}">Rejected</option>
+                            </select>
+                        </div>
+
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success px-4 me-2">
+                            <i class="ri-check-line"></i>Update Supplier
+                        </button>
+                        <a th:href="@{/manager/suppliers}" class="btn btn-secondary px-4">
+                            <i class="ri-arrow-left-line"></i> Cancel
                         </a>
 
-<!--                        <form th:action="@{'/manager/staff-shipper/' + ${user.userId} + '/delete'}" method="post"-->
-<!--                              style="display:inline;" onsubmit="return confirm('Are you sure to delete this user?');">-->
-<!--                            <input type="hidden" name="_method" value="delete">-->
-<!--                            <button type="submit" class="btn btn-outline-danger btn-sm" title="Delete">-->
-<!--                                <i class="bi bi-trash"></i>-->
-<!--                            </button>-->
-<!--                        </form>-->
-                    </td>
-                </tr>
-                <tr th:if="${#lists.isEmpty(users)}">
-                    <td colspan="6" class="text-center text-muted">No users found.</td>
-                </tr>
-                </tbody>
-            </table>
-                <!-- 📄 Pagination -->
-                <nav th:if="${totalPages > 1}">
-                    <ul class="pagination justify-content-center">
-                        <li th:each="i : ${#numbers.sequence(1, totalPages)}"
-                            th:classappend="${i == currentPage} ? 'active'">
-                            <a class="page-link"
-                               th:href="@{/manager/staff-shipper(page=${i}, keyword=${keyword}, role=${role})}"
-                               th:text="${i}"></a>
-                        </li>
-                    </ul>
-                </nav>
+                    </div>
+                    </div>
+                </form>
+                <div th:if="${success}"  th:text="${success}"></div>
+                <div th:if="${error}"  th:text="${error}"></div>
+
+
             </div>
         </div>
     </div>
 </div>
+    </div>
+</div>
+    <script>
+        // ✅ Validate logic: chỉ cho phép Pending → Approved/Rejected hoặc Approved ↔ Rejected
+        document.querySelector("form").addEventListener("submit", function (e) {
+            const currentStatus = document.getElementById("statusSelect").getAttribute("data-current");
+            const newStatus = document.getElementById("statusSelect").value;
 
+            if (currentStatus === "Approved" && newStatus === "Pending"
+                || currentStatus === "Rejected" && newStatus === "Pending") {
+                e.preventDefault();
+                alert("❌ Cannot change status from Approved/Rejected back to Pending!");
+            }
+        });
+    </script>
 <footer class="footer text-center mt-4">
     <p class="mb-0">© 2025 - Fastkart Admin Panel</p>
 </footer>

@@ -12,7 +12,12 @@ package com.flowerShop1.entity;
 //    created_at   datetime     default getdate()
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "Suppliers")
@@ -25,7 +30,7 @@ public class Supplier {
     @Id
     @Column (name = "supplier_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private  int supplierId;
+    private  Integer supplierId;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -33,12 +38,16 @@ public class Supplier {
     private String companyName;
     @Column(name = "contact_name", length = 100, columnDefinition = "nvarchar(100)")
     private String contactName;
+    @NotBlank(message = "Phone number is required")
+    @Size(min = 10, max = 10, message = "Phone number must be 10 digits")
+    @Pattern(regexp = "^(0|\\+84)(\\d{9})$", message = "Invalid phone number format")
     @Column(name = "phone", length = 20, columnDefinition = "nvarchar(20)" )
     private String phone;
+    @NotBlank(message = "Address is required")
     @Column(name = "address", length = 255, columnDefinition = "nvarchar(255)" )
     private String address;
     @Column(name = "status", nullable = false, length = 20, columnDefinition = "nvarchar(20)" )
     private String status;
     @Column(name = "created_at", nullable = false)
-    private String createdAt;
+    private LocalDateTime createdAt;
 }

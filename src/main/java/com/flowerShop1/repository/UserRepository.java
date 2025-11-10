@@ -1,5 +1,4 @@
 package com.flowerShop1.repository;
-
 import com.flowerShop1.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.Query;
@@ -16,6 +15,7 @@ public interface UserRepository extends JpaRepository <User, Integer> {
     Page<User> findByFullNameContainingIgnoreCase(String keyword, Pageable pageable);
     Page<User> findByFullNameContainingIgnoreCaseAndStatusIgnoreCase(String keyword, String status, Pageable pageable);
     // 🔍 Chỉ lọc trạng thái
+
     Page<User> findByStatusIgnoreCase(String status, Pageable pageable);
 //    Page<User> getAllUsers(Pageable pageable);
     Page<User> findByRole_RoleNameIgnoreCase(String roleName, Pageable pageable);

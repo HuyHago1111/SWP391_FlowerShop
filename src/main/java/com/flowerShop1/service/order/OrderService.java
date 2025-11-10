@@ -1,7 +1,9 @@
 package com.flowerShop1.service.order;
 
 import com.flowerShop1.entity.Order;
+import com.flowerShop1.entity.OrderDetail;
 import com.flowerShop1.entity.OrderStatus;
+import com.flowerShop1.entity.Payment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,9 +19,9 @@ public interface OrderService {
 
     // Bổ sung các phương thức mới
     Page<Order> searchOrders(String keyword, String paymentMethod, Integer statusId,
-            String sortBy, String sortDir, Pageable pageable,
-            LocalDateTime fromDate, LocalDateTime toDate,
-            Double minTotal, Double maxTotal);
+                             String sortBy, String sortDir, Pageable pageable,
+                             LocalDateTime fromDate, LocalDateTime toDate,
+                             Double minTotal, Double maxTotal);
 
     Optional<Order> getById(Integer orderId);
 
@@ -34,5 +36,16 @@ public interface OrderService {
     Order getOrderById(Integer orderId);
 
     void cancelOrder(Integer orderId, int userId);
-
+    List<OrderDetail> getOrderDetails(int orderId);
+    Payment getPaymentByOrderId(int orderId);
+    Order getOrderWithRelations(int id);
+    Optional<Order> findByIdWithAllRelations(Integer id);
+    //    void updateStatusByShipper(Integer orderId, Integer newStatusId, Integer shipperId, String note) throws IllegalArgumentException;
+    List<Order> findOrdersForShipperWithFilter(int shipperId,
+                                               String searchName,
+                                               String paymentMethod,
+                                               Integer statusId,
+                                               String sortField,
+                                               String sortDir,
+                                               int page, int size);
 }

@@ -239,7 +239,7 @@
         <div class="page-body">
             <div class="title-header option-title">
                 <!--                <div class="d-flex justify-content-between mb-3">-->
-                <h4>Orders Management</h4>
+                <h5>Orders Management</h5>
             </div>
                 <!-- 🔍 Filter -->
                 <form class="row g-2 mb-3" th:action="@{/manager/orders}" method="get"  >
@@ -265,6 +265,7 @@
                         <div class="col-md-2">
                             <input type="date" name="fromDate" placeholder="Từ ngày..." th:value="${fromDate}" class="form-control">
                         </div>
+
                         <div class="col-md-2">
                     <input type="date" name="toDate"  placeholder="Đến ngày..." th:value="${toDate}" class="form-control">
                         </div>
@@ -284,6 +285,10 @@
                         <div class="col-md-2">
                     <button type="submit" class="btn btn-outline-success w-100">Filter</button>
                         </div>
+
+                    <div class="row-cols-md-1" role="alert" th:if="${error}"  th:text="${error}">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    </div>
                 </form>
 
                 <div class="table-responsive table-product">
@@ -301,7 +306,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="o,iter : ${orders}">
-                        <td th:text="${iter.index + 1 + (currentPage -1)*10}"></td>
+                        <td class="text-center" th:text="${iter.index + 1 + (currentPage -1)*10}"></td>
                         <td th:text="${o.user.fullName}"></td>
                         <td th:text="${#temporals.format(o.orderDate,'dd/MM/yyyy HH:mm')}"></td>
 
