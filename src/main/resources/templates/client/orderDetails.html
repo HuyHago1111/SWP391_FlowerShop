@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fastkart">
+    <meta name="keywords" content="Fastkart">
+    <meta name="author" content="Fastkart">
+    <link rel="icon" href="../assets/images/favicon/3.png" type="image/x-icon">
+    <title>Order Detail - Flower Shop</title>
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <!-- bootstrap css -->
+    <link id="rtl-link" rel="stylesheet" type="text/css" href="../assets/css/vendors/bootstrap.css">
+
+    <!-- wow css -->
+    <link rel="stylesheet" href="../assets/css/animate.min.css">
+
+    <!-- Iconly css -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bulk-style.css">
+
+    <!-- Template css -->
+    <link id="color-link" rel="stylesheet" type="text/css" href="../assets/css/style.css">
+
+    <!-- Custom CSS for Order Detail Page -->
+    <style>
+        .order-detail-section {
+            padding: 40px 0;
+            background-color: #f8f9fa;
+        }
+
+        .order-detail-card {
+            margin-bottom: 24px;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .order-detail-card .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #e9ecef;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 1.25rem;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-row .info-label {
+            color: #6c757d;
+        }
+
+        .info-row .info-value {
+            font-weight: 500;
+        }
+
+        .status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: #fff0c2;
+            color: #ffc107;
+        }
+
+        .status-preparing {
+            background-color: #cce5ff;
+            color: #007bff;
+        }
+        
+        .status-completed {
+            background-color: #d4edda;
+            color: #28a745;
+        }
+
+        .status-unpaid {
+            background-color: #f8d7da;
+            color: #dc3545;
+        }
+        
+        .product-image-sm {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        
+        .summary-card .card-body {
+            padding: 1.25rem;
+        }
+    </style>
+</head>
+
+<body>
+        <!-- Order Detail Section Start -->
+        <section class="order-detail-section">
+            <div class="container-fluid-lg">
+                <div class="row g-4">
+                    <!-- Left Column: Order Details -->
+                    <div class="col-lg-8">
+                        <!-- General Info Card -->
+                        <div class="card order-detail-card">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                     <h5 class="mb-0">Đơn hàng #31</h5>
+                                     <a href="#" class="btn btn-sm btn-outline-primary"><i class="fas fa-print me-2"></i>In đơn hàng</a>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-row">
+                                    <span class="info-label">Ngày đặt hàng:</span>
+                                    <span class="info-value">06/11/2025 14:00:00</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Trạng thái đơn hàng:</span>
+                                    <span class="info-value"><span class="status status-preparing">Đang chuẩn bị</span></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Trạng thái thanh toán:</span>
+                                    <span class="info-value"><span class="status status-unpaid">Chưa thanh toán</span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Products in Order Card -->
+                        <div class="card order-detail-card">
+                             <div class="card-header">
+                                <h5 class="mb-0">Sản phẩm trong đơn hàng</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Sản phẩm</th>
+                                                <th scope="col">Đơn giá</th>
+                                                <th scope="col" class="text-center">Số lượng</th>
+                                                <th scope="col" class="text-end">Thành tiền</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="../assets/images/logo/1.png" alt="Product Image" class="product-image-sm me-3">
+                                                        <div>
+                                                            <h6 class="mb-0">Bó Hoa Hồng Đỏ 10 Bông</h6>
+                                                            <small class="text-muted">Mã SP: #1</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>350,000đ</td>
+                                                <td class="text-center">1</td>
+                                                <td class="text-end">350,000đ</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="../assets/images/logo/1.png" alt="Product Image" class="product-image-sm me-3">
+                                                        <div>
+                                                            <h6 class="mb-0">Bó Hoa Hồng Trắng</h6>
+                                                            <small class="text-muted">Mã SP: #2</small>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>320,000đ</td>
+                                                <td class="text-center">2</td>
+                                                <td class="text-end">640,000đ</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer and Shipper Info -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card order-detail-card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Thông tin khách hàng</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="info-row">
+                                            <span class="info-label">Mã khách hàng:</span>
+                                            <span class="info-value">#7</span>
+                                        </div>
+                                        <div class="info-row">
+                                            <span class="info-label">Ghi chú:</span>
+                                            <span class="info-value">Hoa tặng mẹ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card order-detail-card">
+                                    <div class="card-header">
+                                        <h5 class="mb-0">Thông tin giao hàng</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="info-row">
+                                            <span class="info-label">Người giao:</span>
+                                            <span class="info-value">Nguyễn Văn A</span>
+                                        </div>
+                                        <div class="info-row">
+                                            <span class="info-label">Điện thoại:</span>
+                                            <span class="info-value">0903333333</span>
+                                        </div>
+                                         <div class="info-row">
+                                            <span class="info-label">Biển số xe:</span>
+                                            <span class="info-value">51A-12345</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Order Summary -->
+                    <div class="col-lg-4">
+                        <div class="card order-detail-card summary-card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Tóm tắt đơn hàng</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-row">
+                                    <span class="info-label">Tổng tiền hàng:</span>
+                                    <span class="info-value">990,000đ</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Phí vận chuyển:</span>
+                                    <span class="info-value">30,000đ</span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Giảm giá:</span>
+                                    <span class="info-value text-danger">-0đ</span>
+                                </div>
+                                <hr>
+                                <div class="info-row fs-5">
+                                    <strong class="info-label">Tổng cộng:</strong>
+                                    <strong class="info-value theme-color">1,020,000đ</strong>
+                                </div>
+                            </div>
+                             <div class="card-footer bg-white text-center">
+                                <button class="btn btn-danger w-100">Hủy đơn hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Order Detail Section End -->
+    </main>
+
+</body>
+
+</html>

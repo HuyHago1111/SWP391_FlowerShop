@@ -113,4 +113,8 @@ public class UserDashBoardController {
         return response;
     }
 
+    @GetMapping("/user/order-detail")
+    public String getOrderDetail(){
+        return "client/orderDetails";
+    }
 }
