@@ -24,6 +24,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import java.util.HashMap;
 import java.util.Map;
+import com.flowerShop1.service.orderdetail.OrderDetailService;
+import com.flowerShop1.entity.OrderDetail;
+import java.util.List;
 
 @Controller
 public class UserDashBoardController {
@@ -35,6 +38,8 @@ public class UserDashBoardController {
     private OrderService orderService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderDetailService orderDetailService;
 
     @GetMapping("/user/dashboard")
     public String userDashboard(@AuthenticationPrincipal CustomUserDetails customUserDetails, Model model) {
@@ -97,7 +102,8 @@ public class UserDashBoardController {
             @RequestParam(defaultValue = "4", name = "size") int size) {
 
         Map<String, Object> response = new HashMap<>();
-        Pageable pageable = PageRequest.of(page, size, org.springframework.data.domain.Sort.by("orderDate").descending());
+        Pageable pageable = PageRequest.of(page, size,
+                org.springframework.data.domain.Sort.by("orderDate").descending());
 
         // 1. Lấy về đối tượng Page<Order> từ service
         Page<Order> orderPage = orderService.getOrdersByUserId(customUserDetails.getUserId(), pageable);
@@ -113,8 +119,25 @@ public class UserDashBoardController {
         return response;
     }
 
-    @GetMapping("/user/order-detail")
-    public String getOrderDetail(){
+    @GetMapping("/user/order-detail/{orderId}")
+    public String getOrderDetail(@AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @PathVariable("orderId") int orderId, Model model) {
+
+        if (customUserDetails == null) {
+            return "redirect:/login";
+        }
+       
+        Order order = orderService.getOrderById(orderId);
+        if (order.getUser().getUserId() != customUserDetails.getUserId()) {
+            return "403";
+        }
+
+        List<OrderDetail> orderDetails = orderDetailService.getOrderDetailsByOrderId(orderId);
+        System.out.println("orderDetails: " + orderDetails);
+
+        model.addAttribute("order", order);
+        model.addAttribute("orderDetails", orderDetails);
+
         return "client/orderDetails";
     }
 }
