@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 
 @Repository
@@ -35,6 +36,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
             """, nativeQuery = true)
     List<Object[]> findTrendingProductsNative();
 
+    List<OrderDetail> findByOrderOrderId(int orderId);
     
 
 }
