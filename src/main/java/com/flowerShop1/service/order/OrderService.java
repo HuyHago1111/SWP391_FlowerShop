@@ -26,6 +26,7 @@ public interface OrderService {
     void updateOrderStatus(Integer orderId, Integer statusId); // update tracking status
     void assignShipper(Integer orderId, Integer shipperId);
 
+    Order getOrderById(Integer orderId);
 
 
 }

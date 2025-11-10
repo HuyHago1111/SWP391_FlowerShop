@@ -96,4 +96,10 @@ public class OrderServiceimpl implements OrderService {
         order.setShipper(shipper);
         orderRepository.save(order);
     }
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+    }
 }
