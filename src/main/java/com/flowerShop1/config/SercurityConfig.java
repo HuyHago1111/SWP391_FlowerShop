@@ -23,20 +23,23 @@ public class SercurityConfig {
     @Autowired
     private CustomAuthenticationFailureHandler customFailureHandler;
 
-    public SercurityConfig (CustomUserDetailService customUserDetailService) {
+    public SercurityConfig(CustomUserDetailService customUserDetailService) {
         this.customUserDetailService = customUserDetailService;
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
-    //@Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-//        provider.setUserDetailsService(customUserDetailService);
-//        provider.setPasswordEncoder(passwordEncoder());
-//        return new ProviderManager(provider);
-    //}
+
+    // @Bean
+    // public AuthenticationManager
+    // authenticationManager(AuthenticationConfiguration config) throws Exception {
+    // DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    // provider.setUserDetailsService(customUserDetailService);
+    // provider.setPasswordEncoder(passwordEncoder());
+    // return new ProviderManager(provider);
+    // }
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -44,6 +47,7 @@ public class SercurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -51,9 +55,13 @@ public class SercurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Cho phép truy cập công khai các tài nguyên tĩnh, trang chủ, login, sign-up
                         .requestMatchers("/assets/**", "/css/**", "/js/**", "/images/**", "/svg/**").permitAll()
-                        .requestMatchers("/", "/login", "/logout", "/sign-up", "/forgot", "/sign-up/verify-otp", "/change-password").permitAll()
+                        .requestMatchers("/", "/login", "/logout", "/sign-up", "/forgot", "/sign-up/verify-otp",
+                                "/change-password")
+                        .permitAll()
                         .requestMatchers("/flower", "/flower-list", "/product-detail/**").permitAll()
-                        .requestMatchers("/cart", "/cart/addToCart", "/cart/showCart", "/cart/getlsCart", "/cart/updateQuantity", "/cart/removeItem").permitAll()
+                        .requestMatchers("/cart", "/cart/addToCart", "/cart/showCart", "/cart/getlsCart",
+                                "/cart/updateQuantity", "/cart/removeItem")
+                        .permitAll()
 
                         // Các URL yêu cầu vai trò ADMIN
                         // Giả sử bạn có một controller cho /admin/** và trang /users là dành cho admin
@@ -61,21 +69,30 @@ public class SercurityConfig {
 
                         // Các URL yêu cầu người dùng phải đăng nhập (bất kể vai trò gì)
                         // Các URL yêu cầu người dùng phải đăng nhập (bất kể vai trò gì)
-                        .requestMatchers("/user/**", "/address/**", "/cart/checkout", "/api/payment/create", "/vnpay/returnurl").authenticated()
-                        .requestMatchers("/manager/**").hasAnyAuthority("Manager","Staff","Admin")
+                        .requestMatchers("/user/**", "/address/**", "/cart/checkout", "/api/payment/create",
+                                "/vnpay/returnurl")
+                        .authenticated()
+                        .requestMatchers("/manager/**").hasAnyAuthority("Manager", "Staff", "Admin")
                         // Tất cả các yêu cầu còn lại phải được xác thực (đã đăng nhập)
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .formLogin(form -> form
-                        .loginPage("/login")                 // Trang login custom
-                        .loginProcessingUrl("/login")        // URL form submit
-                        .usernameParameter("email")          // Dùng field email
-                        .passwordParameter("password")       // Field password
+                        .loginPage("/login") // Trang login custom
+                        .loginProcessingUrl("/login") // URL form submit
+                        .usernameParameter("email") // Dùng field email
+                        .passwordParameter("password") // Field password
                         .failureHandler(customFailureHandler)
-                        .defaultSuccessUrl("/", true)        // Khi login thành công
-//                        .failureUrl("/login?error=true")     // Khi sai mật khẩu
-                        .permitAll()
-                )// disable default form login
+                        .defaultSuccessUrl("/", true) // Khi login thành công
+                        // .failureUrl("/login?error=true") // Khi sai mật khẩu
+                        .permitAll())
+                // --- THÊM CẤU HÌNH REMEMBER ME TẠI ĐÂY ---
+                .rememberMe(rememberMe -> rememberMe
+                        .key("aUniqueAndSecretKeyForYourApp") // BẮT BUỘC: Thay đổi chuỗi này thành một chuỗi bí mật của
+                                                              // riêng bạn
+                        .tokenValiditySeconds(1209600) // Thời gian ghi nhớ: 14 ngày (14 * 24 * 60 * 60)
+                        .userDetailsService(customUserDetailService) // Dịch vụ để tải lại thông tin người dùng
+                        .rememberMeParameter("remember-me") // Tên của checkbox trong form
+                )
+                // disable default form login
                 .exceptionHandling(ex -> ex
                         .accessDeniedPage("/403") // 🔥 Khi truy cập sai role, redirect đến /403
                 )
@@ -83,8 +100,7 @@ public class SercurityConfig {
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout=true")
-                        .permitAll()
-                );
+                        .permitAll());
 
         return http.build();
     }
