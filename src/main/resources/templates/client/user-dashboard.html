@@ -1919,7 +1919,38 @@
 
                     // --- Phần render danh sách đơn hàng (giữ nguyên như cũ) ---
                     if (data.data && data.data.content.length > 0) {
+
                         const rows = data.data.content.map(item => {
+                            const getOrderStatusClass = (status) => {
+                                if (!status) return 'badge-status-secondary';
+                                const lowerStatus = status.toLowerCase();
+                                if (lowerStatus.includes('completed') || lowerStatus.includes('hoàn thành')) return 'green';
+                                if (lowerStatus.includes('pending') || lowerStatus.includes('chờ')) return '#ffca00';
+                                if (lowerStatus.includes('cancelled') || lowerStatus.includes('hủy')) return 'red';
+                                if (lowerStatus.includes('delivering') || lowerStatus.includes('đang giao')) return 'gray';
+                                if (lowerStatus.includes('confirmed') || lowerStatus.includes('xác nhận')) return 'gray';
+                                if (lowerStatus.includes('preparing') || lowerStatus.includes('chuẩn bị')) return 'gray';
+                                return 'badge-status-primary';
+                            };
+
+                            function getPaymentStatusClass(status) {
+                                if (!status) return 'gray';
+
+                                const s = status.toLowerCase().trim();
+
+                                if (s === 'paid' || s === 'success' || s === 'đã thanh toán' || s === 'thành công')
+                                    return 'green';
+
+                                if (s === 'unpaid' || s === 'chưa thanh toán')
+                                    return '#ffca00';
+
+                                return 'gray';
+                            }
+
+                            const orderStatusClass = getOrderStatusClass(item.orderStatus);
+                            const paymentStatusClass = getPaymentStatusClass(item.paymentStatus);
+
+
                             const noteHtml = (item.note && item.note.trim() !== '')
                                 ? `<p class="text-content"><strong>Ghi chú:</strong> ${item.note}</p>`
                                 : '';
@@ -1929,31 +1960,40 @@
                                 : 'Chưa có thông tin';
 
                             return `
-                        <div class="order-box dashboard-bg-box">
-                            <div class="order-container">
-                                <div class="order-icon"><i data-feather="box"></i></div>
-                                <div class="order-detail">
-                                    <h4>Mã đơn hàng: #${item.orderId}</h4>
-                                    <h6 class="text-content">Ngày đặt: ${orderDate}</h6>
-                                </div>
-                            </div>
-                            <div class="product-order-detail">
-                                <div class="order-wrap">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <h5>Trạng thái đơn hàng: <span class="badge bg-primary">${item.orderStatus}</span></h5>
-                                            <h5>Trạng thái thanh toán: <span class="badge bg-success">${item.paymentStatus}</span></h5>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h5>Tổng tiền: <span class="text-danger fw-bold">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.totalAmount)}</span></h5>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <p class="text-content"><strong>Địa chỉ giao hàng:</strong> ${shippingAddress}</p>
-                                    ${noteHtml}
-                                </div>
-                            </div>
-                        </div>`;
+                                <div style="background-color: #fff; border: 1px solid #dee2e6; border-radius: 5px; margin-bottom: 20px; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+    <div style="display: flex; align-items: center; margin-bottom: 15px;">
+        <div style="margin-right: 15px;">
+            <i data-feather="box"></i>
+        </div>
+        <div>
+            <h4 style="margin: 0; font-size: 1.1rem; font-weight: 600;">Mã đơn hàng: #${item.orderId}</h4>
+            <h6 style="margin: 5px 0 0; color: #6c757d; font-size: 0.9rem;">Ngày đặt: ${orderDate}</h6>
+        </div>
+    </div>
+    <div>
+        <div>
+            <div style="display: flex; flex-wrap: wrap; margin-right: -15px; margin-left: -15px;">
+                <div style="flex: 0 0 50%; max-width: 50%; padding-right: 15px; padding-left: 15px;">
+                    <h5 style="margin-bottom: 10px; font-size: 1rem;">Trạng thái đơn hàng: 
+                        <span style="display: inline-block; padding: 0.35em 0.65em; font-size: .75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: ${orderStatusClass};">${item.orderStatus}</span>
+                    </h5>
+                    <h5 style="margin-bottom: 10px; font-size: 1rem;">Trạng thái thanh toán: 
+                        <span style="display: inline-block; padding: 0.35em 0.65em; font-size: .75em; font-weight: 700; line-height: 1; color: #fff; text-align: center; white-space: nowrap; vertical-align: baseline; border-radius: 0.25rem; background-color: ${paymentStatusClass};">${item.paymentStatus}</span>
+                    </h5>
+                </div>
+                <div style="flex: 0 0 50%; max-width: 50%; padding-right: 15px; padding-left: 15px;">
+                    <h5 style="margin-bottom: 10px; font-size: 1rem;">Tổng tiền: 
+                        <span style="color: #dc3545; font-weight: bold;">${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(item.totalAmount)}</span>
+                    </h5>
+                </div>
+            </div>
+            <hr style="margin-top: 1rem; margin-bottom: 1rem; border: 0; border-top: 1px solid rgba(0,0,0,.1);">
+            <p style="color: #212529; margin-top: 0;  width:340px; word-wrap:break-word;  margin-bottom: 1rem;"><strong>Địa chỉ giao hàng:</strong> ${shippingAddress}</p>
+            ${noteHtml}
+        </div>
+    </div>
+</div>
+                            `;
                         }).join("");
                         contentContainer.innerHTML = rows;
                     } else {
