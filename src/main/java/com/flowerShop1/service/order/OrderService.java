@@ -12,21 +12,27 @@ import java.util.Optional;
 public interface OrderService {
 
     Page<Order> getOrdersByUserId(int userId, org.springframework.data.domain.Pageable pageable);
+
     Order save(Order order);
 
     // Bổ sung các phương thức mới
     Page<Order> searchOrders(String keyword, String paymentMethod, Integer statusId,
-                             String sortBy, String sortDir, Pageable pageable,
-                             LocalDateTime fromDate, LocalDateTime toDate,
-                             Double minTotal, Double maxTotal);
+            String sortBy, String sortDir, Pageable pageable,
+            LocalDateTime fromDate, LocalDateTime toDate,
+            Double minTotal, Double maxTotal);
 
     Optional<Order> getById(Integer orderId);
+
     Optional<OrderStatus> getStatusById(Integer statusId);
+
     List<OrderStatus> getAllStatuses();
+
     void updateOrderStatus(Integer orderId, Integer statusId); // update tracking status
+
     void assignShipper(Integer orderId, Integer shipperId);
 
     Order getOrderById(Integer orderId);
 
+    void cancelOrder(Integer orderId, int userId);
 
 }

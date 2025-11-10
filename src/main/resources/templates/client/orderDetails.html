@@ -550,6 +550,16 @@
             </div>
         </div>
 
+        <!-- Alert Messages -->
+        <div th:if="${successMessage}" class="alert alert-success text-center" role="alert"
+            style="background-color: #d4edda; color: #155724; border-color: #c3e6cb; border-radius: 8px; margin-bottom: 20px;">
+            [[${successMessage}]]
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-danger text-center" role="alert"
+            style="background-color: #f8d7da; color: #721c24; border-color: #f5c6cb; border-radius: 8px; margin-bottom: 20px;">
+            [[${errorMessage}]]
+        </div>
+
         <!-- Main Grid -->
         <div class="grid">
             <!-- Left Column -->
@@ -590,7 +600,7 @@
                             <div class="timeline-item"
                                 th:classappend="${order.orderStatus.statusId >= 3} ? 'active' : ''">
                                 <div class="timeline-content">
-                                    <h6>Đang chuẩn bị hàng</h6> 
+                                    <h6>Đang chuẩn bị hàng</h6>
                                     <small th:if="${order.orderStatus.statusId >= 3}"
                                         th:text="${#temporals.format(order.updatedAt,'dd/MM/yyyy HH:mm')}"></small>
                                     <small th:unless="${order.orderStatus.statusId >= 3}">Chờ xử lý</small>
@@ -777,9 +787,20 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-danger w-100">
-                            <span class="icon">❌</span> Hủy đơn hàng
-                        </button>
+                        <!-- Nút Hủy chỉ hiển thị khi đơn hàng ở trạng thái Pending (1) hoặc Confirmed (2) -->
+                        <form th:if="${order.orderStatus.statusId == 1 or order.orderStatus.statusId == 2}"
+                            th:action="@{/user/order/{orderId}/cancel(orderId=${order.orderId})}" method="post"
+                            onsubmit="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');">
+                            <button type="submit" class="btn btn-danger w-100">
+                                <span class="icon">❌</span> Hủy đơn hàng
+                            </button>
+                        </form>
+
+                        <!-- Hiển thị thông báo nếu không thể hủy -->
+                        <div th:unless="${order.orderStatus.statusId == 1 or order.orderStatus.statusId == 2}"
+                            class="text-center text-muted">
+                            <p>Đơn hàng không thể hủy ở trạng thái này.</p>
+                        </div>
                     </div>
                 </div>
             </div>
