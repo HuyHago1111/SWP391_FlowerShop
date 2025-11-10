@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:28 GMT -->
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -89,7 +90,7 @@
     <!-- Breadcrumb Section Start -->
     <section class="breadcrumb-section pt-0">
         <div class="container-fluid-lg">
-            <div class="row" style= "padding-top: 230px;">
+            <div class="row" style="padding-top: 230px;">
                 <div class="col-12">
                     <div class="breadcrumb-contain">
                         <h2 class="mb-2">Log In</h2>
@@ -131,9 +132,10 @@
                         </div>
 
                         <div class="input-box">
-                            <form class="row g-4" th:action="@{/login}" th:object="${userLoginDTO}" method="post" >
+                            <form class="row g-4" th:action="@{/login}" th:object="${userLoginDTO}" method="post">
                                 <!-- THÊM ĐOẠN NÀY ĐỂ HIỂN THỊ THÔNG BÁO THÀNH CÔNG -->
-                                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
+                                <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}">
+                                </div>
 
                                 <span th:if="${loginError}" th:text="${loginError}" style="color: red"></span>
                                 <div th:if="${logoutMessage}" class="alert alert-info" th:text="${logoutMessage}"></div>
@@ -141,8 +143,10 @@
                                 <!-- ... Các phần còn lại của form ... -->
                                 <div class="col-12">
                                     <div class="form-floating theme-form-floating log-in-form">
-                                        <input type="email" class="form-control" id="email" placeholder="Email Address" th:field="*{email}" >
-                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red">
+                                        <input type="email" class="form-control" id="email" placeholder="Email Address"
+                                            th:field="*{email}">
+                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                            style="color: red">
 
                                         </span>
                                         <label for="email">Email Address</label>
@@ -153,7 +157,8 @@
                                     <div class="form-floating theme-form-floating log-in-form">
                                         <input type="password" class="form-control" id="password" th:field="*{password}"
                                             placeholder="Password">
-                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red">
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                            style="color: red">
 
                                         </span>
                                         <label for="password">Password</label>
@@ -163,8 +168,9 @@
                                 <div class="col-12">
                                     <div class="forgot-box">
                                         <div class="form-check ps-0 m-0 remember-box">
+                                            <!-- THÊM name="remember-me" VÀO ĐÂY -->
                                             <input class="checkbox_animated check-box" type="checkbox"
-                                                id="flexCheckDefault">
+                                                id="flexCheckDefault" name="remember-me">
                                             <label class="form-check-label" for="flexCheckDefault">Remember me</label>
                                         </div>
                                         <a href="forgot.html" class="forgot-password">Forgot Password?</a>
@@ -178,21 +184,21 @@
                             </form>
                         </div>
 
-<!--                        <div class="other-log-in">-->
-<!--                            <h6>or</h6>-->
-<!--                        </div>-->
+                        <!--                        <div class="other-log-in">-->
+                        <!--                            <h6>or</h6>-->
+                        <!--                        </div>-->
 
-<!--                        <div class="log-in-button">-->
-<!--                            <ul>-->
-<!--                                <li>-->
-<!--                                    <a href="https://www.google.com/" class="btn google-button w-100">-->
-<!--                                        <img src="../assets/images/inner-page/google.png" class="blur-up lazyload"-->
-<!--                                            alt=""> Log In with Google-->
-<!--                                    </a>-->
-<!--                                </li>-->
+                        <!--                        <div class="log-in-button">-->
+                        <!--                            <ul>-->
+                        <!--                                <li>-->
+                        <!--                                    <a href="https://www.google.com/" class="btn google-button w-100">-->
+                        <!--                                        <img src="../assets/images/inner-page/google.png" class="blur-up lazyload"-->
+                        <!--                                            alt=""> Log In with Google-->
+                        <!--                                    </a>-->
+                        <!--                                </li>-->
 
-<!--                            </ul>-->
-<!--                        </div>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
 
                         <div class="other-log-in">
                             <h6></h6>
@@ -466,4 +472,5 @@
 
 
 <!-- Mirrored from themes.pixelstrap.com/fastkart/front-end/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Oct 2025 16:59:28 GMT -->
+
 </html>
