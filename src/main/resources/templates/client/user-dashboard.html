@@ -250,7 +250,7 @@
                                                 <h6 class="text-content" th:text="${user.fullName}">MARK JECNO</h6>
                                                 <h6 class="text-content" th:text="${user.email}">vicki.pope@gmail.com
                                                 </h6>
-                                                <a href="javascript:void(0)">Change Password</a>
+                                                <a th:href="@{/changePassword}">Change Password</a>
                                             </div>
                                         </div>
 
@@ -314,10 +314,10 @@
                                     <div class="title">
                                         <h2>My Profile</h2>
                                         <span class="title-leaf">
-                                            <svg class="icon-width bg-gray">
-                                                <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
-                                            </svg>
-                                        </span>
+                <svg class="icon-width bg-gray">
+                    <use xlink:href="../assets/svg/leaf.svg#leaf"></use>
+                </svg>
+            </span>
                                     </div>
 
                                     <div class="profile-detail dashboard-bg-box">
@@ -326,14 +326,11 @@
                                         </div>
                                         <div class="profile-name-detail">
                                             <div class="d-sm-flex align-items-center d-block">
-                                                <h3 th:text="${user.fullName}">Vicki E. Pope</h3>
-                                                <div class="product-rating profile-rating">
-
-                                                </div>
+                                                <h3 th:text="${user.fullName}">Khang</h3>
                                             </div>
 
                                             <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                data-bs-target="#editProfile">Edit</a>
+                                               data-bs-target="#editProfile">Edit</a>
                                         </div>
 
                                         <div class="location-profile">
@@ -341,21 +338,24 @@
                                                 <li>
                                                     <div class="location-box">
                                                         <i data-feather="map-pin"></i>
-                                                        <h6>Downers Grove, IL</h6>
+                                                        <h6 th:if="${user.address != null}"
+                                                            th:text="${#strings.arraySplit(user.address, ',').length > 1 ?
+                                           #strings.arraySplit(user.address, ',')[#strings.arraySplit(user.address, ',').length - 2] + ', ' + #strings.arraySplit(user.address, ',')[#strings.arraySplit(user.address, ',').length - 1] :
+                                           user.address}">
+                                                            Downers Grove, IL
+                                                        </h6>
                                                     </div>
                                                 </li>
-
                                                 <li>
                                                     <div class="location-box">
                                                         <i data-feather="mail"></i>
-                                                        <h6 th:text="${user.email}">vicki.pope@gmail.com</h6>
+                                                        <h6 th:text="${user.email}">nctdat1105@gmail.com</h6>
                                                     </div>
                                                 </li>
-
                                                 <li>
                                                     <div class="location-box">
                                                         <i data-feather="check-square"></i>
-                                                        <h6>Licensed for 2 years</h6>
+                                                        <h6 th:text="${user.status == 'Active' ? 'Account Active' : user.status}">Licensed for 2 years</h6>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -378,43 +378,32 @@
                                                 <div class="table-responsive">
                                                     <table class="table">
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Gender :</td>
-                                                                <td>Female</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Birthday :</td>
-                                                                <td>21/05/1997</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Phone Number :</td>
-                                                                <td>
-                                                                    <a href="javascript:void(0)"> +91 846 - 547 -
-                                                                        210</a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Address :</td>
-                                                                <td>549 Sulphur Springs Road, Downers, IL</td>
-                                                            </tr>
+
+
+                                                        <tr>
+                                                            <td>Phone Number :</td>
+                                                            <td>
+                                                                <a href="javascript:void(0)" th:text="${user.phone}">+91 846 - 547 - 210</a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Address :</td>
+                                                            <td th:text="${user.address}">549 Sulphur Springs Road, Downers, IL</td>
+                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
-
-
-
-
                                             </div>
 
                                             <div class="col-xxl-5">
                                                 <div class="profile-image">
                                                     <img src="../assets/images/inner-page/dashboard-profile.png"
-                                                        class="img-fluid blur-up lazyload" alt="">
+                                                         class="img-fluid blur-up lazyload" alt="">
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
+
                                 </div>
                             </div>
 

@@ -49,7 +49,7 @@ public class UserController {
         int pageSize = 10;
         Page<User> userPage = userService.searchUsers(keyword, status, PageRequest.of(page - 1, pageSize));
 
-        // Nếu page hiện tại vượt quá totalPages → quay về trang 1
+
         if (page > userPage.getTotalPages() && userPage.getTotalPages() > 0) {
             page = 1;
             userPage = userService.searchUsers(keyword, status, PageRequest.of(0, pageSize));

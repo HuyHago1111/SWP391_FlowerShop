@@ -540,14 +540,7 @@
                     th:text="'Ngày đặt: '+ ${#temporals.format(order.orderDate,'dd/MM/yyyy HH:mm')}">Ngày đặt:
                     06/11/2025 14:00:00</small>
             </div>
-            <div class="btn-group">
-                <button class="btn btn-outline" onclick="window.print()">
-                    <span class="icon">🖨️</span> In đơn hàng
-                </button>
-                <button class="btn btn-primary">
-                    <span class="icon">📧</span> Gửi email
-                </button>
-            </div>
+
         </div>
 
         <!-- Alert Messages -->
@@ -687,7 +680,7 @@
                                 <tr th:each="item : ${orderDetails}">
                                     <td>
                                         <div class="product-item">
-                                            <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=200"
+                                            <img th:src="${item.product.imageUrl}"
                                                 alt="Hoa Hồng Đỏ" class="product-image">
                                             <div class="product-info">
                                                 <h6 th:text="${item.product.productName}">Bó Hoa Hồng Đỏ 10 Bông</h6>
@@ -770,7 +763,7 @@
                         </div>
                         <div class="summary-item">
                             <span class="info-label">Phí vận chuyển</span>
-                            <span class="info-value">30,000đ</span>
+                            <span class="info-value">Free</span>
                         </div>
                         <div class="summary-item">
                             <span class="info-label">Giảm giá</span>

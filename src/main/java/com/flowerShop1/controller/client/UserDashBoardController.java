@@ -105,15 +105,15 @@ public class UserDashBoardController {
         Pageable pageable = PageRequest.of(page, size,
                 org.springframework.data.domain.Sort.by("orderDate").descending());
 
-        // 1. Lấy về đối tượng Page<Order> từ service
+
         Page<Order> orderPage = orderService.getOrdersByUserId(customUserDetails.getUserId(), pageable);
 
-        // 2. Sử dụng phương thức .map() của Page để chuyển đổi Page<Order> thành
-        // Page<OrderUserDashDTO>
+
+
         Page<OrderUserDashDTO> orderDtoPage = orderPage.map(OrderMapper::entityToDTO);
 
         response.put("status", "success");
-        // 3. Trả về đối tượng Page<OrderUserDashDTO> đã được chuyển đổi
+
         response.put("data", orderDtoPage);
 
         return response;
@@ -152,10 +152,11 @@ public class UserDashBoardController {
             orderService.cancelOrder(orderId, customUserDetails.getUserId());
             redirectAttributes.addFlashAttribute("successMessage", "Đơn hàng #" + orderId + " đã được hủy thành công.");
         } catch (Exception e) {
-            // Bắt các lỗi từ service (không tìm thấy, không có quyền, không thể hủy)
+
             redirectAttributes.addFlashAttribute("errorMessage", "Lỗi: " + e.getMessage());
         }
 
         return "redirect:/user/order-detail/" + orderId;
     }
+
 }

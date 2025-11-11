@@ -26,10 +26,8 @@
                                     <a href="product-left-thumbnail.html">
                                         <h6 class="name name-2 h-100" th:text="${products[i].productName}">Belgian Waffle</h6>
                                     </a>
-
                                     <div class="product-rating mt-2">
-
-                                        <span>.</span>
+                                        <span class="text-content">Stock: [[${products[i ].stockQuantity}]]</span>
                                     </div>
 
 
@@ -64,8 +62,7 @@
                                     </a>
 
                                     <div class="product-rating mt-2">
-
-                                        <span>.</span>
+                                        <span class="text-content">Stock: [[${products[i + 1].stockQuantity}]]</span>
                                     </div>
 
 

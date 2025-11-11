@@ -70,7 +70,7 @@
 
                                 <td class="subtotal">
                                     <h4 class="table-title text-content">Total</h4>
-                                    <h5 th:text="${item.getTotalPrice()}  + ' ₫'" th:data-totalPrice="${item.totalPrice} + ' ₫'">
+                                    <h5 th:text="${#numbers.formatDecimal(item.getTotalPrice(), 0, 'COMMA', 0, 'POINT')} + ' ₫'">
                                         $35.10</h5>
                                 </td>
 
@@ -104,8 +104,7 @@
                             <li>
                                 <input type="hidden" name="amount" id="amount" th:value="${sumTotalCart}"/>
                                 <a  id="payBtn" th:href="@{/cart/checkout}"
-                                    class="btn btn-animation proceed-btn fw-bold">Process To Checkout
-                                </a>
+                                    class="btn btn-animation proceed-btn fw-bold">Process To Checkout</a>
                             </li>
 
                             <li>
